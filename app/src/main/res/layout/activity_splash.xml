@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/video_downloader_splash_screen_icon"
+        android:layout_width="@dimen/_95sdp"
+        android:layout_height="@dimen/_95sdp"
+        android:src="@drawable/video_downloader_splash_screen_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/splashDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_4k_video_downloader_player"
+        android:textColor="@color/splash_screen_title_color"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        android:fontFamily="@font/quattrocentosansbold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/video_downloader_splash_screen_icon"
+        app:layout_constraintStart_toStartOf="@id/video_downloader_splash_screen_icon"
+        app:layout_constraintTop_toBottomOf="@id/video_downloader_splash_screen_icon"
+        />
+
+    <TextView
+        android:id="@+id/this_action_might_contain_ads_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/this_action_might_contain_ads"
+        android:textColor="@color/splash_screen_title_color"
+        android:textStyle="bold"
+        android:fontFamily="@font/quattrocentosansbold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/splashDescription"
+        app:layout_constraintStart_toStartOf="@id/splashDescription"
+        app:layout_constraintTop_toBottomOf="@id/splashDescription"
+        app:layout_constraintVertical_bias="0.93" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:layout_gravity="center"
+        app:lottie_rawRes="@raw/splash_screen_loader"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/splashDescription"
+        app:layout_constraintBottom_toTopOf="@id/this_action_might_contain_ads_tv"
+        app:layout_constraintStart_toStartOf="@id/splashDescription"
+        app:layout_constraintEnd_toEndOf="@id/splashDescription"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:layout_marginVertical="@dimen/_8sdp"
+    android:layoutDirection="ltr">
+
+
+    <View
+        android:id="@+id/langugageView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/drawable_langugage_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/america_logo"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/america_logo"
+        app:layout_constraintBottom_toBottomOf="@+id/langugageView"
+        app:layout_constraintEnd_toStartOf="@+id/english_united_states_tv"
+        app:layout_constraintStart_toStartOf="@+id/langugageView"
+        app:layout_constraintTop_toTopOf="@+id/langugageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/english_united_states_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:fontFamily="@font/baloobhaina2regular"
+        android:padding="@dimen/_6sdp"
+        android:textColor="@color/language_item_text_color"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/langugageView"
+        app:layout_constraintEnd_toStartOf="@+id/radioIV"
+        app:layout_constraintStart_toEndOf="@+id/america_logo"
+        app:layout_constraintTop_toTopOf="@+id/langugageView"
+        tools:text="English" />
+
+    <ImageView
+        android:id="@+id/radioIV"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:src="@drawable/language_screen_language_selected_icon_light_mode"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/langugageView"
+        app:layout_constraintEnd_toEndOf="@+id/langugageView"
+        app:layout_constraintTop_toTopOf="@+id/langugageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

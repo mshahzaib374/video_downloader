@@ -1,0 +1,37 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "vid.hd.videodownloader.videoplayer.download.all.videosapp",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 4,
+      "versionName": "1.4",
+      "outputFile": "video_downloader_v1.4(4)_2024_11_26_18_32-release.apk"
+    }
+  ],
+  "elementType": "File",
+  "baselineProfiles": [
+    {
+      "minApi": 28,
+      "maxApi": 30,
+      "baselineProfiles": [
+        "baselineProfiles/1/video_downloader_v1.4(4)_2024_11_26_18_32-release.dm"
+      ]
+    },
+    {
+      "minApi": 31,
+      "maxApi": 2147483647,
+      "baselineProfiles": [
+        "baselineProfiles/0/video_downloader_v1.4(4)_2024_11_26_18_32-release.dm"
+      ]
+    }
+  ],
+  "minSdkVersionForDexing": 24
+}

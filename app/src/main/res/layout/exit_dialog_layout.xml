@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/downloading_bg">
+
+    <TextView
+        android:id="@+id/exit_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/manropeextrabold"
+        android:gravity="center_horizontal"
+        android:text="@string/exit_app"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nativeContainer" />
+
+
+    <TextView
+        android:id="@+id/exit_details_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/manropeextrabold"
+        android:gravity="center_horizontal"
+        android:text="@string/are_you_sure_you_want_to_exit_this_app"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exit_tv" />
+
+    <FrameLayout
+        android:id="@+id/nativeContainer"
+        android:layout_width="0dp"
+        android:layout_height="252dp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="#F1F0FF"
+        android:minWidth="302dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+        android:id="@+id/shimmerHomeLayout"
+        layout="@layout/shimmer_native_media"
+        android:layout_width="0dp"
+        android:layout_height="252dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/nativeContainer"
+        app:layout_constraintEnd_toEndOf="@+id/nativeContainer"
+        app:layout_constraintStart_toStartOf="@+id/nativeContainer"
+        app:layout_constraintTop_toTopOf="@+id/nativeContainer" />
+
+
+    <TextView
+        android:id="@+id/cancel_tv"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:background="@drawable/drawable_cancel_btn"
+        android:fontFamily="@font/manropeextrabold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_4sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:text="@string/cancel"
+        android:layout_marginHorizontal="@dimen/_32sdp"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/exit_e_tv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exit_details_tv" />
+
+    <TextView
+        android:id="@+id/exit_e_tv"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:background="@drawable/exit_btn_bg_drawable"
+        android:fontFamily="@font/manropeextrabold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_4sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:text="@string/exit"
+        android:layout_marginHorizontal="@dimen/_32sdp"
+        android:textColor="#D61414"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancel_tv"
+        app:layout_constraintTop_toBottomOf="@+id/exit_details_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

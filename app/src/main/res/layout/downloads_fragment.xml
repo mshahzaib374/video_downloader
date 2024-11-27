@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <androidx.viewpager2.widget.ViewPager2
+       android:id="@+id/view_pager_downloads_fragment"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       app:layout_constraintTop_toBottomOf="@id/downloads_fragment_in_progress_rectangle"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       />
+
+
+   <TextView
+       android:id="@+id/downloads_tv"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/quattrocentosansbold"
+       android:text="@string/downloads"
+       android:textColor="@color/black"
+       android:textSize="@dimen/_15ssp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintHorizontal_bias="0.06"
+       app:layout_constraintVertical_bias="0.05999999"/>
+
+   <ImageView
+       android:id="@+id/premium_icon_downloads_fragment"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/premium_icon"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.91"
+       app:layout_constraintStart_toEndOf="@id/downloads_tv"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.05315418"
+       tools:ignore="ContentDescription" />
+
+   <ImageView
+       android:id="@+id/downloads_fragment_in_progress_rectangle"
+       android:layout_width="wrap_content"
+       android:layout_height="@dimen/_41sdp"
+       android:layout_marginStart="-113dp"
+       android:src="@drawable/downloads_fragment_in_progress_rectangle"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.0"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.12623313"
+       tools:ignore="ContentDescription" />
+
+   <TextView
+       android:id="@+id/in_progress_tv"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/manropeextrabold"
+       android:text="@string/in_progress"
+       android:textColor="@color/black"
+       android:textSize="@dimen/_11ssp"
+       app:layout_constraintBottom_toBottomOf="@id/downloads_fragment_in_progress_rectangle"
+       app:layout_constraintEnd_toEndOf="@id/downloads_fragment_in_progress_rectangle"
+       app:layout_constraintHorizontal_bias="0.53"
+       app:layout_constraintStart_toStartOf="@id/downloads_fragment_in_progress_rectangle"
+       app:layout_constraintTop_toTopOf="@id/downloads_fragment_in_progress_rectangle" />
+
+   <ImageView
+       android:id="@+id/downloads_fragment_downloaded_rectangle"
+       android:layout_width="wrap_content"
+       android:layout_height="@dimen/_41sdp"
+       android:src="@drawable/downloads_fragment_downloaded_rectangle"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.62"
+       app:layout_constraintStart_toEndOf="@id/downloads_fragment_in_progress_rectangle"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.12623313"
+       tools:ignore="ContentDescription" />
+
+   <TextView
+       android:id="@+id/downloaded_tv"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/manropeextrabold"
+       android:text="@string/downloaded"
+       android:textColor="@color/black"
+       android:textSize="@dimen/_11ssp"
+       app:layout_constraintBottom_toBottomOf="@id/downloads_fragment_downloaded_rectangle"
+       app:layout_constraintEnd_toEndOf="@id/downloads_fragment_downloaded_rectangle"
+       app:layout_constraintHorizontal_bias="0.47"
+       app:layout_constraintStart_toStartOf="@id/downloads_fragment_downloaded_rectangle"
+       app:layout_constraintTop_toTopOf="@id/downloads_fragment_downloaded_rectangle" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

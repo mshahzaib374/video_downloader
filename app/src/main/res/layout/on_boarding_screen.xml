@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.onboarding.OnBoardingFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuideLine"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintGuide_percent="0.5"
+        android:orientation="horizontal"/>
+
+    <ImageView
+        android:id="@+id/on_boarding_screen_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalGuideLine"
+         />
+
+    <TextView
+        android:id="@+id/allow_access_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/allow_access"
+        android:textColor="@color/onboarding_allow_access_color"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        android:layout_marginVertical="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalGuideLine"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/allow_storage_access_to_read_and_write_files_on_your_device__enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security__it_enables_efficient_data_storage_and_retrieval_for_seamless_use_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="@string/allow_storage_access_to_read_and_write_files_on_your_device_enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security_it_enables_efficient_data_storage_and_retrieval_for_seamless_user_experiences"
+        android:textAlignment="center"
+        android:textSize="@dimen/_10ssp"
+        android:textColor="@color/onboarding_allow_access_color"
+        android:layout_marginVertical="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@+id/allow_access_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/on_boarding_screen_next_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:background="@drawable/custom_gradient_btn"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/next"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintHeight_percent="0.06"
+        android:textColor="@color/next_color"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toTopOf="@+id/ads_onboard_banner_place_holder"
+        app:layout_constraintEnd_toEndOf="@id/allow_storage_access_to_read_and_write_files_on_your_device__enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security__it_enables_efficient_data_storage_and_retrieval_for_seamless_use_tv"
+        app:layout_constraintStart_toStartOf="@id/allow_storage_access_to_read_and_write_files_on_your_device__enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security__it_enables_efficient_data_storage_and_retrieval_for_seamless_use_tv" />
+
+
+    <FrameLayout
+        android:id="@+id/ads_onboard_banner_place_holder"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#F1F0FF"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginVertical="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <include
+        android:id="@+id/shimmerLayout"
+        layout="@layout/shimmer_small_native_design"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/ads_onboard_banner_place_holder"
+        app:layout_constraintStart_toStartOf="@+id/ads_onboard_banner_place_holder"
+        app:layout_constraintEnd_toEndOf="@+id/ads_onboard_banner_place_holder"
+        app:layout_constraintBottom_toBottomOf="@+id/ads_onboard_banner_place_holder"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "357660105574",
+    "project_id": "k-video-downloader---player",
+    "storage_bucket": "k-video-downloader---player.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357660105574:android:772cd893dfc6a248a9c6a7",
+        "android_client_info": {
+          "package_name": "vid.hd.videodownloader.videoplayer.download.all.videosapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8EyUwDu8mOGAxTjh9lP9cIvWZEvZdu0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/app_bar_bg"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/_13ssp"
+        android:fontFamily="@font/manropeextrabold"
+        android:textColor="#ffffff"
+        android:paddingHorizontal="@dimen/_16sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/_4k_video_downloader_player"
+        />
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_dashboard_home_upper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners_home_fragment_card"
+        app:cardElevation="@dimen/_45sdp"
+        app:layout_constraintTop_toBottomOf="@+id/actionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_margin="@dimen/_16sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="@dimen/_16sdp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_home_fragment"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_text_no_underline"
+                android:fontFamily="@font/manropebold"
+                android:hint="@string/paste_url_here"
+                android:textColor="@color/light_grey_color"
+                android:textSize="@dimen/_11ssp"
+                app:boxStrokeColor="@color/color_state_list"
+                app:boxStrokeWidth="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                app:endIconMode="clear_text"
+                app:hintTextColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Autofill,TextFields">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/paste_link_tv"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/drawable_red_stroke"
+                android:fontFamily="@font/manropebold"
+                android:gravity="center"
+                android:text="@string/paste_link"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toStartOf="@+id/download_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_home_fragment" />
+
+            <TextView
+                android:id="@+id/download_tv"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/drawable_download_btn_gradient"
+                android:fontFamily="@font/manropebold"
+                android:gravity="center"
+                android:text="@string/download"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/paste_link_tv"
+                app:layout_constraintTop_toBottomOf="@+id/et_home_fragment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+       <!-- <ImageView
+            android:id="@+id/premium_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_258sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:src="@drawable/premium_icon"
+            tools:ignore="ContentDescription"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/search_rectangle_home_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_18sdp"
+            android:src="@drawable/search_rectangle_home_fragment"
+            tools:ignore="ContentDescription"
+            android:visibility="gone"/>-->
+
+
+
+
+
+<!--
+        <ImageView
+            android:id="@+id/download_btn_home_fragment"
+            android:layout_width="@dimen/_153sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_145sdp"
+            android:layout_marginTop="@dimen/_150sdp"
+            android:src="@drawable/download_btn_home_fragment"
+            tools:ignore="ContentDescription"
+            android:visibility="gone"/>
+-->
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <FrameLayout
+        android:id="@+id/homeFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F1F0FF"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/card_view_dashboard_home_upper"
+        android:layout_marginVertical="@dimen/_16sdp">
+
+
+        <include
+            layout="@layout/banner_loading_ad"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+
+
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/other_social_platforms_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manropebold"
+        android:text="@string/other_social_platforms"
+        android:textColor="@color/very_dark_grey"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_view_dashboard_home_upper"
+        app:layout_constraintVertical_bias="0.070000002" />
+
+    <ImageView
+        android:id="@+id/twitter_card_home_fragment"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/twitter_card_home_fragment"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/other_social_platforms_tv"
+        app:layout_constraintVertical_bias="0.060000002"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/twitter_icon"
+        android:layout_width="@dimen/_49sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/twitter_icon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/twitter_card_home_fragment"
+        app:layout_constraintEnd_toEndOf="@id/twitter_card_home_fragment"
+        app:layout_constraintStart_toStartOf="@id/twitter_card_home_fragment"
+        app:layout_constraintTop_toTopOf="@id/twitter_card_home_fragment"
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/twitter_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:fontFamily="@font/manropebold"
+        android:text="@string/twitter"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/twitter_icon"
+        app:layout_constraintStart_toStartOf="@id/twitter_icon"
+        app:layout_constraintTop_toBottomOf="@id/twitter_icon"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <ImageView
+        android:id="@+id/fb_card_home_fragment"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/twitter_card_home_fragment"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@id/twitter_card_home_fragment"
+        app:layout_constraintTop_toBottomOf="@id/other_social_platforms_tv"
+        app:layout_constraintVertical_bias="0.060000002"
+        tools:ignore="ContentDescription" />
+
+
+    <ImageView
+        android:id="@+id/fb_icon"
+        android:layout_width="@dimen/_49sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fb_icon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/fb_card_home_fragment"
+        app:layout_constraintEnd_toEndOf="@id/fb_card_home_fragment"
+        app:layout_constraintStart_toStartOf="@id/fb_card_home_fragment"
+        app:layout_constraintTop_toTopOf="@id/fb_card_home_fragment"
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/fb_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:fontFamily="@font/manropebold"
+        android:text="@string/facebook"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/fb_icon"
+        app:layout_constraintStart_toStartOf="@id/fb_icon"
+        app:layout_constraintTop_toBottomOf="@id/fb_icon"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/insta_card_home_fragment"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/twitter_card_home_fragment"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toEndOf="@id/fb_card_home_fragment"
+        app:layout_constraintTop_toBottomOf="@id/other_social_platforms_tv"
+        app:layout_constraintVertical_bias="0.060000002"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/insta_icon"
+        android:layout_width="@dimen/_49sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/insta_icon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/insta_card_home_fragment"
+        app:layout_constraintEnd_toEndOf="@id/insta_card_home_fragment"
+        app:layout_constraintStart_toStartOf="@id/insta_card_home_fragment"
+        app:layout_constraintTop_toTopOf="@id/insta_card_home_fragment"
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/insta_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:fontFamily="@font/manropebold"
+        android:text="@string/instagram"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/insta_icon"
+        app:layout_constraintStart_toStartOf="@id/insta_icon"
+        app:layout_constraintTop_toBottomOf="@id/insta_icon"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <ImageView
+        android:id="@+id/daily_motion_card_home_fragment"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/twitter_card_home_fragment"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toEndOf="@id/insta_card_home_fragment"
+        app:layout_constraintTop_toBottomOf="@id/other_social_platforms_tv"
+        app:layout_constraintVertical_bias="0.060000002"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/daily_motion_icon"
+        android:layout_width="@dimen/_49sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/daily_motion_icon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/daily_motion_card_home_fragment"
+        app:layout_constraintEnd_toEndOf="@id/daily_motion_card_home_fragment"
+        app:layout_constraintStart_toStartOf="@id/daily_motion_card_home_fragment"
+        app:layout_constraintTop_toTopOf="@id/daily_motion_card_home_fragment"
+        app:layout_constraintVertical_bias="0.30"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/daily_motion_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:fontFamily="@font/manropebold"
+        android:text="@string/dailymotion"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/daily_motion_icon"
+        app:layout_constraintStart_toStartOf="@id/daily_motion_icon"
+        app:layout_constraintTop_toBottomOf="@id/daily_motion_icon"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/recent_downloads_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manropebold"
+        android:text="@string/recent_downloads"
+        android:textColor="@color/very_dark_grey"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/twitter_card_home_fragment"
+        app:layout_constraintVertical_bias="0.080000002" />
+
+
+    <FrameLayout
+        android:id="@+id/nativeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        android:minWidth="302dp"
+        android:background="#F1F0FF"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_view_dashboard_home_upper" />
+
+    <include
+        android:id="@+id/shimmerHomeLayout"
+        layout="@layout/shimmer_native_media"
+        android:layout_width="0dp"
+        android:layout_height="252dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@+id/nativeContainer"
+        app:layout_constraintStart_toStartOf="@+id/nativeContainer"
+        app:layout_constraintEnd_toEndOf="@+id/nativeContainer"
+        app:layout_constraintBottom_toBottomOf="@+id/nativeContainer"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

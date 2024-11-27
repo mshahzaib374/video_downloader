@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>ads_json_03</key>
+        <value>
+            {
+            "native_language_l": true,
+            "banner_language_l": true,
+            "banner_onboarding_l": true,
+            "native_home_l": true,
+            "fullscreen_home_l": true,
+            "native_exit_l": true,
+            "app_open_l": true,
+            "banner_player_l": true,
+            "fullScreenCappingL": 5000
+            }
+        </value>
+    </entry>
+
+</defaultsMap>

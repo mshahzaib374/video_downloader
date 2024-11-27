@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme._4KVideoDownloaderPlayer" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+
+    </style>
+
+    <style name="Theme._4KVideoDownloaderPlayer" parent="Base.Theme._4KVideoDownloaderPlayer" />
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#535358</item>
+        <item name="colorControlActivated">#FF9800</item>
+    </style>
+</resources>

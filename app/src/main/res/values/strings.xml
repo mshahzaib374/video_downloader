@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">4K Video Downloader &amp; Player</string>
+    <string name="_4k_video_downloader_player"><b>4K</b> Video Downloader &amp; Player</string>
+    <string name="this_action_might_contain_ads">This action might contain ads</string>
+    <string name="allow_access">Allow Access</string>
+    <string name="next">Next</string>
+    <string name="allow_storage_access_to_read_and_write_files_on_your_device_enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security_it_enables_efficient_data_storage_and_retrieval_for_seamless_user_experiences">
+    Unlock a better experience, grant access to your videos. This allows us to provide personalized results.\nYour privacy is always protected
+</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="this_4k_video_downloader_app_does_not_associate_own_or_licensed_with_any_social_media_sites_and_is_not_authorized_by_them_any_violations_of_intellectual_property_rights_and_unauthorized_actions_for_example_re_uploading_or_downloading_of_contents_are_the_sole_responsibility_of_the_user_alone_all_the_trademarks_such_as_logo_name_and_badges_are_completely_the_property_of_their_respective_owners">This 4K Video downloader app does not\n associate, own, or licensed with any social\n media sites and is not authorized by them.\n Any violations of intellectual property rights\n and unauthorized actions, for example, Re-\n uploading or downloading of contents are\n the sole responsibility of the user alone. All\n the trademarks such as logo, name, and\n badges are completely the property of their\n respective owners.</string>
+    <string name="ok">OK</string>
+    <string name="app_language">App language</string>
+    <string name="english_united_states">English - United States</string>
+    <string name="paste_url_here">Paste URL here</string>
+    <string name="paste_link">Paste link</string>
+    <string name="other_social_platforms">Other Social platforms</string>
+    <string name="recent_downloads">Recent Downloads</string>
+    <string name="settings">Settings</string>
+    <string name="save_path">Save Path</string>
+    <string name="storage_emulated_0_movies_4kvideodownloader_amp_player"><![CDATA[/storage/emulated/0/movies/4Kvideodownloader&player/]]></string>
+    <string name="block_ads">Block Ads</string>
+    <string name="language">Language</string>
+    <string name="feedback">Feedback</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="share_with_friends">Share with Friends</string>
+    <string name="downloads">Downloads</string>
+    <string name="in_progress">In Progress</string>
+    <string name="downloaded">Downloaded</string>
+    <string name="search_for_downloads">Search for downloads</string>
+    <string name="upgrade_to_premium">Upgrade to Premium</string>
+    <string name="enjoy_brilliant_experience">Enjoy Brilliant Experience!</string>
+    <string name="no_free_trial">(No Free Trial)</string>
+    <string name="weekly">Weekly</string>
+    <string name="rs_300_00_week">RS 300.00/Week</string>
+    <string name="monthly">Monthly</string>
+    <string name="rs_920_00_month">RS 920.00/Month</string>
+    <string name="yearly">Yearly</string>
+    <string name="purchase_now">Purchase Now</string>
+    <string name="you_can_cancel_subscription_anytime_from_google_playstore">You Can Cancel Subscription Anytime From Google Playstore</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="privacy_policy_1">Privacy Policy</string>
+    <string name="download">Download</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="dailymotion">Dailymotion</string>
+    <string name="remove_ads_permanently">Remove Ads Permanently</string>
+    <string name="apply">Apply</string>
+    <string name="downloading">Downloading...</string>
+    <string name="ad_is_loading">Loading Ads...</string>
+    <string name="loading_advertisement">Loading Advertisement</string>
+    <string name="privacy_policy_link" translatable="false">https://sites.google.com/view/privacypolicy4kvideodownloader/home</string>
+    <string name="terms_of_use_link" translatable="false">https://sites.google.com/view/terms-services-4k-video-downlo/home</string>
+    <string name="your_video_is_being_download_nplease_wait">Your video is being downloading\nPlease wait</string>
+    <string name="loading_ad">Loading Ads</string>
+    <string name="ad" translatable="false">Ad</string>
+    <string name="feedback_email" translatable="false">shahzaibm968@gmail.com</string>
+    <string name="more_app_link" translatable="false">shahzaibm968@gmail.com</string>
+    <string name="exit_app">Exit App</string>
+    <string name="are_you_sure_you_want_to_exit_this_app">Are you sure you want to Exit this app</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit">Exit</string>
+    <string name="home">Home</string>
+    <string name="please_rate_our_app">Please rate our app</string>
+    <string name="video_downloaded_successfully">Video downloaded successfully</string>
+    <string name="downloading_failed">Downloading Failed</string>
+    <string name="please_enter_a_valid_url">Please enter a valid URL</string>
+    <string name="youtube_is_legally_restricted">This URL is legally restricted</string>
+    <string name="delete_video">Delete Video</string>
+    <string name="are_you_sure_you_want_to_delete_this_video">Are you sure you want to delete this video?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="video_deleted">Video deleted</string>
+    <string name="failed_to_delete_video">Failed to delete video</string>
+    <string name="no_videos_available">No Videos Available</string>
+    <string name="already_applied">Already applied</string>
+
+</resources>

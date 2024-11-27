@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="app_name">4K 视频下载器和播放器</string>
+    <string name="_4k_video_downloader_player">4K 视频下载器和播放器</string>
+    <string name="this_action_might_contain_ads">此操作可能包含广告</string>
+    <string name="allow_access">允许访问</string>
+    <string name="next">下一个</string>
+    <string name="allow_storage_access_to_read_and_write_files_on_your_device_enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security_it_enables_efficient_data_storage_and_retrieval_for_seamless_user_experiences">解锁更好的体验，授予对您视频的访问权限。这使我们能够提供个性化结果。\n您的隐私始终受到保护</string>
+    <string name="disclaimer">免责声明</string>
+    <string name="this_4k_video_downloader_app_does_not_associate_own_or_licensed_with_any_social_media_sites_and_is_not_authorized_by_them_any_violations_of_intellectual_property_rights_and_unauthorized_actions_for_example_re_uploading_or_downloading_of_contents_are_the_sole_responsibility_of_the_user_alone_all_the_trademarks_such_as_logo_name_and_badges_are_completely_the_property_of_their_respective_owners">此 4K 视频下载器应用程序不\n 与任何社交媒体网站关联、拥有或授权，并且未经其授权。\n 任何侵犯知识产权\n 和未经授权的行为，例如重新\n上传或下载内容由用户自行承担所有商标，例如徽标、名称和徽章完全属于其各自所有者的财产</string>
+    <string name="ok">好的</string>
+    <string name="app_language">应用语言</string>
+    <string name="english_united_states">英语 - 美国</string>
+    <string name="paste_url_here">将网址粘贴到此处</string>
+    <string name="paste_link">粘贴链接</string>
+    <string name="other_social_platforms">其他社交平台</string>
+    <string name="recent_downloads">最近下载</string>
+    <string name="settings">设置</string>
+    <string name="save_path">保存路径</string>
+    <string name="storage_emulated_0_movies_4kvideodownloader_amp_player">/存储/模拟/0/电影/4K视频下载器和播放器/</string>
+    <string name="block_ads">阻止广告</string>
+    <string name="language">语言</string>
+    <string name="feedback">反馈</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="rate_us">评价我们</string>
+    <string name="share_with_friends">与朋友分享</string>
+    <string name="downloads">下载</string>
+    <string name="in_progress">进行中</string>
+    <string name="downloaded">已下载</string>
+    <string name="search_for_downloads">搜索下载</string>
+    <string name="upgrade_to_premium">升级至高级版</string>
+    <string name="enjoy_brilliant_experience">享受精彩体验！</string>
+    <string name="no_free_trial">（无免费试用）</string>
+    <string name="weekly">每周</string>
+    <string name="rs_300_00_week">RS 300.00/周</string>
+    <string name="monthly">每月</string>
+    <string name="rs_920_00_month">RS 920.00/月</string>
+    <string name="yearly">每年</string>
+    <string name="purchase_now">立即购买</string>
+    <string name="you_can_cancel_subscription_anytime_from_google_playstore">您可以随时从 Google Play 商店取消订阅</string>
+    <string name="terms_of_use">使用条款</string>
+    <string name="privacy_policy_1">隐私政策</string>
+    <string name="download">下载</string>
+    <string name="twitter">叽叽喳喳</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="dailymotion">每日运动</string>
+    <string name="remove_ads_permanently">永久删除广告</string>
+    <string name="apply">申请</string>
+    <string name="downloading">正在下载...</string>
+    <string name="ad_is_loading">正在加载广告...</string>
+    <string name="loading_advertisement">加载广告</string>
+    <string name="your_video_is_being_download_nplease_wait">正在下载您的视频\n请稍候</string>
+    <string name="loading_ad">加载广告</string>
+    <string name="exit_app">退出应用程序</string>
+    <string name="are_you_sure_you_want_to_exit_this_app">您确定要退出此应用吗</string>
+    <string name="cancel">取消</string>
+    <string name="exit">出口</string>
+    <string name="home">家</string>
+    <string name="please_rate_our_app">请评价我们的应用程序</string>
+    <string name="video_downloaded_successfully">视频下载成功</string>
+    <string name="downloading_failed">下载失败</string>
+    <string name="please_enter_a_valid_url">请输入有效的URL</string>
+    <string name="youtube_is_legally_restricted">此URL在法律上受到限制</string>
+    <string name="delete_video">删除视频</string>
+    <string name="are_you_sure_you_want_to_delete_this_video">您确定要删除此视频吗？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="video_deleted">视频已删除</string>
+    <string name="failed_to_delete_video">无法删除视频</string>
+    <string name="no_videos_available">没有可用的视频</string>
+    <string name="already_applied">已申请</string> <!-- Chinese -->
+
+
+
+
+
+
+</resources>
