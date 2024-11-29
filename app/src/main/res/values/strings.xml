@@ -76,5 +76,16 @@
     <string name="failed_to_delete_video">Failed to delete video</string>
     <string name="no_videos_available">No Videos Available</string>
     <string name="already_applied">Already applied</string>
+    <string name="wait_video_is_downloading">Please wait while the video is downloading.</string>
+    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
+    <string name="no_ads">No ads.</string>
+    <string name="faster_download_speed">Faster Download Speed.</string>
+    <string name="unlimited_downloads">Unlimited downloads.</string>
+    <string name="high_quality_downloads">high quality downloads.</string>
+    <string name="no_free_trial_pro">(No Free Trial)</string>
+    <string name="_6_months">6 Months</string>
+    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string>
+    <string name="terms_of_uses"><u>Terms Of Use</u></string>
+    <string name="privacy_policy_text"><u>Privacy Policy</u></string>
 
 </resources>

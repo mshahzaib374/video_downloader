@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_player_l
@@ -33,6 +34,8 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.util.Util
 import com.google.android.gms.ads.LoadAdError
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class VideoPlayerFragment : Fragment(), Player.Listener {
     private val homeViewModel: HomeViewModel by activityViewModels()
@@ -58,6 +61,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         context?.logFirebaseEvent("video_player_fragment", "screen_opened")
+        homeViewModel.updatePageSelector(1)
 
         arguments?.let {
             videoUri = it.getString("videoUri")
@@ -70,8 +74,6 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
 
 
     private fun initClicksEvents() {
-
-
         binding?.playerView?.setOnClickListener {
             toggleControllerVisibility()
         }
@@ -170,7 +172,8 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
             }
 
             override fun adValidate() {
-
+                homeViewModel.updatePageSelector(1)
+                findNavController().navigateUp()
             }
 
         },
@@ -180,12 +183,16 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
                     findNavController().navigateUp()
                 }
                 override fun adShowFullScreen() {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        delay(800)
+                        homeViewModel.updatePageSelector(1)
+                        findNavController().navigateUp()
+                    }
 
                 }
 
                 override fun adDismiss() {
-                     homeViewModel.updatePageSelector(1)
-                     findNavController().navigateUp()
+
                 }
 
                 override fun adFailedToShow() {
@@ -230,7 +237,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
         mPlayer = ExoPlayer.Builder(context ?: return).build().also {
             binding!!.playerView.player = it
             binding!!.controls.player = it
-            binding?.playerView?.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+            binding?.playerView?.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
             val mediaItem = MediaItem.fromUri(Uri.parse(videoUri) ?: return)
             it.addMediaItem(mediaItem)
             //it.setMediaSource(buildMediaSource())

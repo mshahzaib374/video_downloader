@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_language_l
+import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_l
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdUtils
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerCallback
@@ -62,8 +63,8 @@ class OnBoardingFragment : Fragment() {
         binding?.adsOnboardBannerPlaceHolder?.visibility = View.VISIBLE
         binding?.shimmerLayout?.root?.visibility = View.VISIBLE
         BannerAdUtils(activity ?: return).loadBannerAd(
-            adId = getString(R.string.languageBannerAd),
-            remote = banner_language_l,
+            adId = getString(R.string.bannerOnBoardingAd),
+            remote = banner_onboarding_l,
             container = binding?.adsOnboardBannerPlaceHolder ?: return,
             adLoadingOrShimmer = binding?.shimmerLayout?.root,
             adType = BannerAdType.DEFAULT_BANNER,

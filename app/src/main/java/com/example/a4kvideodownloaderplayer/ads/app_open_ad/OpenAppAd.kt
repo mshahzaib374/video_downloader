@@ -233,8 +233,7 @@ class OpenAppAd : DefaultLifecycleObserver, ActivityLifecycleCallbacks {
 
 
     private fun canShowOpenAd(): Boolean {
-        return OpenAppAdState.isOpenAppAdEnabled() && !isShowingOpenAd() &&
-                !isShowingInterAd() && !isShowingRewardAd()
+        return OpenAppAdState.isOpenAppAdEnabled() && !isShowingOpenAd() && !isShowingInterAd() && !isShowingRewardAd()
     }
 
 

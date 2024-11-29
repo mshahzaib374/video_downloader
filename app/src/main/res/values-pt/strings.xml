@@ -70,5 +70,14 @@
     <string name="failed_to_delete_video">Falha ao excluir vídeo</string>
     <string name="no_videos_available">Nenhum vídeo disponível</string>
     <string name="already_applied">Já aplicado</string>
+    <string name="wait_video_is_downloading">Por favor, aguarde enquanto o vídeo está sendo baixado.</string>
+    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
+    <string name="no_ads">No ads.</string>
+    <string name="faster_download_speed">Faster Download Speed.</string>
+    <string name="unlimited_downloads">Unlimited downloads.</string>
+    <string name="high_quality_downloads">high quality downloads.</string>
+    <string name="no_free_trial_pro">(No Free Trial).</string>
+    <string name="_6_months">6 Months</string>
+    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Portuguese -->
 
 </resources>

@@ -57,7 +57,7 @@
         android:text="@string/this_action_might_contain_ads"
         android:textColor="@color/splash_screen_title_color"
         android:textSize="@dimen/_12ssp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

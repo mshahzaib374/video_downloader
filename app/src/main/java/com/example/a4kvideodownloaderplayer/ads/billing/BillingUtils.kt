@@ -61,7 +61,6 @@ class BillingUtils private constructor(private val builder: Builder) {
                 .enablePendingPurchases(pendingPurchaseParams)
                 .setListener { billingResult, purchases ->
                         //this callback invoked when purchase or subscribe done
-
                         if (billingResult.responseCode == BillingResponseCode.OK
                             && purchases?.isNotEmpty() == true) {
 

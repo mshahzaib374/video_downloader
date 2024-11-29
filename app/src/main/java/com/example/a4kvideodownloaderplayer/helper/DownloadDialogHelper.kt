@@ -8,10 +8,12 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.example.a4kvideodownloaderplayer.databinding.DownloadingDialogBinding
+import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 
-class DownloadDialogHelper {
+class DownloadDialogHelper(val dismissDialog : () -> Unit) {
     private var mAdLoadingDialog: Dialog? = null
     private var binding: DownloadingDialogBinding? = null
+
 
     fun showDownloadDialog(context: Context) {
         val ctx = context as Activity
@@ -27,11 +29,24 @@ class DownloadDialogHelper {
                     (ctx.resources.displayMetrics.widthPixels * 0.9).toInt(),  // 90% of screen width
                     WindowManager.LayoutParams.WRAP_CONTENT                    // Adjust height as needed
                 )
+                binding?.crossIv?.setOnClickListener {
+                    dismissDialog()
+                }
                 show()
             }
         }
     }
 
+    /*fun initListeners(context: Context) {
+        binding?.apply {
+            crossIv.setOnClickListener {
+                mAdLoadingDialog?.dismiss()
+                binding = null
+                mAdLoadingDialog = null
+                //viewModel.cancelDownload(context)
+            }
+        }
+    }*/
 
 
     fun updateProgress(progress: Int) {

@@ -10,8 +10,9 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.Purchase
 import com.example.a4kvideodownloaderplayer.BuildConfig
-import com.example.a4kvideodownloaderplayer.MyApplication.Companion.isPurchased
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.advert.AdsRemoteModel
 import com.example.a4kvideodownloaderplayer.ads.advert.RemoteConfigurations
@@ -28,10 +29,11 @@ import com.example.a4kvideodownloaderplayer.ads.advert.native_language_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAdState
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.SplashOpenAppAd
+import com.example.a4kvideodownloaderplayer.ads.billing.BillingListener
+import com.example.a4kvideodownloaderplayer.ads.billing.BillingUtils
 import com.example.a4kvideodownloaderplayer.ads.consent_form.AdmobConsentForm
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
-import com.example.a4kvideodownloaderplayer.ads.utils.logger.Logger
 import com.example.a4kvideodownloaderplayer.databinding.FragmentSplashBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.aiartgenerator.utils.AppPrefs
@@ -53,6 +55,41 @@ class SplashFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         OpenAppAdState.disable("SplashFragment")
+        checkOldSubScription()
+    }
+
+    private fun checkOldSubScription() {
+        BillingUtils.getInstance()
+            .setBillingListener(object : BillingListener() {
+
+                override fun productAndSubMetaData(
+                    products: List<ProductDetails>,
+                    subscriptions: List<ProductDetails>
+                ) {
+                    // Handle product and subscription metadata
+                }
+
+                override fun purchasedORSubDone(productsList: List<Purchase?>) {
+                    Admobify.setPremiumUser(true)
+                }
+
+                override fun purchasedAndSubscribedList(
+                    purchaseList: List<Purchase>,
+                    subList: List<Purchase>
+                ) {
+                    // Handle combined list
+                    if (subList.isNotEmpty()) {
+                        binding?.containAdsTv?.visibility = View.GONE
+                        Admobify.setPremiumUser(true)
+                    }else{
+                        binding?.containAdsTv?.visibility = View.VISIBLE
+                        Admobify.setPremiumUser(false)
+                    }
+                }
+            })
+            .setSubscriptionIds("one_month_package", "six_month_package")
+            .build(activity ?: return)
+
     }
 
     override fun onCreateView(
@@ -69,8 +106,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         startSplashAnimations()
         context?.logFirebaseEvent("splash_fragment", "screen_opened")
-
-        if (AdmobifyUtils.isNetworkAvailable(context ?: return) && !isPurchased) {
+        if (AdmobifyUtils.isNetworkAvailable(context ?: return) && !Admobify.isPremiumUser()) {
             AdmobConsentForm
                 .getInstance()
                 .setDebug(BuildConfig.DEBUG)
@@ -82,9 +118,10 @@ class SplashFragment : Fragment() {
 
         } else {
             defaultTime = 3000
-            adsInitialize()
             startTimer()
         }
+
+
 
 
     }
@@ -97,7 +134,7 @@ class SplashFragment : Fragment() {
                 "40FCFB5F8EE015FEC661521E08D51DB6",
                 "7C12541A1F5DAD8864C7DDBC33D2E96B"
             ),
-            premiumUser = false
+            premiumUser = Admobify.isPremiumUser()
         )
         //Logger.enableLogging()
 
@@ -238,9 +275,8 @@ class SplashFragment : Fragment() {
             splashDescription.translationY = 800f // Start much further below the screen
 
             // Splash Ads Text: Start invisible and from much further left
-            containAdsTv.alpha = 0f
-            containAdsTv.translationX =
-                -800f // Start much further from the left
+           // containAdsTv.alpha = 0f
+            //containAdsTv.translationX = -800f // Start much further from the left
 
             // Animate all three views at the same time
             splashIconIv.animate()
@@ -262,11 +298,11 @@ class SplashFragment : Fragment() {
                 .setDuration(900) // Longer duration for a smoother appearance
                 .setInterpolator(AccelerateDecelerateInterpolator()) // Smooth acceleration and deceleration
 
-            containAdsTv.animate()
+           /* containAdsTv.animate()
                 .alpha(1f) // Fade in
                 .translationX(0f) // Move to its position
                 .setDuration(900) // Longer duration for a smoother appearance
-                .setInterpolator(AccelerateDecelerateInterpolator()) // Smooth acceleration and deceleration
+                .setInterpolator(AccelerateDecelerateInterpolator()) // Smooth acceleration and deceleration*/
 
         }
     }

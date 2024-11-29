@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.advert.native_home_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
@@ -22,6 +21,7 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdCallback
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdItemsModel
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdUtils
 import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
+import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.HomeFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
@@ -29,9 +29,6 @@ import com.example.a4kvideodownloaderplayer.fragments.main.MainFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.DownloadDialogHelper
 import com.google.android.gms.ads.LoadAdError
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -39,7 +36,6 @@ class HomeFragment : Fragment() {
     private val videoViewModel: VideoViewModel by activityViewModels()
     private var progressDialog: ProgressDialog? = null
     private var downloadDialog: DownloadDialogHelper? = null
-    private var fakeProgressJob: Job? = null
 
 
     override fun onCreateView(
@@ -56,11 +52,18 @@ class HomeFragment : Fragment() {
         context?.logFirebaseEvent("home_fragment", "screen_opened")
 
         binding?.apply {
-            /* premiumIcon.setOnClickListener {
-                 if (findNavController().currentDestination?.id == R.id.homeFragment) {
-                     findNavController().navigate(R.id.action_homeFragment_to_premiumFragment)
-                 }
-             }*/
+
+            if (Admobify.isPremiumUser()) {
+                premiumIcon.visibility = View.GONE
+            } else {
+                premiumIcon.visibility = View.VISIBLE
+            }
+
+            premiumIcon.setOnClickListener {
+                if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                    findNavController().navigate(R.id.action_mainFragment_to_premiumFragment)
+                }
+            }
 
             input.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -100,20 +103,15 @@ class HomeFragment : Fragment() {
                 }
                 checkForYoutubeLink(downloadUrl) {
                     if (downloadUrl.isNotEmpty()) {
-                        //progressDialog?.show()
-                        downloadDialog = DownloadDialogHelper()
-                        downloadDialog?.showDownloadDialog(context ?: return@checkForYoutubeLink)
-                        videoViewModel.downloadVideo(downloadUrl)
-                        var fakeProgress = 1
-                        fakeProgressJob = lifecycleScope.launch {
-                            while (fakeProgress < 10) {  // Show quick fake progress initially (0% to 10%)
-                                delay(1000)  // Small delay to simulate progress increment
-                                //_downloadProgress.postValue(fakeProgress)
-                                Log.d("TAG", "fake: $fakeProgress")
-                                downloadDialog?.updateProgress(fakeProgress)
-                                fakeProgress += 1
-                            }
+                        downloadDialog = DownloadDialogHelper {
+                            videoViewModel.cancelDownload(context ?: return@DownloadDialogHelper)
                         }
+                        // downloadDialog?.initListeners(context ?: return@checkForYoutubeLink)
+                        downloadDialog?.showDownloadDialog(context ?: return@checkForYoutubeLink)
+                        videoViewModel.downloadVideo(
+                            downloadUrl,
+                            context ?: return@checkForYoutubeLink
+                        )
                     }
                 }
 
@@ -156,15 +154,10 @@ class HomeFragment : Fragment() {
 
                 }
             }
-            Toast.makeText(context ?: return@observe, status, Toast.LENGTH_SHORT).show()
-            // DialogHelper.hideDialog(context ?: return@observe)
             downloadDialog?.dismissDialog()
         }
 
         videoViewModel.downloadProgress.observe(viewLifecycleOwner) { progress ->
-            //downloadDialogbinding?.progressTv?.text = "$progress%"
-            //Log.d("TAG", "onViewCreated: $progress%")
-            fakeProgressJob?.cancel()
             downloadDialog?.updateText(getString(R.string.your_video_is_being_download_nplease_wait))
             downloadDialog?.updateProgress(progress)
 
@@ -187,7 +180,9 @@ class HomeFragment : Fragment() {
             }
 
             override fun onDialogDismissed() {
-                binding?.nativeContainer?.visibility = View.VISIBLE
+                if (!Admobify.isPremiumUser()) {
+                    binding?.nativeContainer?.visibility = View.VISIBLE
+                }
             }
 
         }
@@ -219,7 +214,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun loadDefaultNativeAd() {
         val bind = NativeAdLayoutBinding.inflate(layoutInflater)
         bind.apply {
@@ -242,8 +236,8 @@ class HomeFragment : Fragment() {
 
                     override fun adFailed(error: LoadAdError?) {
                         super.adFailed(error)
-                        //binding?.nativeContainer?.visibility = View.INVISIBLE
-                        //binding?.shimmerHomeLayout?.root?.visibility = View.INVISIBLE
+                        binding?.nativeContainer?.visibility = View.INVISIBLE
+                        binding?.shimmerHomeLayout?.root?.visibility = View.INVISIBLE
                     }
 
 
@@ -265,7 +259,6 @@ class HomeFragment : Fragment() {
 
     }
 
-
     private fun setUpProgressDialog() {
         progressDialog = ProgressDialog(context ?: return)
         progressDialog?.setCancelable(false)
@@ -280,7 +273,6 @@ class HomeFragment : Fragment() {
         downloadDialog?.dismissDialog()
         super.onDestroyView()
     }
-
 
 }
 

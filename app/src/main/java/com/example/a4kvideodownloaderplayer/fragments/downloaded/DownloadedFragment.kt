@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.DownloadedFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.views.VideoAdapter
@@ -40,7 +41,21 @@ class DownloadedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.rv?.layoutManager = GridLayoutManager(context, 2)
+        binding?.apply {
+            rv.layoutManager = GridLayoutManager(context, 2)
+            if (Admobify.isPremiumUser()) {
+                premiumIcon.visibility = View.GONE
+            } else {
+                premiumIcon.visibility = View.VISIBLE
+            }
+
+            premiumIcon.setOnClickListener {
+                if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                    findNavController().navigate(R.id.action_mainFragment_to_premiumFragment)
+                }
+            }
+        }
+
 
     }
 
@@ -83,9 +98,9 @@ class DownloadedFragment : Fragment() {
     private fun getVideoFiles() {
         binding?.progressBar?.visibility = View.VISIBLE
         val videosList = mutableListOf<VideoFile>()
-
         val folderName = "4kVideoDownloader"
-        val downloadsPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        val downloadsPath =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
         val targetFolderPath = "$downloadsPath/$folderName"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // Android Q and above
@@ -94,7 +109,6 @@ class DownloadedFragment : Fragment() {
                 MediaStore.Video.Media.DISPLAY_NAME,
                 MediaStore.Video.Media.RELATIVE_PATH
             )
-
             val selection = "${MediaStore.Video.Media.RELATIVE_PATH} LIKE ?"
             val selectionArgs = arrayOf("%$folderName%")
 
@@ -111,25 +125,13 @@ class DownloadedFragment : Fragment() {
                     val fileName = cursor.getString(nameColumn)
                     val relativePath = cursor.getString(pathColumn)
                     val filePath = "$downloadsPath/$relativePath/$fileName"
-                    val contentUri = ContentUris.withAppendedId(queryUri, id)
-                    Log.e("TAG", "getVideoFiles: $filePath" )
-
-
-
-                    /*val thumbnail = try {
-                        ThumbnailUtils.createVideoThumbnail(
-                            File(filePath),
-                            Size(128, 128),
-                            null
+                    val contentUri = ContentUris.withAppendedId(queryUri, id) // Add to video list
+                    videosList.add(
+                        VideoFile(
+                            id, contentUri, fileName, filePath,
+                            generateVideoThumbnail(context ?: return, contentUri)
                         )
-                    } catch (e: Exception) {
-                        Log.e("ThumbnailError", "Failed to generate thumbnail for $filePath", e)
-                        null
-                    }*/
-
-                    // Add to video list
-                    videosList.add(VideoFile(id, contentUri, fileName, filePath,
-                        generateVideoThumbnail(context?:return, contentUri)))
+                    )
                 }
             }
         } else {
@@ -149,7 +151,11 @@ class DownloadedFragment : Fragment() {
                             MediaStore.Video.Thumbnails.MINI_KIND // Specify thumbnail kind
                         )
                     } catch (e: Exception) {
-                        Log.e("ThumbnailError", "Failed to generate thumbnail for ${file.absolutePath}", e)
+                        Log.e(
+                            "ThumbnailError",
+                            "Failed to generate thumbnail for ${file.absolutePath}",
+                            e
+                        )
                         null
                     }
                     // Add to video list
@@ -166,7 +172,10 @@ class DownloadedFragment : Fragment() {
                         putString("videoUri", it.contentUri.toString())
                         putString("videoName", it.fileName)
                         putString("videoPath", it.filePath)
-                        findNavController().navigate(R.id.action_mainFragment_to_VideoPlayerFragment, this)
+                        findNavController().navigate(
+                            R.id.action_mainFragment_to_VideoPlayerFragment,
+                            this
+                        )
                     }
                 }
             }

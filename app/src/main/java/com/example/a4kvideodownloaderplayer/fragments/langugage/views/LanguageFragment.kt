@@ -25,6 +25,7 @@ import com.example.a4kvideodownloaderplayer.fragments.langugage.views.adapter.La
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.aiartgenerator.utils.AppPrefs
+import com.google.android.gms.ads.AdView
 
 class LanguageFragment : Fragment() {
 
@@ -33,6 +34,7 @@ class LanguageFragment : Fragment() {
     private var languagesAdapter: LanguagesAdapter? = null
     private var language: Languages? = null
     private var selectedPosition: Int? = null
+    private var ad: AdView? = null
     private val homeViewModel: HomeViewModel by activityViewModels()
 
 
@@ -57,9 +59,9 @@ class LanguageFragment : Fragment() {
             binding?.backIconLanguageScreen?.isEnabled = false
             OpenAppAdState.disable("LanguageFragment")
         } else {
-            loadBannerAds()
             OpenAppAdState.enable("LanguageFragment")
         }
+            loadBannerAds()
     }
 
     private fun loadBannerAds() {
@@ -76,6 +78,12 @@ class LanguageFragment : Fragment() {
                     super.onAdValidate()
                     binding?.adsBannerPlaceHolder?.visibility = View.GONE
                     binding?.shimmerLayout?.root?.visibility = View.GONE
+
+                }
+
+                override fun onAdLoaded(adView: AdView) {
+                    super.onAdLoaded(adView)
+                    ad = adView
 
                 }
             },
@@ -162,6 +170,21 @@ class LanguageFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ad?.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        ad?.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ad?.destroy()
     }
 
 }

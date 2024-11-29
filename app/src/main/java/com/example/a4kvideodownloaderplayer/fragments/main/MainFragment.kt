@@ -27,6 +27,7 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdCallback
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdItemsModel
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdUtils
 import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
+import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.logger.Category
 import com.example.a4kvideodownloaderplayer.ads.utils.logger.Level
@@ -47,6 +48,7 @@ class MainFragment : Fragment() {
     private var lastButtonClickID: Int = -1
 
     private var adCount: Int = 0
+
     private var currentTabPosition: Int = 0
 
     companion object {
@@ -148,7 +150,7 @@ class MainFragment : Fragment() {
 
             val lastDismissTime = activity.let { AppPrefs(it).getLong("lastAdDismissTime") } ?: 0L
             val currentTimeMillis = SystemClock.elapsedRealtime()
-            if (currentTimeMillis - lastDismissTime < fullScreenCappingL) { // 10 seconds
+            if (currentTimeMillis - lastDismissTime < fullScreenCappingL) { // 5 seconds
                 Logger.log(
                     Level.DEBUG,
                     Category.OpenAd,
@@ -201,7 +203,7 @@ class MainFragment : Fragment() {
             lastButtonClickID = buttonID
             adCount++
             if ((adCount % 3) == 0) {
-                if (!AdmobifyUtils.isNetworkAvailable(context ?: return)) {
+                if (!AdmobifyUtils.isNetworkAvailable(context ?: return) ) {
                     when (selectedTab) {
                         "home" -> {
                             iconHome.setImageResource(R.drawable.home_selected_icon)
@@ -248,7 +250,49 @@ class MainFragment : Fragment() {
                             Log.d("TAG", "ads Failed")
                         }
 
-                        override fun adValidate() {}
+                        override fun adValidate() {
+                            when (selectedTab) {
+                                "home" -> {
+                                    iconHome.setImageResource(R.drawable.home_selected_icon)
+                                    iconHome.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textHome.setTextColor(Color.parseColor("#ffffff"))
+                                    //binding?.viewPagerDashboardLight?.currentItem = 0
+                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        0,
+                                        true
+                                    ) // Navigate to page 0 (Home)
+
+
+                                }
+
+                                "download" -> {
+                                    iconDownload.setImageResource(R.drawable.download_icon)
+                                    iconDownload.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
+                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        1,
+                                        true
+                                    ) // Navigate to page 0 (Home)
+
+                                }
+
+                                "settings" -> {
+                                    iconSettings.setImageResource(R.drawable.settings_selected_icon)
+                                    iconSettings.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textSettings.setTextColor(Color.parseColor("#ffffff"))
+                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        2,
+                                        true
+                                    )
+
+                                }
+                            }
+
+
+                        }
 
                     },
                         object : InterAdShowCallback() {
@@ -529,8 +573,8 @@ class MainFragment : Fragment() {
 
                     override fun adFailed(error: LoadAdError?) {
                         super.adFailed(error)
-                        //exitBinding?.nativeContainer?.visibility = View.INVISIBLE
-                        //exitBinding?.shimmerHomeLayout?.root?.visibility = View.INVISIBLE
+                        exitBinding?.nativeContainer?.visibility = View.INVISIBLE
+                        exitBinding?.shimmerHomeLayout?.root?.visibility = View.INVISIBLE
                     }
 
 
@@ -541,8 +585,8 @@ class MainFragment : Fragment() {
                     }
 
                     override fun adValidate() {
-                        //exitBinding?.nativeContainer?.visibility = View.GONE
-                        //exitBinding?.shimmerHomeLayout?.root?.visibility = View.GONE
+                        exitBinding?.nativeContainer?.visibility = View.GONE
+                        exitBinding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
 
 
