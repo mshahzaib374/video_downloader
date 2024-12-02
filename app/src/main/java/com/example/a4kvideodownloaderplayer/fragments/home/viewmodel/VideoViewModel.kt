@@ -160,7 +160,7 @@ class VideoViewModel : ViewModel() {
         val request = DownloadManager.Request(Uri.parse(videoUrl)).apply {
             setTitle("${context.getString(R.string.downloading)} $fileName")
             setDescription(context.getString(R.string.wait_video_is_downloading))
-            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
             setAllowedOverMetered(true)
             setAllowedOverRoaming(true)
             setDestinationInExternalPublicDir(
@@ -173,11 +173,9 @@ class VideoViewModel : ViewModel() {
             trackDownloadProgress(context, it, downloadId)
         }
 
-        // Track the progress
-
     }
 
-    fun cancelDownload(context: Context) {
+    fun cancelDownload() {
         downloadManager?.remove(downloadId)
     }
 

@@ -71,12 +71,15 @@
     <string name="no_videos_available">لا توجد مقاطع فيديو متاحة</string>
     <string name="already_applied">تم التقديم بالفعل</string>
     <string name="wait_video_is_downloading">يرجى الانتظار أثناء تنزيل الفيديو.</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Arabic -->
+    <string name="enjoy_premium_experience">استمتع بتجربة مميزة!</string>
+    <string name="no_ads">بدون إعلانات.</string>
+    <string name="faster_download_speed">سرعة تحميل أسرع.</string>
+    <string name="unlimited_downloads">تنزيلات غير محدودة.</string>
+    <string name="high_quality_downloads">تنزيلات بجودة عالية.</string>
+    <string name="no_free_trial_pro">(لا توجد نسخة تجريبية مجانية).</string>
+    <string name="_6_months">6 أشهر</string>
+    <string name="you_can_cancel_subscription">يمكنك إلغاء الاشتراك في أي وقت من متجر Google Play.</string>
+    <string name="terms_of_uses"><u>شروط الاستخدام</u></string>
+    <string name="privacy_policy_text"><u>سياسة الخصوصية</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 </resources>

@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.DialogFragment
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.example.a4kvideodownloaderplayer.MainActivity
@@ -18,11 +16,19 @@ import com.example.a4kvideodownloaderplayer.ads.billing.BillingUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.PremiumFragmentBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
+import com.example.a4kvideodownloaderplayer.helper.privacyPolicyUrl
+import com.example.a4kvideodownloaderplayer.helper.termsUrl
 
-class PremiumFragment : Fragment() {
+class PremiumFragment : DialogFragment() {
     private var _binding: PremiumFragmentBinding? = null
     private var billingUtils: BillingUtils? = null
     private var SKUID = "one_month_package"
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.FullScreenDialog)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +42,10 @@ class PremiumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         context?.logFirebaseEvent("premium_fragment", "screen_opened")
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
 
         billingUtils = BillingUtils.getInstance()
             .setBillingListener(object : BillingListener() {
@@ -48,17 +58,21 @@ class PremiumFragment : Fragment() {
 
                     subscriptions.forEach {
                         val productId = it.productId
-                        Log.e("TAG", "productId: $productId" )
-                        when(productId){
+                        Log.e("TAG", "productId: $productId")
+                        when (productId) {
                             "one_month_package" -> {
-                               _binding?.monthlyPriceTv?.text = it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                                _binding?.monthlyPriceTv?.text =
+                                    it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
                             }
+
                             "six_month_package" -> {
-                               _binding?.sixMonthlyPriceTv?.text = it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                                _binding?.sixMonthlyPriceTv?.text =
+                                    it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
                             }
                         }
 
-                        val price = it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                        val price =
+                            it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
 
                         Log.d("IAP", "productAndSubMetaData: $price")
                     }
@@ -69,7 +83,7 @@ class PremiumFragment : Fragment() {
 
                     Admobify.setPremiumUser(true)
                     activity?.finishAffinity()
-                    startActivity(Intent(activity?:return, MainActivity::class.java))
+                    startActivity(Intent(activity ?: return, MainActivity::class.java))
                 }
 
                 override fun purchasedAndSubscribedList(
@@ -89,11 +103,22 @@ class PremiumFragment : Fragment() {
 
     private fun clickEvent() {
 
-        _binding?.premiumCloseIV?.setOnClickListener {
-            findNavController().navigateUp()
-        }
 
         _binding?.apply {
+            termsTv.setOnClickListener {
+                context?.logFirebaseEvent("premium_fragment", "privacy_button_clicked")
+                activity?.termsUrl()
+            }
+
+            privacyTv.setOnClickListener {
+                context?.logFirebaseEvent("premium_fragment", "privacy_button_clicked")
+                activity?.privacyPolicyUrl()
+            }
+
+            premiumCloseIV.setOnClickListener {
+               // findNavController().navigateUp()
+                dismiss()
+            }
             premiumBuy.setOnClickListener {
                 billingUtils?.subscribe(SKUID)
             }

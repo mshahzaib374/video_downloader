@@ -71,20 +71,17 @@
     <string name="no_videos_available">没有可用的视频</string>
     <string name="already_applied">已申请</string>
     <string name="wait_video_is_downloading">请稍候，视频正在下载。</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Chinese -->
-
-
-
-
-
-
+    <string name="enjoy_premium_experience">享受高级体验！</string>
+    <string name="no_ads">无广告。</string>
+    <string name="faster_download_speed">更快的下载速度。</string>
+    <string name="unlimited_downloads">无限下载。</string>
+    <string name="high_quality_downloads">高质量下载。</string>
+    <string name="no_free_trial_pro">(无免费试用)。</string>
+    <string name="_6_months">6 个月</string>
+    <string name="you_can_cancel_subscription">您可以随时从 Google Play 商店取消订阅。</string>
+    <string name="terms_of_uses"><u>使用条款</u></string>
+    <string name="privacy_policy_text"><u>隐私政策</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 
 
 </resources>

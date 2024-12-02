@@ -87,5 +87,6 @@
     <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string>
     <string name="terms_of_uses"><u>Terms Of Use</u></string>
     <string name="privacy_policy_text"><u>Privacy Policy</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 
 </resources>

@@ -36,6 +36,7 @@ import com.example.a4kvideodownloaderplayer.databinding.ExitDialogLayoutBinding
 import com.example.a4kvideodownloaderplayer.databinding.MainFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
+import com.example.a4kvideodownloaderplayer.helper.AppUtils.checkForInAppUpdate
 import com.example.a4kvideodownloaderplayer.viewPager.ViewPagerAdapterDashboard
 import com.example.aiartgenerator.utils.AppPrefs
 import com.google.android.gms.ads.LoadAdError
@@ -79,6 +80,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         attachObserver()
         registerViewPager()
+        context?.checkForInAppUpdate(activity?:return)
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -247,7 +249,45 @@ class MainFragment : Fragment() {
                         override fun adAlreadyLoaded() {}
                         override fun adLoaded() {}
                         override fun adFailed(error: LoadAdError?, msg: String?) {
-                            Log.d("TAG", "ads Failed")
+                            when (selectedTab) {
+                                "home" -> {
+                                    iconHome.setImageResource(R.drawable.home_selected_icon)
+                                    iconHome.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textHome.setTextColor(Color.parseColor("#ffffff"))
+                                    //binding?.viewPagerDashboardLight?.currentItem = 0
+                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        0,
+                                        true
+                                    ) // Navigate to page 0 (Home)
+
+
+                                }
+
+                                "download" -> {
+                                    iconDownload.setImageResource(R.drawable.download_icon)
+                                    iconDownload.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
+                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        1,
+                                        true
+                                    ) // Navigate to page 0 (Home)
+
+                                }
+
+                                "settings" -> {
+                                    iconSettings.setImageResource(R.drawable.settings_selected_icon)
+                                    iconSettings.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textSettings.setTextColor(Color.parseColor("#ffffff"))
+                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        2,
+                                        true
+                                    )
+
+                                }
+                            }
                         }
 
                         override fun adValidate() {

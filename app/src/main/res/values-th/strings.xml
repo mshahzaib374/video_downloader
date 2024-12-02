@@ -71,13 +71,15 @@
     <string name="no_videos_available">ไม่มีวิดีโอที่สามารถใช้ได้</string>
     <string name="already_applied">นำไปใช้แล้ว</string>
     <string name="wait_video_is_downloading">กรุณารอสักครู่ในขณะที่ดาวน์โหลดวิดีโอ</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Thai -->
-
+    <string name="enjoy_premium_experience">เพลิดเพลินกับประสบการณ์พรีเมียม!</string>
+    <string name="no_ads">ไม่มีโฆษณา.</string>
+    <string name="faster_download_speed">ความเร็วในการดาวน์โหลดที่เร็วขึ้น.</string>
+    <string name="unlimited_downloads">ดาวน์โหลดไม่จำกัด.</string>
+    <string name="high_quality_downloads">ดาวน์โหลดคุณภาพสูง.</string>
+    <string name="no_free_trial_pro">(ไม่มีการทดลองใช้ฟรี).</string>
+    <string name="_6_months">6 เดือน</string>
+    <string name="you_can_cancel_subscription">คุณสามารถยกเลิกการสมัครสมาชิกได้ตลอดเวลาจาก Google Play Store.</string>
+    <string name="terms_of_uses"><u>ข้อกำหนดการใช้งาน</u></string>
+    <string name="privacy_policy_text"><u>นโยบายความเป็นส่วนตัว</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 </resources>

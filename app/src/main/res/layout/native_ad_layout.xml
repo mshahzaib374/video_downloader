@@ -83,7 +83,7 @@
             android:padding="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/mediaView"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Google Play"
+            android:text="Google Play"
             android:background="@drawable/downloading_bg"
             android:textAllCaps="false"
             android:textColor="#ffffff"

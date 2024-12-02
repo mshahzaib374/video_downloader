@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import com.example.a4kvideodownloaderplayer.databinding.HomeFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 import com.example.a4kvideodownloaderplayer.fragments.main.MainFragment
+import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.DownloadDialogHelper
 import com.google.android.gms.ads.LoadAdError
@@ -60,9 +62,11 @@ class HomeFragment : Fragment() {
             }
 
             premiumIcon.setOnClickListener {
-                if (findNavController().currentDestination?.id == R.id.mainFragment) {
+               /* if (findNavController().currentDestination?.id == R.id.mainFragment) {
                     findNavController().navigate(R.id.action_mainFragment_to_premiumFragment)
-                }
+                }*/
+                PremiumFragment().show(parentFragmentManager, "HomeFragment")
+
             }
 
             input.addTextChangedListener(object : TextWatcher {
@@ -104,7 +108,7 @@ class HomeFragment : Fragment() {
                 checkForYoutubeLink(downloadUrl) {
                     if (downloadUrl.isNotEmpty()) {
                         downloadDialog = DownloadDialogHelper {
-                            videoViewModel.cancelDownload(context ?: return@DownloadDialogHelper)
+                             videoViewModel.cancelDownload()
                         }
                         // downloadDialog?.initListeners(context ?: return@checkForYoutubeLink)
                         downloadDialog?.showDownloadDialog(context ?: return@checkForYoutubeLink)

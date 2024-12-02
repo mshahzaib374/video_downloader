@@ -71,13 +71,15 @@
     <string name="no_videos_available">Нет доступных видео</string>
     <string name="already_applied">Уже применено</string>
     <string name="wait_video_is_downloading">Пожалуйста, подождите, пока видео загружается.</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Russian -->
-
+    <string name="enjoy_premium_experience">Наслаждайтесь премиум-опытом!</string>
+    <string name="no_ads">Без рекламы.</string>
+    <string name="faster_download_speed">Быстрая загрузка.</string>
+    <string name="unlimited_downloads">Неограниченные загрузки.</string>
+    <string name="high_quality_downloads">Загрузки высокого качества.</string>
+    <string name="no_free_trial_pro">(Без бесплатного пробного периода).</string>
+    <string name="_6_months">6 месяцев</string>
+    <string name="you_can_cancel_subscription">Вы можете отменить подписку в любое время через Google Play Store.</string>
+    <string name="terms_of_uses"><u>Условия использования</u></string>
+    <string name="privacy_policy_text"><u>Политика конфиденциальности</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 </resources>

@@ -24,127 +24,7 @@
         android:text="@string/settings"
         />
 
-    <ImageView
-        android:id="@+id/upgrade_to_premium_card"
-        android:layout_width="@dimen/_280sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:visibility="invisible"
-        android:src="@drawable/upgrade_to_premium_card"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_tv"
-        app:layout_constraintVertical_bias="0.050000012"
-        tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/upgrade_to_premium_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinssemibold"
-        android:text="@string/upgrade_to_premium"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_14ssp"
-        android:visibility="gone"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/upgrade_to_premium_card"
-        app:layout_constraintEnd_toEndOf="@id/upgrade_to_premium_card"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="@id/upgrade_to_premium_card"
-        app:layout_constraintTop_toTopOf="@id/upgrade_to_premium_card"
-        app:layout_constraintVertical_bias="0.27" />
-
-    <TextView
-        android:id="@+id/remove_ads_permanently_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:text="@string/remove_ads_permanently"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_8ssp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/upgrade_to_premium_card"
-        app:layout_constraintEnd_toEndOf="@id/upgrade_to_premium_tv"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="@id/upgrade_to_premium_tv"
-        app:layout_constraintTop_toBottomOf="@id/upgrade_to_premium_tv"
-        app:layout_constraintVertical_bias="0.25" />
-
-    <ImageView
-        android:id="@+id/crown_icon_premium"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:src="@drawable/crown_icon"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/upgrade_to_premium_card"
-        app:layout_constraintEnd_toEndOf="@id/upgrade_to_premium_card"
-        app:layout_constraintHorizontal_bias="0.79"
-        app:layout_constraintStart_toEndOf="@id/upgrade_to_premium_tv"
-        app:layout_constraintTop_toTopOf="@id/upgrade_to_premium_card"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/save_path_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:text="@string/save_path"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_12ssp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/upgrade_to_premium_card"
-        app:layout_constraintVertical_bias="0.050000012" />
-
-    <TextView
-        android:id="@+id/path_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:text="@string/storage_emulated_0_movies_4kvideodownloader_amp_player"
-        android:textColor="@color/storage_path_color"
-        android:textSize="@dimen/_8ssp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.20"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/save_path_tv"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/block_ads_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:text="@string/block_ads"
-        android:visibility="gone"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/path_tv"
-        app:layout_constraintVertical_bias="0.060000002" />
-
-    <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/switch_settings_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:thumbTint="@color/white"
-        android:visibility="gone"
-        app:trackTint="@color/splash_screen_title_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toEndOf="@id/block_ads_tv"
-        app:layout_constraintTop_toBottomOf="@id/path_tv"
-        app:layout_constraintVertical_bias="0.0318810" />
 
     <ImageView
         android:id="@+id/language_icon"
@@ -285,5 +165,59 @@
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toEndOf="@id/share_with_friends_icon"
         app:layout_constraintTop_toBottomOf="@id/rate_us_tv" />
+
+    <ImageView
+        android:id="@+id/upgrade_to_premium_card"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:src="@drawable/upgrade_to_premium_card"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/share_with_friends_tv"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/upgrade_to_premium_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="@string/upgrade_to_premium"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/upgrade_to_premium_card"
+        app:layout_constraintEnd_toEndOf="@id/upgrade_to_premium_card"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="@id/upgrade_to_premium_card"
+        app:layout_constraintTop_toTopOf="@id/upgrade_to_premium_card"
+        app:layout_constraintVertical_bias="0.27" />
+
+    <TextView
+        android:id="@+id/remove_ads_permanently_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/remove_ads_permanently"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+        app:layout_constraintBottom_toBottomOf="@id/upgrade_to_premium_card"
+        app:layout_constraintEnd_toEndOf="@id/upgrade_to_premium_tv"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="@id/upgrade_to_premium_tv"
+        app:layout_constraintTop_toBottomOf="@id/upgrade_to_premium_tv"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <ImageView
+        android:id="@+id/crown_icon_premium"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/crown_icon"
+        app:layout_constraintBottom_toBottomOf="@id/upgrade_to_premium_card"
+        app:layout_constraintEnd_toEndOf="@id/upgrade_to_premium_card"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toEndOf="@id/upgrade_to_premium_tv"
+        app:layout_constraintTop_toTopOf="@id/upgrade_to_premium_card"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

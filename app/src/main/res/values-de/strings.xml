@@ -71,15 +71,17 @@
     <string name="no_videos_available">Keine Videos verfügbar</string>
     <string name="already_applied">Bereits angewendet</string>
     <string name="wait_video_is_downloading">Bitte warten Sie, während das Video heruntergeladen wird.</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- German -->
-
+    <string name="enjoy_premium_experience">Genießen Sie das Premium-Erlebnis!</string>
+    <string name="no_ads">Keine Werbung.</string>
+    <string name="faster_download_speed">Schnellere Download-Geschwindigkeit.</string>
+    <string name="unlimited_downloads">Unbegrenzte Downloads.</string>
+    <string name="high_quality_downloads">Downloads in hoher Qualität.</string>
+    <string name="no_free_trial_pro">(Keine kostenlose Testversion).</string>
+    <string name="_6_months">6 Monate</string>
+    <string name="you_can_cancel_subscription">Sie können das Abonnement jederzeit im Google Play Store kündigen.</string>
+    <string name="terms_of_uses"><u>Nutzungsbedingungen</u></string>
+    <string name="privacy_policy_text"><u>Datenschutzrichtlinie</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 
 
 </resources>

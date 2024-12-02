@@ -71,13 +71,15 @@
     <string name="no_videos_available">Mevcut video yok</string>
     <string name="already_applied">Zaten uygulandı</string>
     <string name="wait_video_is_downloading">Lütfen videonun indirilmesini bekleyin.</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Turkish -->
-
+    <string name="enjoy_premium_experience">Premium deneyimin keyfini çıkarın!</string>
+    <string name="no_ads">Reklamsız.</string>
+    <string name="faster_download_speed">Daha hızlı indirme hızı.</string>
+    <string name="unlimited_downloads">Sınırsız indirme.</string>
+    <string name="high_quality_downloads">Yüksek kaliteli indirme.</string>
+    <string name="no_free_trial_pro">(Ücretsiz deneme yok).</string>
+    <string name="_6_months">6 Ay</string>
+    <string name="you_can_cancel_subscription">Aboneliğinizi istediğiniz zaman Google Play Store dan iptal edebilirsiniz.</string>
+    <string name="terms_of_uses"><u>Kullanım Koşulları</u></string>
+    <string name="privacy_policy_text"><u>Gizlilik Politikası</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 </resources>

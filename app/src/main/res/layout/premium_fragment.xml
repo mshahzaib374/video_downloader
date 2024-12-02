@@ -2,339 +2,352 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/splash_bg_color">
 
-
-    <ImageView
-        android:id="@+id/premiumCloseIV"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_margin="@dimen/_16sdp"
-        android:padding="@dimen/_6sdp"
-        android:src="@drawable/premium_close_ic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/premiumBannerIV"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_100sdp"
-        android:src="@drawable/permium_banner"
-        app:layout_constraintBottom_toTopOf="@+id/premiumEnjoyTv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/premiumCloseIV" />
-
-    <TextView
-        android:id="@+id/premiumEnjoyTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:fontFamily="@font/poppinssemibold"
-        android:gravity="center_horizontal"
-        android:text="@string/enjoy_premium_experience"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@+id/dot1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/premiumBannerIV" />
-
-    <ImageView
-        android:id="@+id/dot1"
-        android:layout_width="@dimen/_5sdp"
-        android:layout_height="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_32sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:src="@drawable/premium_dot"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/premiumEnjoyTv" />
-
-    <ImageView
-        android:id="@+id/dot2"
-        android:layout_width="@dimen/_5sdp"
-        android:layout_height="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_32sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:src="@drawable/premium_dot"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dot1" />
-
-
-    <ImageView
-        android:id="@+id/dot3"
-        android:layout_width="@dimen/_5sdp"
-        android:layout_height="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_32sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:src="@drawable/premium_dot"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dot2" />
-
-    <ImageView
-        android:id="@+id/dot4"
-        android:layout_width="@dimen/_5sdp"
-        android:layout_height="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_32sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:src="@drawable/premium_dot"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dot3" />
-
-    <TextView
-        android:id="@+id/premiumPoint1Tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="start"
-        android:text="@string/no_ads"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_11ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/dot1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dot1"
-        app:layout_constraintTop_toTopOf="@+id/dot1" />
-
-    <TextView
-        android:id="@+id/premiumPoint2Tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="start"
-        android:text="@string/faster_download_speed"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_11ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/dot2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dot2"
-        app:layout_constraintTop_toTopOf="@+id/dot2" />
-
-    <TextView
-        android:id="@+id/premiumPoint3Tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="start"
-        android:text="@string/unlimited_downloads"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_11ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/dot3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dot3"
-        app:layout_constraintTop_toTopOf="@+id/dot3" />
-
-    <TextView
-        android:id="@+id/premiumPoint4Tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="start"
-        android:text="@string/high_quality_downloads"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_11ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/dot4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dot4"
-        app:layout_constraintTop_toTopOf="@+id/dot4" />
-
-
-    <TextView
-        android:id="@+id/noFreeTrialTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/post_no_bills_colombo_bold"
-        android:gravity="center_horizontal"
-        android:text="@string/no_free_trial_pro"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_22ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/monthlyView"
-        app:layout_constraintTop_toBottomOf="@+id/premiumPoint4Tv" />
-
-    <View
-        android:id="@+id/monthlyView"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:background="@drawable/premium_package_selector_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/sixMonthlyView"
-        app:layout_constraintTop_toBottomOf="@+id/noFreeTrialTv" />
-
-    <TextView
-        android:id="@+id/monthlyTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinssemibold"
-        android:gravity="center_horizontal"
-        android:text="@string/monthly"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_12ssp"
-        android:layout_marginStart="@dimen/_16sdp"
-        app:layout_constraintTop_toTopOf="@+id/monthlyView"
-        app:layout_constraintStart_toStartOf="@+id/monthlyView"
-        app:layout_constraintBottom_toBottomOf="@+id/monthlyView" />
-
-    <ImageView
-        android:id="@+id/monthlySelectorIV"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:src="@drawable/premiun_selector_radio"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/monthlyView"
-        app:layout_constraintEnd_toEndOf="@+id/monthlyView"
-        app:layout_constraintTop_toTopOf="@+id/monthlyView"
-        />
-
-    <TextView
-        android:id="@+id/monthlyPriceTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinssemibold"
-        android:gravity="center_horizontal"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_9ssp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/monthlyView"
-        app:layout_constraintEnd_toStartOf="@+id/monthlySelectorIV"
-        app:layout_constraintTop_toTopOf="@+id/monthlyView" />
-
-    <View
-        android:id="@+id/sixMonthlyView"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:background="@drawable/premium_package_un_selector_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthlyView" />
-
-    <TextView
-        android:id="@+id/sixMonthlyTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinssemibold"
-        android:gravity="center_horizontal"
-        android:text="@string/_6_months"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_12ssp"
-        android:layout_marginStart="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"
-        app:layout_constraintStart_toStartOf="@+id/sixMonthlyView"
-        app:layout_constraintTop_toTopOf="@+id/sixMonthlyView" />
-
-    <TextView
-        android:id="@+id/thirtyPercentTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="30% Off"
-        android:background="@drawable/custom_gradient_btn"
-        android:textSize="@dimen/_10ssp"
-        android:textColor="#ffffff"
-        android:visibility="gone"
-        android:paddingHorizontal="@dimen/_4sdp"
-        android:layout_marginStart="@dimen/_2sdp"
-        app:layout_constraintStart_toStartOf="@+id/sixMonthlyView"
-        app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"/>
-
-    <ImageView
-        android:id="@+id/sixMonthlySelectorIV"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:visibility="gone"
-        android:src="@drawable/premium_un_selector_radio"
-        app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"
-        app:layout_constraintEnd_toEndOf="@+id/sixMonthlyView"
-        app:layout_constraintTop_toTopOf="@+id/sixMonthlyView"
-         />
-
-    <TextView
-        android:id="@+id/sixMonthlyPriceTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinssemibold"
-        android:gravity="center_horizontal"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_9ssp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"
-        app:layout_constraintEnd_toStartOf="@+id/sixMonthlySelectorIV"
-        app:layout_constraintTop_toTopOf="@+id/sixMonthlyView" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/premiumBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginVertical="@dimen/_8sdp"
-        android:background="@drawable/premium_buy_button"
-        android:fontFamily="@font/poppinsregular"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:text="@string/purchase_now"
-        android:textColor="@color/disclaimer_text_color"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintBottom_toTopOf="@+id/premiumDesTv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sixMonthlyView" />
-
-    <TextView
-        android:id="@+id/premiumDesTv"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/you_can_cancel_subscription"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_9ssp"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/premiumBuy"
-        app:layout_constraintBottom_toTopOf="@+id/termsTv"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:maxLines="1"
-        />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/premiumCloseIV"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_16sdp"
+            android:padding="@dimen/_6sdp"
+            android:src="@drawable/premium_close_ic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/premiumBannerIV"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@drawable/permium_banner"
+            app:layout_constraintBottom_toTopOf="@+id/premiumEnjoyTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/premiumCloseIV" />
+
+        <TextView
+            android:id="@+id/premiumEnjoyTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/poppinssemibold"
+            android:gravity="center_horizontal"
+            android:text="@string/enjoy_premium_experience"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toTopOf="@+id/dot1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/premiumBannerIV" />
+
+        <ImageView
+            android:id="@+id/dot1"
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:src="@drawable/premium_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/premiumEnjoyTv" />
+
+        <ImageView
+            android:id="@+id/dot2"
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:src="@drawable/premium_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dot1" />
 
 
-    <TextView
-        android:id="@+id/termsTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsregular"
-        android:text="@string/terms_of_uses"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_9ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/privacyTv"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        app:layout_constraintTop_toBottomOf="@+id/premiumDesTv" />
+        <ImageView
+            android:id="@+id/dot3"
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:src="@drawable/premium_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dot2" />
 
-    <TextView
-        android:id="@+id/privacyTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/privacy_policy_text"
-        android:textColor="@color/splash_screen_title_color"
-        android:textSize="@dimen/_9ssp"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="end"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        app:layout_constraintTop_toBottomOf="@+id/premiumDesTv"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/termsTv"
+        <ImageView
+            android:id="@+id/dot4"
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:src="@drawable/premium_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dot3" />
 
-        />
+        <TextView
+            android:id="@+id/premiumPoint1Tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:fontFamily="@font/poppinsregular"
+            android:gravity="start"
+            android:text="@string/no_ads"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/dot1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dot1"
+            app:layout_constraintTop_toTopOf="@+id/dot1" />
+
+        <TextView
+            android:id="@+id/premiumPoint2Tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:fontFamily="@font/poppinsregular"
+            android:gravity="start"
+            android:text="@string/faster_download_speed"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/dot2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dot2"
+            app:layout_constraintTop_toTopOf="@+id/dot2" />
+
+        <TextView
+            android:id="@+id/premiumPoint3Tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:fontFamily="@font/poppinsregular"
+            android:gravity="start"
+            android:text="@string/unlimited_downloads"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/dot3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dot3"
+            app:layout_constraintTop_toTopOf="@+id/dot3" />
+
+        <TextView
+            android:id="@+id/premiumPoint4Tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:fontFamily="@font/poppinsregular"
+            android:gravity="start"
+            android:text="@string/high_quality_downloads"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/dot4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dot4"
+            app:layout_constraintTop_toTopOf="@+id/dot4" />
+
+
+        <TextView
+            android:id="@+id/noFreeTrialTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/post_no_bills_colombo_bold"
+            android:gravity="center_horizontal"
+            android:text="@string/no_free_trial_pro"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_22ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/monthlyView"
+            app:layout_constraintTop_toBottomOf="@+id/premiumPoint4Tv" />
+
+        <View
+            android:id="@+id/monthlyView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:background="@drawable/premium_package_selector_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/sixMonthlyView"
+            app:layout_constraintTop_toBottomOf="@+id/noFreeTrialTv" />
+
+        <TextView
+            android:id="@+id/monthlyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:gravity="center_horizontal"
+            android:text="@string/monthly"
+            android:textColor="#535358"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_16sdp"
+            app:layout_constraintTop_toTopOf="@+id/monthlyView"
+            app:layout_constraintStart_toStartOf="@+id/monthlyView"
+            app:layout_constraintBottom_toBottomOf="@+id/monthlyView" />
+
+        <ImageView
+            android:id="@+id/monthlySelectorIV"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:src="@drawable/premiun_selector_radio"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/monthlyView"
+            app:layout_constraintEnd_toEndOf="@+id/monthlyView"
+            app:layout_constraintTop_toTopOf="@+id/monthlyView"
+            />
+
+        <TextView
+            android:id="@+id/monthlyPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:gravity="center_horizontal"
+            android:textColor="#535358"
+            android:textSize="@dimen/_9ssp"
+            tools:text="15000"
+            android:layout_marginEnd="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/monthlyView"
+            app:layout_constraintEnd_toStartOf="@+id/monthlySelectorIV"
+            app:layout_constraintTop_toTopOf="@+id/monthlyView" />
+
+        <View
+            android:id="@+id/sixMonthlyView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/premium_package_un_selector_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/monthlyView" />
+
+        <TextView
+            android:id="@+id/sixMonthlyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:gravity="center_horizontal"
+            android:text="@string/_6_months"
+            android:textColor="#535358"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"
+            app:layout_constraintStart_toStartOf="@+id/sixMonthlyView"
+            app:layout_constraintTop_toTopOf="@+id/sixMonthlyView" />
+
+        <TextView
+            android:id="@+id/thirtyPercentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30% Off"
+            android:background="@drawable/custom_gradient_btn"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="#ffffff"
+            android:visibility="gone"
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_2sdp"
+            app:layout_constraintStart_toStartOf="@+id/sixMonthlyView"
+            app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"/>
+
+        <ImageView
+            android:id="@+id/sixMonthlySelectorIV"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:visibility="gone"
+            android:src="@drawable/premium_un_selector_radio"
+            app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"
+            app:layout_constraintEnd_toEndOf="@+id/sixMonthlyView"
+            app:layout_constraintTop_toTopOf="@+id/sixMonthlyView"
+            />
+
+        <TextView
+            android:id="@+id/sixMonthlyPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinssemibold"
+            android:gravity="center_horizontal"
+            android:textColor="#535358"
+            android:textSize="@dimen/_9ssp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"
+            app:layout_constraintEnd_toStartOf="@+id/sixMonthlySelectorIV"
+            app:layout_constraintTop_toTopOf="@+id/sixMonthlyView" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/premiumBuy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:background="@drawable/premium_buy_button"
+            android:fontFamily="@font/poppinsregular"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:layout_marginHorizontal="@dimen/_32sdp"
+            android:text="@string/purchase_now"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toTopOf="@+id/premiumDesTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sixMonthlyView" />
+
+        <TextView
+            android:id="@+id/premiumDesTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/you_can_cancel_subscription"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_9ssp"
+            android:fontFamily="@font/poppinsregular"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/premiumBuy"
+            app:layout_constraintBottom_toTopOf="@+id/termsTv"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+        <TextView
+            android:id="@+id/termsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsregular"
+            android:text="@string/terms_of_uses"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/privacyTv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            app:layout_constraintTop_toBottomOf="@+id/premiumDesTv" />
+
+        <TextView
+            android:id="@+id/privacyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_policy_text"
+            android:textColor="@color/splash_screen_title_color"
+            android:textSize="@dimen/_9ssp"
+            android:fontFamily="@font/poppinsregular"
+            android:gravity="end"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            app:layout_constraintTop_toBottomOf="@+id/premiumDesTv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/termsTv"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,8 +16,8 @@ android {
         applicationId = "vid.hd.videodownloader.videoplayer.download.all.videosapp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.4"
+        versionCode = 5
+        versionName = "1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         val formattedDate = SimpleDateFormat("yyyy_MM_dd_HH_mm")
@@ -125,6 +125,9 @@ dependencies {
     //admob
     implementation(libs.play.services.ads)
     implementation(libs.billing)
+
+    //in app update
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
 
 
 

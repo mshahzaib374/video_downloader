@@ -71,13 +71,15 @@
     <string name="no_videos_available">사용 가능한 동영상이 없습니다</string>
     <string name="already_applied">이미 적용됨</string>
     <string name="wait_video_is_downloading">동영상이 다운로드되는 동안 기다려주세요.</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Korean -->
-
+    <string name="enjoy_premium_experience">프리미엄 경험을 즐기세요!</string>
+    <string name="no_ads">광고 없음.</string>
+    <string name="faster_download_speed">더 빠른 다운로드 속도.</string>
+    <string name="unlimited_downloads">무제한 다운로드.</string>
+    <string name="high_quality_downloads">고품질 다운로드.</string>
+    <string name="no_free_trial_pro">(무료 체험 없음).</string>
+    <string name="_6_months">6개월</string>
+    <string name="you_can_cancel_subscription">Google Play 스토어에서 언제든지 구독을 취소할 수 있습니다.</string>
+    <string name="terms_of_uses"><u>이용 약관</u></string>
+    <string name="privacy_policy_text"><u>개인정보 처리방침</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 </resources>

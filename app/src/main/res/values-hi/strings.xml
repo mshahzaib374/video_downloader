@@ -71,13 +71,15 @@
     <string name="no_videos_available">कोई वीडियो उपलब्ध नहीं है</string>
     <string name="already_applied">पहले से लागू</string>
     <string name="wait_video_is_downloading">कृपया प्रतीक्षा करें जब तक वीडियो डाउनलोड हो रहा है।</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Hindi -->
-
+    <string name="enjoy_premium_experience">प्रीमियम अनुभव का आनंद लें!</string>
+    <string name="no_ads">कोई विज्ञापन नहीं।</string>
+    <string name="faster_download_speed">तेज़ डाउनलोड गति।</string>
+    <string name="unlimited_downloads">अनलिमिटेड डाउनलोड।</string>
+    <string name="high_quality_downloads">उच्च गुणवत्ता वाले डाउनलोड।</string>
+    <string name="no_free_trial_pro">(कोई मुफ्त परीक्षण नहीं)।</string>
+    <string name="_6_months">6 महीने</string>
+    <string name="you_can_cancel_subscription">आप Google Play Store से कभी भी सदस्यता रद्द कर सकते हैं।</string>
+    <string name="terms_of_uses"><u>उपयोग की शर्तें</u></string>
+    <string name="privacy_policy_text"><u>गोपनीयता नीति</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 </resources>

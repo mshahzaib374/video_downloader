@@ -8,5 +8,6 @@ data class VideoFile(
     val contentUri: Uri,
     val fileName: String,
     val filePath: String,
-    val thumbnail: Bitmap?
+    val thumbnail: Bitmap?,
+    val dateModified: Long
 )

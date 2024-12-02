@@ -28,6 +28,17 @@ fun Activity.privacyPolicyUrl() {
     }
 }
 
+fun Activity.termsUrl() {
+    try {
+        this.startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(this.getString(R.string.terms_of_use_link)))
+        )
+    } catch (ex: Exception) {
+        ex.printStackTrace()
+
+    }
+}
+
 fun Activity.shareApp() {
     try {
         val shareIntent = Intent(Intent.ACTION_SEND)

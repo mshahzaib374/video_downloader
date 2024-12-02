@@ -24,6 +24,7 @@ import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.DownloadedFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.views.VideoAdapter
+import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import java.io.File
 
 class DownloadedFragment : Fragment() {
@@ -50,9 +51,8 @@ class DownloadedFragment : Fragment() {
             }
 
             premiumIcon.setOnClickListener {
-                if (findNavController().currentDestination?.id == R.id.mainFragment) {
-                    findNavController().navigate(R.id.action_mainFragment_to_premiumFragment)
-                }
+                PremiumFragment().show(parentFragmentManager, "DownloadedFragment")
+
             }
         }
 
@@ -107,7 +107,8 @@ class DownloadedFragment : Fragment() {
             val projection = arrayOf(
                 MediaStore.Video.Media._ID,
                 MediaStore.Video.Media.DISPLAY_NAME,
-                MediaStore.Video.Media.RELATIVE_PATH
+                MediaStore.Video.Media.RELATIVE_PATH,
+                MediaStore.Video.Media.DATE_MODIFIED
             )
             val selection = "${MediaStore.Video.Media.RELATIVE_PATH} LIKE ?"
             val selectionArgs = arrayOf("%$folderName%")
@@ -119,6 +120,8 @@ class DownloadedFragment : Fragment() {
                 val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
                 val nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
                 val pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.RELATIVE_PATH)
+                val dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_MODIFIED)
+
 
                 while (cursor.moveToNext()) {
                     val id = cursor.getLong(idColumn)
@@ -128,11 +131,16 @@ class DownloadedFragment : Fragment() {
                     val contentUri = ContentUris.withAppendedId(queryUri, id) // Add to video list
                     videosList.add(
                         VideoFile(
-                            id, contentUri, fileName, filePath,
-                            generateVideoThumbnail(context ?: return, contentUri)
+                            id,
+                            contentUri,
+                            fileName,
+                            filePath,
+                            generateVideoThumbnail(context ?: return, contentUri),
+                            cursor.getLong(dateColumn)
                         )
                     )
                 }
+
             }
         } else {
             // Below Android Q
@@ -159,10 +167,22 @@ class DownloadedFragment : Fragment() {
                         null
                     }
                     // Add to video list
-                    videosList.add(VideoFile(0L, Uri.fromFile(file), fileName, filePath, thumbnail))
+                    videosList.add(
+                        VideoFile(
+                            0L,
+                            Uri.fromFile(file),
+                            fileName,
+                            filePath,
+                            thumbnail,
+                            file.lastModified()
+                        )
+                    )
                 }
             }
         }
+
+        videosList.sortByDescending { it.dateModified }
+
 
         // Update the UI with the video list
         if (videosList.isNotEmpty()) {

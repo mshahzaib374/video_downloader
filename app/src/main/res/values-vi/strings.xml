@@ -71,13 +71,15 @@
     <string name="no_videos_available">Không có video nào</string>
     <string name="already_applied">Đã áp dụng</string>
     <string name="wait_video_is_downloading">Vui lòng đợi trong khi video đang được tải xuống.</string>
-    <string name="enjoy_premium_experience">Enjoy premium Experience!</string>
-    <string name="no_ads">No ads.</string>
-    <string name="faster_download_speed">Faster Download Speed.</string>
-    <string name="unlimited_downloads">Unlimited downloads.</string>
-    <string name="high_quality_downloads">high quality downloads.</string>
-    <string name="no_free_trial_pro">(No Free Trial).</string>
-    <string name="_6_months">6 Months</string>
-    <string name="you_can_cancel_subscription">You can cancel subscription anytime from google playstore.</string> <!-- Vietnamese -->
-
+    <string name="enjoy_premium_experience">Thưởng thức trải nghiệm cao cấp!</string>
+    <string name="no_ads">Không quảng cáo.</string>
+    <string name="faster_download_speed">Tốc độ tải xuống nhanh hơn.</string>
+    <string name="unlimited_downloads">Tải xuống không giới hạn.</string>
+    <string name="high_quality_downloads">Tải xuống chất lượng cao.</string>
+    <string name="no_free_trial_pro">(Không có bản dùng thử miễn phí).</string>
+    <string name="_6_months">6 Tháng</string>
+    <string name="you_can_cancel_subscription">Bạn có thể hủy đăng ký bất cứ lúc nào từ Google Play Store.</string>
+    <string name="terms_of_uses"><u>Điều Khoản Sử Dụng</u></string>
+    <string name="privacy_policy_text"><u>Chính Sách Bảo Mật</u></string>
+    <string name="cancel_dialog">Cancel download</string>
 </resources>

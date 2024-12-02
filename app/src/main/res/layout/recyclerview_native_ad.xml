@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/nativeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        android:minWidth="302dp"
+        android:background="#F1F0FF"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+        android:id="@+id/shimmerHomeLayout"
+        layout="@layout/shimmer_native_media"
+        android:layout_width="0dp"
+        android:layout_height="252dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@+id/nativeContainer"
+        app:layout_constraintStart_toStartOf="@+id/nativeContainer"
+        app:layout_constraintEnd_toEndOf="@+id/nativeContainer"
+        app:layout_constraintBottom_toBottomOf="@+id/nativeContainer"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

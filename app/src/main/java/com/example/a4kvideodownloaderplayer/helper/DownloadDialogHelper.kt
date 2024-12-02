@@ -10,7 +10,7 @@ import android.view.WindowManager
 import com.example.a4kvideodownloaderplayer.databinding.DownloadingDialogBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 
-class DownloadDialogHelper(val dismissDialog : () -> Unit) {
+class DownloadDialogHelper(val callBack : () -> Unit) {
     private var mAdLoadingDialog: Dialog? = null
     private var binding: DownloadingDialogBinding? = null
 
@@ -30,6 +30,10 @@ class DownloadDialogHelper(val dismissDialog : () -> Unit) {
                     WindowManager.LayoutParams.WRAP_CONTENT                    // Adjust height as needed
                 )
                 binding?.crossIv?.setOnClickListener {
+                    dismissDialog()
+                }
+                binding?.cancelDownloadTv?.setOnClickListener {
+                    callBack.invoke()
                     dismissDialog()
                 }
                 show()

@@ -53,15 +53,16 @@ class LanguageFragment : Fragment() {
         attachObserver()
         context?.logFirebaseEvent("language_fragment", "screen_opened")
 
-
         if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
             binding?.backIconLanguageScreen?.visibility = View.GONE
             binding?.backIconLanguageScreen?.isEnabled = false
             OpenAppAdState.disable("LanguageFragment")
+            loadBannerAds()
         } else {
+            binding?.shimmerLayout?.root?.visibility = View.GONE
+            binding?.adsBannerPlaceHolder?.visibility = View.GONE
             OpenAppAdState.enable("LanguageFragment")
         }
-            loadBannerAds()
     }
 
     private fun loadBannerAds() {
@@ -94,21 +95,25 @@ class LanguageFragment : Fragment() {
     private fun attachObserver() {
 
         binding?.backIconLanguageScreen?.setOnClickListener {
-            homeViewModel.updatePageSelector(2)
+            //homeViewModel.updatePageSelector(2)
             findNavController().navigateUp()
         }
 
         languageViewModel.languagesList.observe(viewLifecycleOwner) {
-            languagesAdapter?.submitList(it)
+            languagesAdapter?.setItems(it)
         }
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                binding?.adsBannerPlaceHolder?.visibility = View.INVISIBLE
+                if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
+                    binding?.adsBannerPlaceHolder?.visibility = View.INVISIBLE
+                }
             }
 
             override fun onAdDismissed() {
-                binding?.adsBannerPlaceHolder?.visibility = View.VISIBLE
+                if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
+                    binding?.adsBannerPlaceHolder?.visibility = View.VISIBLE
+                }
             }
         }
 
@@ -117,6 +122,7 @@ class LanguageFragment : Fragment() {
     private fun setLanguageAdapter() {
         languageViewModel.selectedPosition.observe(viewLifecycleOwner) { position ->
             languagesAdapter = LanguagesAdapter(
+                activity?.application ?: return@observe,
                 context ?: return@observe,
                 position
             ) { language, selectedPosition ->
@@ -146,7 +152,7 @@ class LanguageFragment : Fragment() {
                 } else {
                     if (AppPrefs(context ?: return@setOnClickListener).getBoolean("isFirstTime")) {
                         navigateScreen()
-                    }else{
+                    } else {
                         Toast.makeText(
                             context ?: return@setOnClickListener,
                             getString(R.string.already_applied), Toast.LENGTH_SHORT
