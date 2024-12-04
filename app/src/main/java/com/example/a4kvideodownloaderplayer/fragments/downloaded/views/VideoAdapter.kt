@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile

@@ -1,8 +1,6 @@
 package com.example.a4kvideodownloaderplayer.fragments.player
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,11 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.advert.banner_player_l
-import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_l
-import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
-import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdUtils
-import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerCallback
+import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_video_l
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdLoadCallback
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdOptions
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdShowCallback
@@ -39,7 +33,6 @@ import kotlinx.coroutines.launch
 
 class VideoPlayerFragment : Fragment(), Player.Listener {
     private val homeViewModel: HomeViewModel by activityViewModels()
-
     private var binding: VideoplayerFragmentBinding? = null
     private var mPlayer: ExoPlayer? = null
     private var videoUri: String? = null
@@ -157,8 +150,8 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     }
 
     private fun showAds() {
-        val adOptions = InterAdOptions().setAdId(getString(R.string.homeInterstitialAd))
-            .setRemoteConfig(fullscreen_home_l).setLoadingDelayForDialog(2)
+        val adOptions = InterAdOptions().setAdId(getString(R.string.playerInterstitialAd))
+            .setRemoteConfig(fullscreen_video_l).setLoadingDelayForDialog(2)
             .setFullScreenLoading(false)
             .build(activity ?: return)
         InterstitialAdUtils(adOptions).loadAndShowInterAd(object :

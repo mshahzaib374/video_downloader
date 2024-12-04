@@ -12,22 +12,24 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.fragments.home.model.ApiResponse
 import com.example.a4kvideodownloaderplayer.fragments.home.retrofit.RetrofitInstance
+import com.example.a4kvideodownloaderplayer.fragments.home.retrofit.VideoApiService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Response
 import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class VideoViewModel : ViewModel() {
 
+    private var downloadJob: Job? = null
     private var downloadManager: DownloadManager? = null
     private val _downloadStatus = MutableLiveData<String>()
     val downloadStatus: LiveData<String> get() = _downloadStatus
@@ -37,7 +39,77 @@ class VideoViewModel : ViewModel() {
 
     private var downloadId: Long = 0
 
+    fun resetDownloadStatus() {
+        _downloadStatus.value = ""
+    }
+
     fun downloadVideo(url: String, context: Context) {
+        downloadJob = CoroutineScope(Dispatchers.IO).launch {
+            /* try {*/
+            val videoRequest = VideoApiService.VideoRequest(videoUrl = url)
+            RetrofitInstance.api.downloadVideo(videoRequest)
+                .enqueue(object : retrofit2.Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: retrofit2.Response<ResponseBody>
+                    ) {
+                        Log.e("TAG", "onResponse: $response")
+                        if (response.isSuccessful) {
+                                response.body()?.let { body ->
+                                    saveFileFromResponse(body, context)
+                                } ?: run {
+                                    _downloadStatus.postValue("ERROR")
+                                }
+
+                        } else if(response.code() == 400) {
+                            _downloadStatus.postValue("ERROR_SIZE")
+                        }
+
+                        else {
+                            _downloadStatus.postValue("ERROR")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        _downloadStatus.postValue("ERROR")
+                    }
+                })
+        }
+    }
+
+    private fun saveFileFromResponse(body: ResponseBody, context: Context) {
+        try {
+            // Get the Downloads directory
+            val downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+            // Create a subfolder named "4kVideoDownloader"
+            val subFolder = File(downloadsFolder, "4kVideoDownloader")
+            if (!subFolder.exists()) {
+                subFolder.mkdirs()
+            }
+
+            val timestamp =
+                SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            val fileName =
+                "video_$timestamp.mp4" // Replace with `uniqueName.mp4` for UUID option
+            // Create the file in the subfolder
+            val file =
+                File(subFolder, fileName) // You can modify the filename dynamically if needed
+
+            body.byteStream().use { inputStream ->
+                FileOutputStream(file).use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+            _downloadStatus.postValue("SUCCESS")
+        } catch (e: Exception) {
+            // Handle exception during file saving
+            _downloadStatus.postValue("ERROR")
+        }
+    }
+
+
+    /*fun downloadVideo(url: String, context: Context) {
         viewModelScope.launch {
             try {
                 val json = """{"videoURL": "$url"}"""
@@ -76,64 +148,8 @@ class VideoViewModel : ViewModel() {
                 _downloadStatus.postValue("ERROR")
             }
         }
-    }
-
-
-    /*private fun downloadFileFromUrl(videoUrl: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                // Create URL object for the video download link
-                // Start fake progress immediately with a fast increment
-
-                val url = URL(videoUrl)
-                val connection = url.openConnection()
-                val fileSize = connection.contentLength
-                val inputStream: InputStream = connection.getInputStream()
-
-                // Directory to save the video
-                val downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                val targetDirectory = File(downloadsDirectory, "4kVideoDownloader")
-                if (!targetDirectory.exists()) {
-                    targetDirectory.mkdirs()
-                }
-                val timestamp =
-                    SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-                val fileName =
-                    "video_$timestamp.mp4" // Replace with `uniqueName.mp4` for UUID option
-                val file = File(targetDirectory, fileName)
-
-                // Write the file
-                val outputStream = FileOutputStream(file)
-                val buffer = ByteArray(1024)
-                var bytesRead: Int
-                var totalBytesRead = 0
-
-                var actualProgress = 15
-                // Start downloading and updating the real progress
-                inputStream.use { input ->
-                    outputStream.use { output ->
-                        while (input.read(buffer).also { bytesRead = it } != -1) {
-                            output.write(buffer, 0, bytesRead)
-                            totalBytesRead += bytesRead
-                            val progress = (totalBytesRead * 85 / fileSize)
-
-                            // Update the actual download progress
-                            //fakeProgressJob.cancel()
-                            _downloadProgress.postValue(progress+actualProgress)
-                        }
-                    }
-                }
-
-                // Cancel the fake progress job as download is complete
-
-                // SUCCESS
-                _downloadStatus.postValue("SUCCESS")
-            } catch (e: Exception) {
-                // ERROR
-                _downloadStatus.postValue("ERROR")
-            }
-        }
     }*/
+
 
     fun downloadFileFromUrl(videoUrl: String, context: Context) {
         downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -176,7 +192,8 @@ class VideoViewModel : ViewModel() {
     }
 
     fun cancelDownload() {
-        downloadManager?.remove(downloadId)
+        //downloadManager?.remove(downloadId)
+        downloadJob?.cancel()
     }
 
 
@@ -194,9 +211,12 @@ class VideoViewModel : ViewModel() {
 
                 if (cursor.moveToFirst()) {
                     val statusIndex =
-                        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS) ?: -1)
+                        cursor.getInt(
+                            cursor.getColumnIndex(DownloadManager.COLUMN_STATUS) ?: -1
+                        )
                     val bytesDownloadedIndex = cursor.getInt(
-                        cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR) ?: -1
+                        cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)
+                            ?: -1
                     )
                     val totalBytesIndex = cursor.getInt(
                         cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES) ?: -1
@@ -204,7 +224,8 @@ class VideoViewModel : ViewModel() {
 
                     if (statusIndex >= 0 && bytesDownloadedIndex >= 0 && totalBytesIndex >= 0) {
                         if (statusIndex == DownloadManager.STATUS_RUNNING && totalBytesIndex > 0) {
-                            val progress = (bytesDownloadedIndex * 100L / totalBytesIndex).toInt()
+                            val progress =
+                                (bytesDownloadedIndex * 100L / totalBytesIndex).toInt()
                             _downloadProgress.postValue(progress)
                         } else if (statusIndex == DownloadManager.STATUS_SUCCESSFUL) {
                             _downloadStatus.postValue("SUCCESS")

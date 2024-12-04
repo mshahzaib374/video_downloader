@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.splash.SplashFragment"
-   >
+    android:background="@drawable/light_splash__1_"
+    tools:context=".fragments.splash.SplashFragment">
+
 
     <ImageView
         android:id="@+id/splashIconIv"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
-        android:src="@drawable/splash_logo"
+        android:layout_gravity="center"
+        android:src="@drawable/splash_ic2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/splashDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:fontFamily="@font/manropeextrabold"
+        android:gravity="center"
         android:text="@string/_4k_video_downloader_player"
-        android:textColor="@color/splash_screen_title_color"
+        android:textColor="#ffffff"
         android:textSize="@dimen/_15ssp"
         app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,9 +42,9 @@
         android:layout_gravity="center"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/containAdsTv"
-        app:layout_constraintTop_toBottomOf="@+id/splashDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splashDescription"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/splash_screen_loader" />
@@ -55,7 +57,7 @@
         android:layout_marginBottom="@dimen/_16sdp"
         android:fontFamily="@font/manropeextrabold"
         android:text="@string/this_action_might_contain_ads"
-        android:textColor="@color/splash_screen_title_color"
+        android:textColor="#ffffff"
         android:textSize="@dimen/_12ssp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

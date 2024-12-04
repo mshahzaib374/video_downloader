@@ -81,7 +81,13 @@
     <string name="you_can_cancel_subscription">您可以随时从 Google Play 商店取消订阅。</string>
     <string name="terms_of_uses"><u>使用条款</u></string>
     <string name="privacy_policy_text"><u>隐私政策</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">取消下载</string>
+    <string name="already_purchased">已购买！</string>
+    <string name="you_already_have_access_to_the_premium">您已拥有高级套餐的访问权限！享受所有专属功能和可用的福利</string>
+    <string name="video_size_is_too_large">不允许下载超过 5 分钟的视频。</string>
+    <string name="continue_with_ads">继续观看广告</string>
+    <string name="or">或</string>
+
 
 
 </resources>

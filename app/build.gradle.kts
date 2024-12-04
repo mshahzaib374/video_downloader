@@ -37,6 +37,7 @@ android {
             resValue("string", "appOpenAdSplash", "ca-app-pub-4199820502555116/1610432933")
             resValue("string", "appOpenAdResume", "ca-app-pub-4199820502555116/1556692113")
             resValue("string", "exitNativeAd", "ca-app-pub-4199820502555116/1059105889")
+            resValue("string", "playerInterstitialAd", "ca-app-pub-4199820502555116/2835770729")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -52,6 +53,8 @@ android {
                 resValue("string", "appOpenAdSplash", "ca-app-pub-3940256099942544/9257395921")
                 resValue("string", "appOpenAdResume", "ca-app-pub-3940256099942544/9257395921")
                 resValue("string", "exitNativeAd", "ca-app-pub-3940256099942544/2247696110")
+                resValue("string", "playerInterstitialAd", "ca-app-pub-3940256099942544/1033173712")
+
             }
         }
     }
@@ -103,8 +106,8 @@ dependencies {
 
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.kotlinx.coroutines.android)
-    implementation (libs.glide)
-    implementation (libs.okhttp)
+    implementation (libs.glide)/*
+    implementation (libs.okhttp)*/
     implementation(libs.androidx.lifecycle.process)
 
 

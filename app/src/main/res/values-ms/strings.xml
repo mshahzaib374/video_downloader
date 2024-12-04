@@ -81,5 +81,12 @@
     <string name="you_can_cancel_subscription">Anda boleh membatalkan langganan bila-bila masa dari Google Play Store.</string>
     <string name="terms_of_uses"><u>Terma Penggunaan</u></string>
     <string name="privacy_policy_text"><u>Polisi Privasi</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">Batalkan muat turun</string>
+    <string name="already_purchased">Sudah dibeli!</string>
+    <string name="you_already_have_access_to_the_premium">Anda sudah mempunyai akses ke pakej premium! Nikmati semua ciri dan faedah eksklusif yang tersedia untuk anda</string>
+    <string name="video_size_is_too_large">Video lebih daripada 5 minit tidak dibenarkan untuk dimuat turun.</string>
+    <string name="continue_with_ads">Teruskan Dengan Iklan</string>
+    <string name="or">ATAU</string>
+
+
 </resources>

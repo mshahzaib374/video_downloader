@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.example.a4kvideodownloaderplayer.databinding.DownloadingDialogBinding
-import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 
 class DownloadDialogHelper(val callBack : () -> Unit) {
     private var mAdLoadingDialog: Dialog? = null

@@ -13,9 +13,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.DialogRateUsBinding
 import com.example.a4kvideodownloaderplayer.databinding.SettingsFragmentBinding
+import com.example.a4kvideodownloaderplayer.fragments.langugage.views.LanguageDialogFragment
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.feedback
@@ -44,21 +44,16 @@ class SettingsFragment : Fragment() {
 
         binding.apply {
 
-            if (Admobify.isPremiumUser()) {
-                upgradeToPremiumCard.visibility = View.GONE
-            }else{
-                upgradeToPremiumCard.visibility = View.VISIBLE
-            }
-
             upgradeToPremiumCard.setOnClickListener {
                 PremiumFragment().show(parentFragmentManager, "PremiumFragment")
             }
 
             languageTv.setOnClickListener {
                 context?.logFirebaseEvent("disclaimer_fragment", "language_button_clicked")
-                if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                LanguageDialogFragment().show(parentFragmentManager, "SettingsFragment")
+               /* if (findNavController().currentDestination?.id == R.id.mainFragment) {
                     findNavController().navigate(R.id.action_mainFragment_to_languageFragment)
-                }
+                }*/
             }
             languageIcon.setOnClickListener {
                 context?.logFirebaseEvent("disclaimer_fragment", "language_button_clicked")

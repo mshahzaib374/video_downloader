@@ -7,118 +7,129 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash_bg_drawable">
 
-
-    <View
-        android:id="@+id/settings_tv"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@drawable/app_bar_bg"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/_14ssp"
-        android:fontFamily="@font/manropeextrabold"
-        android:textColor="#ffffff"
-        android:paddingHorizontal="@dimen/_16sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/settings"
-        />
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/settings_tv"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/app_bar_bg"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/manropeextrabold"
+            android:textColor="#ffffff"
+            android:paddingHorizontal="@dimen/_16sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/settings"
+            />
 
 
-    <View
-        android:id="@+id/customView"
-        android:layout_width="@dimen/_5sdp"
-        android:layout_height="@dimen/_5sdp"
-        android:layout_margin="@dimen/_16sdp"
-        app:layout_constraintEnd_toStartOf="@+id/app_language_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/settings_tv"
-        />
+        <View
+            android:id="@+id/customView"
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:layout_margin="@dimen/_16sdp"
+            app:layout_constraintEnd_toStartOf="@+id/app_language_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_tv"
+            />
 
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_icon_language_screen"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_margin="@dimen/_16sdp"
-        android:visibility="visible"
-        android:padding="4dp"
-        android:src="@drawable/back_icon_language_screen"
-        app:layout_constraintEnd_toStartOf="@+id/app_language_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/settings_tv"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_icon_language_screen"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_16sdp"
+            android:visibility="visible"
+            android:padding="4dp"
+            android:src="@drawable/back_icon_language_screen"
+            app:layout_constraintEnd_toStartOf="@+id/app_language_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_tv"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/app_language_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/quattrocentosansbold"
-        android:text="@string/app_language"
-        android:textSize="@dimen/_14ssp"
-        android:textStyle="bold"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintStart_toEndOf="@id/customView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/settings_tv"
-        />
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:background="@drawable/langugage_apply_round_btn"
-        android:fontFamily="@font/quattrocentosansbold"
-        android:paddingHorizontal="@dimen/_20sdp"
-        android:paddingVertical="@dimen/_3sdp"
-        android:text="@string/apply"
-        android:textColor="#FF1313"
-        app:layout_constraintBottom_toBottomOf="@+id/app_language_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/app_language_tv"
-        app:layout_constraintTop_toTopOf="@+id/app_language_tv" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/app_language_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quattrocentosansbold"
+            android:text="@string/app_language"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@id/customView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_tv"
+            />
 
 
-    <FrameLayout
-        android:id="@+id/ads_banner_place_holder"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#F1F0FF"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@+id/settings_tv"
-        app:layout_constraintBottom_toTopOf="@+id/languageRv"
-        />
-
-    <include
-        android:id="@+id/shimmerLayout"
-        layout="@layout/shimmer_small_native_design"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/ads_banner_place_holder"
-        app:layout_constraintStart_toStartOf="@+id/ads_banner_place_holder"
-        app:layout_constraintEnd_toEndOf="@+id/ads_banner_place_holder"
-        app:layout_constraintBottom_toBottomOf="@+id/ads_banner_place_holder"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="@drawable/langugage_apply_round_btn"
+            android:fontFamily="@font/quattrocentosansbold"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:paddingVertical="@dimen/_3sdp"
+            android:text="@string/apply"
+            android:gravity="center"
+            android:textColor="#FF1313"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintHeight_percent="0.050"
+            app:layout_constraintBottom_toBottomOf="@+id/app_language_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/app_language_tv"
+            app:layout_constraintTop_toTopOf="@+id/app_language_tv" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/languageRv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ads_banner_place_holder"
-        tools:listitem="@layout/language_layout_item" />
+        <FrameLayout
+            android:id="@+id/ads_banner_place_holder"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#F1F0FF"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/settings_tv"
+            app:layout_constraintBottom_toTopOf="@+id/languageRv"
+            />
+
+        <include
+            android:id="@+id/shimmerLayout"
+            layout="@layout/shimmer_small_native_design"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/ads_banner_place_holder"
+            app:layout_constraintStart_toStartOf="@+id/ads_banner_place_holder"
+            app:layout_constraintEnd_toEndOf="@+id/ads_banner_place_holder"
+            app:layout_constraintBottom_toBottomOf="@+id/ads_banner_place_holder"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/languageRv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ads_banner_place_holder"
+            tools:listitem="@layout/language_layout_item" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,9 +20,9 @@ import com.example.a4kvideodownloaderplayer.ads.advert.adsRemoteModel
 import com.example.a4kvideodownloaderplayer.ads.advert.app_open_l
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_language_l
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_l
-import com.example.a4kvideodownloaderplayer.ads.advert.banner_player_l
 import com.example.a4kvideodownloaderplayer.ads.advert.fullScreenCappingL
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_l
+import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_video_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_exit_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_home_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_language_l
@@ -145,7 +145,7 @@ class SplashFragment : Fragment() {
     private fun adsRemoteConfig() {
         RemoteConfigurations.fetchRemotes(
             activity ?: return,
-            jsonKey = "ads_json_03",
+            jsonKey = "ads_json_05",
             defaultXml = R.xml.ads_remote_config,
             onSuccess = {
                 try {
@@ -158,8 +158,8 @@ class SplashFragment : Fragment() {
                     fullscreen_home_l = adsRemoteModel?.fullscreen_home_l == true
                     native_exit_l = adsRemoteModel?.native_exit_l == true
                     app_open_l = adsRemoteModel?.app_open_l == true
-                    fullScreenCappingL = adsRemoteModel?.fullScreenCappingL ?: 5000
-                    banner_player_l = banner_player_l == true
+                    fullScreenCappingL = adsRemoteModel?.fullScreenCappingL ?: 2000
+                    fullscreen_video_l = adsRemoteModel?.fullscreen_video_l == true
 
 
                     Log.d("REMOTE_CONFIG", "native_language_l: $native_language_l")
@@ -169,7 +169,7 @@ class SplashFragment : Fragment() {
                     Log.d("REMOTE_CONFIG", "native_exit_l: $native_exit_l")
                     Log.d("REMOTE_CONFIG", "app_open_l: $app_open_l")
                     Log.d("REMOTE_CONFIG", "fullScreenCapping: $fullScreenCappingL")
-                    Log.d("REMOTE_CONFIG", "banner_player: $banner_player_l")
+                    Log.d("REMOTE_CONFIG", "fullscreen_video_l: $fullscreen_video_l")
 
 
 

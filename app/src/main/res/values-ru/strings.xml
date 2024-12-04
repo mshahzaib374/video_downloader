@@ -81,5 +81,12 @@
     <string name="you_can_cancel_subscription">Вы можете отменить подписку в любое время через Google Play Store.</string>
     <string name="terms_of_uses"><u>Условия использования</u></string>
     <string name="privacy_policy_text"><u>Политика конфиденциальности</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">Отменить загрузку</string>
+    <string name="already_purchased">Уже куплено!</string>
+    <string name="you_already_have_access_to_the_premium">У вас уже есть доступ к премиум-пакету! Наслаждайтесь всеми эксклюзивными функциями и преимуществами</string>
+    <string name="video_size_is_too_large">Загрузка видео длительностью более 5 минут не разрешена.</string>
+    <string name="continue_with_ads">Продолжить с рекламой</string>
+    <string name="or">ИЛИ</string>
+
+
 </resources>

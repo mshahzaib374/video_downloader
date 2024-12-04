@@ -108,7 +108,7 @@ class DownloadedFragment : Fragment() {
                 MediaStore.Video.Media._ID,
                 MediaStore.Video.Media.DISPLAY_NAME,
                 MediaStore.Video.Media.RELATIVE_PATH,
-                MediaStore.Video.Media.DATE_MODIFIED
+                MediaStore.Video.Media.DATE_ADDED
             )
             val selection = "${MediaStore.Video.Media.RELATIVE_PATH} LIKE ?"
             val selectionArgs = arrayOf("%$folderName%")
@@ -120,7 +120,7 @@ class DownloadedFragment : Fragment() {
                 val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
                 val nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
                 val pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.RELATIVE_PATH)
-                val dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_MODIFIED)
+                val dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED)
 
 
                 while (cursor.moveToNext()) {
@@ -129,6 +129,7 @@ class DownloadedFragment : Fragment() {
                     val relativePath = cursor.getString(pathColumn)
                     val filePath = "$downloadsPath/$relativePath/$fileName"
                     val contentUri = ContentUris.withAppendedId(queryUri, id) // Add to video list
+                    Log.e("TAG", "dateColumn: ${cursor.getLong(dateColumn)}" )
                     videosList.add(
                         VideoFile(
                             id,
@@ -167,6 +168,7 @@ class DownloadedFragment : Fragment() {
                         null
                     }
                     // Add to video list
+
                     videosList.add(
                         VideoFile(
                             0L,
@@ -180,9 +182,7 @@ class DownloadedFragment : Fragment() {
                 }
             }
         }
-
         videosList.sortByDescending { it.dateModified }
-
 
         // Update the UI with the video list
         if (videosList.isNotEmpty()) {

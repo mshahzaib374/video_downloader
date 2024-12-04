@@ -3,7 +3,6 @@ package com.example.a4kvideodownloaderplayer.helper
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.fragments.langugage.model.Languages
 import com.google.android.exoplayer2.util.Log
@@ -12,7 +11,6 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.analytics
-import com.google.firebase.analytics.ktx.analytics
 
 
 object AppUtils {

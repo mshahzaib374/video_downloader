@@ -1,28 +1,44 @@
 package com.example.a4kvideodownloaderplayer.fragments.premium
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.example.a4kvideodownloaderplayer.MainActivity
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_video_l
 import com.example.a4kvideodownloaderplayer.ads.billing.BillingListener
 import com.example.a4kvideodownloaderplayer.ads.billing.BillingUtils
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdLoadCallback
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdOptions
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdShowCallback
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterstitialAdUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.PremiumFragmentBinding
+import com.example.a4kvideodownloaderplayer.databinding.RestrictPremiumDialogLayoutBinding
+import com.example.a4kvideodownloaderplayer.fragments.main.MainFragment.Companion.dialogEventListener
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.privacyPolicyUrl
 import com.example.a4kvideodownloaderplayer.helper.termsUrl
+import com.google.android.gms.ads.LoadAdError
 
 class PremiumFragment : DialogFragment() {
     private var _binding: PremiumFragmentBinding? = null
     private var billingUtils: BillingUtils? = null
     private var SKUID = "one_month_package"
+    private var subscribedList = emptyList<Purchase>()
+    private var exitBinding: RestrictPremiumDialogLayoutBinding? = null
+    private var exitDialog: Dialog? = null
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,11 +70,8 @@ class PremiumFragment : DialogFragment() {
                     products: List<ProductDetails>,
                     subscriptions: List<ProductDetails>
                 ) {
-                    // Handle product and subscription metadata
-
                     subscriptions.forEach {
                         val productId = it.productId
-                        Log.e("TAG", "productId: $productId")
                         when (productId) {
                             "one_month_package" -> {
                                 _binding?.monthlyPriceTv?.text =
@@ -70,11 +83,6 @@ class PremiumFragment : DialogFragment() {
                                     it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
                             }
                         }
-
-                        val price =
-                            it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
-
-                        Log.d("IAP", "productAndSubMetaData: $price")
                     }
                 }
 
@@ -90,8 +98,7 @@ class PremiumFragment : DialogFragment() {
                     purchaseList: List<Purchase>,
                     subList: List<Purchase>
                 ) {
-                    // Handle combined list
-                    Log.d("IAP", "purchasedAndSubscribedList: ${subList}")
+                    subscribedList = subList
                 }
             })
             .setSubscriptionIds("one_month_package", "six_month_package")
@@ -116,10 +123,25 @@ class PremiumFragment : DialogFragment() {
             }
 
             premiumCloseIV.setOnClickListener {
-               // findNavController().navigateUp()
-                dismiss()
+                showInterAd()
             }
+
+            premiumContinue.setOnClickListener {
+                showInterAd()
+            }
+
             premiumBuy.setOnClickListener {
+                /*subscribedList.forEach {
+                    val constained = it.products.contains(SKUID)
+                    if (constained) {
+                        restrictDialog()
+                        return@setOnClickListener
+                    }
+                }*/
+                if (Admobify.isPremiumUser()){
+                    restrictDialog()
+                    return@setOnClickListener
+                }
                 billingUtils?.subscribe(SKUID)
             }
 
@@ -148,5 +170,102 @@ class PremiumFragment : DialogFragment() {
 
     }
 
+
+    private fun restrictDialog() {
+        exitBinding = RestrictPremiumDialogLayoutBinding.inflate(layoutInflater)
+        exitDialog = Dialog(context ?: return)
+        exitDialog?.apply {
+            setContentView(exitBinding?.root ?: return)
+            setCancelable(false)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window?.setDimAmount(0.5f)
+            show()
+            dialogEventListener?.onDialogShown()
+        }
+
+        exitBinding?.apply {
+            exitETv.setOnClickListener {
+                exitDialog?.dismiss()
+            }
+        }
+
+
+
+        exitDialog?.setOnShowListener {
+            //homeViewModel?.showExitDialog(true)
+        }
+        exitDialog?.setOnDismissListener {
+            dialogEventListener?.onDialogDismissed()
+            //homeViewModel?.hideExitDialog(false)
+        }
+
+
+    }
+
+    override fun onPause() {
+        if (exitDialog?.isShowing == true) {
+            exitDialog?.dismiss()
+        }
+        super.onPause()
+    }
+
+    override fun onStop() {
+        if (exitDialog?.isShowing == true) {
+            exitDialog?.dismiss()
+        }
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        if (exitDialog?.isShowing == true) {
+            exitDialog?.dismiss()
+            exitBinding = null
+        }
+        super.onDestroyView()
+    }
+
+    private fun showInterAd() {
+        val adOptions = InterAdOptions().setAdId(getString(R.string.playerInterstitialAd))
+            .setRemoteConfig(fullscreen_video_l).setLoadingDelayForDialog(2)
+            .setFullScreenLoading(false)
+            .build(activity ?: return)
+        InterstitialAdUtils(adOptions).loadAndShowInterAd(object :
+            InterAdLoadCallback() {
+            override fun adAlreadyLoaded() {}
+            override fun adLoaded() {}
+            override fun adFailed(error: LoadAdError?, msg: String?) {
+                dismiss()
+            }
+
+            override fun adValidate() {
+                dismiss()
+
+            }
+
+        },
+            object : InterAdShowCallback() {
+                override fun adNotAvailable() {}
+                override fun adShowFullScreen() {
+                    dismiss()
+
+                }
+
+                override fun adDismiss() {
+                    Toast.makeText(
+                        context ?: return,
+                        getString(R.string.video_downloaded_successfully),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun adFailedToShow() {
+                    dismiss()
+                }
+
+                override fun adImpression() {}
+
+                override fun adClicked() {}
+            })
+    }
 
 }

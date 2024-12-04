@@ -81,5 +81,12 @@
     <string name="you_can_cancel_subscription">Aboneliğinizi istediğiniz zaman Google Play Store dan iptal edebilirsiniz.</string>
     <string name="terms_of_uses"><u>Kullanım Koşulları</u></string>
     <string name="privacy_policy_text"><u>Gizlilik Politikası</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">İndirmeyi iptal et</string>
+    <string name="already_purchased">Zaten satın alındı!</string>
+    <string name="you_already_have_access_to_the_premium">Zaten premium pakete erişiminiz var! Size sunulan tüm özel özelliklerin ve avantajların keyfini çıkarın</string>
+    <string name="video_size_is_too_large">5 dakikadan uzun videoların indirilmesine izin verilmez.</string>
+    <string name="continue_with_ads">Reklamlarla Devam Et</string>
+    <string name="or">VEYA</string>
+
+
 </resources>

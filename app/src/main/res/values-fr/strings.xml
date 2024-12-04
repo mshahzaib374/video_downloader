@@ -81,5 +81,12 @@
     <string name="you_can_cancel_subscription">Vous pouvez annuler abonnement à tout moment depuis Google Play Store.</string>
     <string name="terms_of_uses"><u>Conditions utilisation</u></string>
     <string name="privacy_policy_text"><u>Politique de confidentialité</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">Annuler le téléchargement</string>
+    <string name="already_purchased">Déjà acheté !</string>
+    <string name="you_already_have_access_to_the_premium">Vous avez déjà accès au package premium ! Profitez de toutes les fonctionnalités et avantages exclusifs disponibles pour vous</string>
+    <string name="video_size_is_too_large">Les vidéos de plus de 5 minutes ne sont pas autorisées au téléchargement.</string>
+    <string name="continue_with_ads">Continuer avec des publicités</string>
+    <string name="or">OU</string>
+
+
 </resources>

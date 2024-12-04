@@ -81,5 +81,12 @@
     <string name="you_can_cancel_subscription">คุณสามารถยกเลิกการสมัครสมาชิกได้ตลอดเวลาจาก Google Play Store.</string>
     <string name="terms_of_uses"><u>ข้อกำหนดการใช้งาน</u></string>
     <string name="privacy_policy_text"><u>นโยบายความเป็นส่วนตัว</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">ยกเลิกการดาวน์โหลด</string>
+    <string name="already_purchased">ซื้อแล้ว!</string>
+    <string name="you_already_have_access_to_the_premium">คุณมีสิทธิ์เข้าถึงแพ็คเกจพรีเมียมแล้ว! เพลิดเพลินกับฟีเจอร์และสิทธิประโยชน์สุดพิเศษที่มีให้คุณ</string>
+    <string name="video_size_is_too_large">ไม่อนุญาตให้ดาวน์โหลดวิดีโอที่ยาวเกิน 5 นาที</string>
+    <string name="continue_with_ads">ดำเนินการต่อด้วยโฆษณา</string>
+    <string name="or">หรือ</string>
+
+
 </resources>

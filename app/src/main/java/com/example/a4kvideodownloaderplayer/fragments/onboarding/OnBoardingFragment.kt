@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.advert.banner_language_l
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_l
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdUtils

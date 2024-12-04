@@ -53,7 +53,7 @@
     <string name="your_video_is_being_download_nplease_wait">Tu vídeo se está descargando\nEspera</string>
     <string name="loading_ad">Cargando anuncios</string>
     <string name="exit_app">Salir de la aplicación</string>
-    <string name="are_you_sure_you_want_to_exit_this_app">¿Estás seguro de que quieres salir de esta aplicación?</string>
+    <string name="are_you_sure_you_want_to_exit_this_app">Estás seguro de que quieres salir de esta aplicación</string>
     <string name="cancel">Cancelar</string>
     <string name="exit">Salida</string>
     <string name="home">Hogar</string>
@@ -81,6 +81,12 @@
     <string name="you_can_cancel_subscription">Puedes cancelar la suscripción en cualquier momento desde Google Play Store.</string>
     <string name="terms_of_uses"><u>Términos de Uso</u></string>
     <string name="privacy_policy_text"><u>Política de Privacidad</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">Cancelar descarga</string>
+    <string name="already_purchased">Ya comprado!</string>
+    <string name="you_already_have_access_to_the_premium">Ya tienes acceso al paquete premium! Disfruta de todas las características y beneficios exclusivos disponibles para ti</string>
+    <string name="video_size_is_too_large">No se permite descargar videos de más de 5 minutos.</string>
+    <string name="continue_with_ads">Continuar con anuncios</string>
+    <string name="or">O</string>
+
 
 </resources>

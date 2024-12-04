@@ -27,7 +27,6 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdCallback
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdItemsModel
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdUtils
 import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
-import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.logger.Category
 import com.example.a4kvideodownloaderplayer.ads.utils.logger.Level

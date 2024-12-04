@@ -81,5 +81,13 @@
     <string name="you_can_cancel_subscription">يمكنك إلغاء الاشتراك في أي وقت من متجر Google Play.</string>
     <string name="terms_of_uses"><u>شروط الاستخدام</u></string>
     <string name="privacy_policy_text"><u>سياسة الخصوصية</u></string>
-    <string name="cancel_dialog">Cancel download</string>
+    <string name="cancel_dialog">إلغاء التنزيل</string>
+    <string name="already_purchased">تم الشراء مسبقًا!</string>
+    <string name="you_already_have_access_to_the_premium">لديك بالفعل وصول إلى الحزمة المميزة! استمتع بجميع الميزات والفوائد الحصرية المتاحة لك</string>
+    <string name="video_size_is_too_large">لا يُسمح بتنزيل مقاطع الفيديو التي تزيد مدتها عن 5 دقائق.</string>
+    <string name="continue_with_ads">استمر مع الإعلانات</string>
+    <string name="or">أو</string>
+
+
+
 </resources>

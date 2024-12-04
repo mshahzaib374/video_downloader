@@ -5,24 +5,22 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
 object RetrofitInstance {
-    private const val BASE_URL = "http://51.20.108.109:8080/"
-
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)  // Connection timeout
-        .readTimeout(30, TimeUnit.SECONDS)     // Read timeout
-        .writeTimeout(30, TimeUnit.SECONDS)    // Write timeout
-        .build()
-
-
-
+    private const val BASE_URL = "http://51.20.108.109:8080/api/"
     val api: VideoApiService by lazy {
-        Retrofit.Builder()
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS) // 30 seconds connect timeout
+            .readTimeout(30, TimeUnit.SECONDS)    // 30 seconds read timeout
+            .writeTimeout(30, TimeUnit.SECONDS)   // 30 seconds write timeout
+            .build()
+        val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(client)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(VideoApiService::class.java)
+
+        retrofit.create(VideoApiService::class.java)
     }
 }
 
