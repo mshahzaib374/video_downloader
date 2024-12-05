@@ -124,7 +124,11 @@ class HomeFragment : Fragment() {
                         }
                         // downloadDialog?.initListeners(context ?: return@checkForYoutubeLink)
                         downloadDialog?.showDownloadDialog(context ?: return@checkForYoutubeLink)
-                        checkForLinkedinLink(downloadUrl) {
+                        videoViewModel.newDownloadVideoApi(
+                            downloadUrl,
+                            context ?: return@checkForYoutubeLink
+                        )
+                        /*checkForLinkedinLink(downloadUrl) {
                             if (it) {
                                 Log.d("SHAH", "oldDownloadVideoApi: ")
                                 videoViewModel.oldDownloadVideoApi(
@@ -138,7 +142,7 @@ class HomeFragment : Fragment() {
                                     context ?: return@checkForLinkedinLink
                                 )
                             }
-                        }
+                        }*/
 
                     }
                 }
