@@ -28,7 +28,6 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdItemsModel
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdUtils
 import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
-import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.databinding.HomeFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
@@ -47,6 +46,7 @@ class HomeFragment : Fragment() {
 
     private var progressDialog: ProgressDialog? = null
     private var downloadDialog: DownloadDialogHelper? = null
+    private var isLinkedien = false
 
 
     override fun onCreateView(
@@ -73,8 +73,12 @@ class HomeFragment : Fragment() {
             val socialMediaPatterns = mapOf(
                 "TikTok" to Regex("tiktok\\.com", RegexOption.IGNORE_CASE),
                 "Facebook" to Regex("facebook\\.com", RegexOption.IGNORE_CASE),
-                "Pinterest" to Regex("pinterest\\.com", RegexOption.IGNORE_CASE),
-                "Snapchat" to Regex("snapchat\\.com", RegexOption.IGNORE_CASE)
+                "Pinterest" to Regex(
+                    "(pinterest\\.com|pin\\.it)",
+                    RegexOption.IGNORE_CASE
+                ), // Includes shortened URL
+                "Snapchat" to Regex("snapchat\\.com", RegexOption.IGNORE_CASE),
+                "Linkedin" to Regex("linkedin\\.com", RegexOption.IGNORE_CASE)
             )
 
             input.addTextChangedListener(object : TextWatcher {
@@ -116,14 +120,26 @@ class HomeFragment : Fragment() {
                 checkForYoutubeLink(downloadUrl) {
                     if (downloadUrl.isNotEmpty()) {
                         downloadDialog = DownloadDialogHelper {
-                            videoViewModel.cancelDownload()
+                            //videoViewModel.cancelDownload()
                         }
                         // downloadDialog?.initListeners(context ?: return@checkForYoutubeLink)
                         downloadDialog?.showDownloadDialog(context ?: return@checkForYoutubeLink)
-                        videoViewModel.downloadVideo(
-                            downloadUrl,
-                            context ?: return@checkForYoutubeLink
-                        )
+                        checkForLinkedinLink(downloadUrl) {
+                            if (it) {
+                                Log.d("SHAH", "oldDownloadVideoApi: ")
+                                videoViewModel.oldDownloadVideoApi(
+                                    downloadUrl,
+                                    context ?: return@checkForLinkedinLink
+                                )
+                            } else {
+                                Log.d("SHAH", "newDownloadVideoApi: ")
+                                videoViewModel.newDownloadVideoApi(
+                                    downloadUrl,
+                                    context ?: return@checkForLinkedinLink
+                                )
+                            }
+                        }
+
                     }
                 }
 
@@ -145,7 +161,16 @@ class HomeFragment : Fragment() {
             binding?.input?.text?.clear()
             when (status) {
                 "SUCCESS" -> {
-                    showInterAd()
+                    if (Admobify.isPremiumUser()) {
+                        homeViewModel.updatePageSelector(1)
+                        Toast.makeText(
+                            context ?: return@observe,
+                            getString(R.string.video_downloaded_successfully),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        showInterAd()
+                    }
                 }
 
                 "ERROR_SIZE" -> {
@@ -190,11 +215,13 @@ class HomeFragment : Fragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
+                Log.e("TAG", "onAdShown: ")
                 binding?.nativeContainer?.visibility = View.INVISIBLE
 
             }
 
             override fun onAdDismissed() {
+                Log.e("TAG", "onAdDismissed: ")
                 binding?.nativeContainer?.visibility = View.VISIBLE
             }
         }
@@ -206,12 +233,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onDialogDismissed() {
-                if (!Admobify.isPremiumUser() && AdmobifyUtils.isNetworkAvailable(
-                        context ?: return
-                    )
-                ) {
-                    binding?.nativeContainer?.visibility = View.VISIBLE
-                }
+                binding?.nativeContainer?.visibility = View.VISIBLE
             }
 
         }
@@ -225,11 +247,11 @@ class HomeFragment : Fragment() {
                 binding?.apply {
                     when (platform) {
                         "Facebook" -> {
-                            Log.e("TAG", "checkSocialMediaLink: $platform")
                             fIV.setImageResource(R.drawable.f_enable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_disable)
+                            fIV5.setImageResource(R.drawable.lin_disable)
                         }
 
                         "TikTok" -> {
@@ -237,6 +259,7 @@ class HomeFragment : Fragment() {
                             fIV2.setImageResource(R.drawable.t_enable)
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_disable)
+                            fIV5.setImageResource(R.drawable.lin_disable)
                         }
 
                         "Pinterest" -> {
@@ -244,6 +267,7 @@ class HomeFragment : Fragment() {
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_enable)
                             fIV4.setImageResource(R.drawable.snp_disable)
+                            fIV5.setImageResource(R.drawable.lin_disable)
                         }
 
                         "Snapchat" -> {
@@ -251,14 +275,24 @@ class HomeFragment : Fragment() {
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_enable)
+                            fIV5.setImageResource(R.drawable.lin_disable)
                         }
 
-                        else -> {
-
+                        "Linkedin" -> {
                             fIV.setImageResource(R.drawable.f_disable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_disable)
+                            fIV5.setImageResource(R.drawable.lin_enable)
+
+                        }
+
+                        else -> {
+                            fIV.setImageResource(R.drawable.f_disable)
+                            fIV2.setImageResource(R.drawable.t_disable)
+                            fIV3.setImageResource(R.drawable.pin_disable)
+                            fIV4.setImageResource(R.drawable.snp_disable)
+                            fIV5.setImageResource(R.drawable.lin_disable)
                         }
                     }
                 }
@@ -270,6 +304,7 @@ class HomeFragment : Fragment() {
                     fIV2.setImageResource(R.drawable.t_disable)
                     fIV3.setImageResource(R.drawable.pin_disable)
                     fIV4.setImageResource(R.drawable.snp_disable)
+                    fIV5.setImageResource(R.drawable.lin_disable)
                 }
             }
         }
@@ -287,6 +322,16 @@ class HomeFragment : Fragment() {
                 getString(R.string.youtube_is_legally_restricted), Toast.LENGTH_SHORT
             )
                 .show()
+        }
+
+    }
+
+    private fun checkForLinkedinLink(downloadUrl: String, isLinkedinURL: (Boolean) -> Unit = {}) {
+        val linkedinRegex = Regex("https?://(www\\.)?linkedin\\.com/.*", RegexOption.IGNORE_CASE)
+        if (linkedinRegex.matches(downloadUrl)) {
+            isLinkedinURL.invoke(true)
+        } else {
+            isLinkedinURL.invoke(false)
         }
 
     }
@@ -320,7 +365,6 @@ class HomeFragment : Fragment() {
                 adRemote = native_home_l,
                 binding?.nativeContainer ?: return,
                 nativeAdModel, object : NativeAdCallback() {
-
                     override fun adFailed(error: LoadAdError?) {
                         super.adFailed(error)
                         binding?.nativeContainer?.visibility = View.INVISIBLE

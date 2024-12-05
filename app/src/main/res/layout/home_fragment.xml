@@ -146,7 +146,7 @@
                 android:id="@+id/other_social_platforms_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:fontFamily="@font/manropebold"
                 android:text="@string/other_social_platforms"
                 android:textColor="@color/very_dark_grey"
@@ -159,8 +159,8 @@
 
             <ImageView
                 android:id="@+id/fIV"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:src="@drawable/f_disable"
                 android:layout_marginTop="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -170,8 +170,8 @@
 
             <ImageView
                 android:id="@+id/fIV2"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:src="@drawable/t_disable"
                 app:layout_constraintBottom_toBottomOf="@+id/fIV"
                 app:layout_constraintEnd_toStartOf="@+id/fIV3"
@@ -180,8 +180,8 @@
 
             <ImageView
                 android:id="@+id/fIV3"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:src="@drawable/pin_disable"
                 app:layout_constraintBottom_toBottomOf="@+id/fIV2"
                 app:layout_constraintEnd_toStartOf="@+id/fIV4"
@@ -190,22 +190,29 @@
 
             <ImageView
                 android:id="@+id/fIV4"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:src="@drawable/snp_disable"
                 app:layout_constraintBottom_toBottomOf="@+id/fIV3"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/fIV5"
                 app:layout_constraintStart_toEndOf="@+id/fIV3"
+                app:layout_constraintTop_toTopOf="@+id/fIV3" />
+
+
+            <ImageView
+                android:id="@+id/fIV5"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/lin_disable"
+                app:layout_constraintBottom_toBottomOf="@+id/fIV3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fIV4"
                 app:layout_constraintTop_toTopOf="@+id/fIV3" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-
-
-
 
 
     <FrameLayout
@@ -215,7 +222,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginVertical="@dimen/_16sdp"
-        android:background="#F1F0FF"
         android:minWidth="302dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

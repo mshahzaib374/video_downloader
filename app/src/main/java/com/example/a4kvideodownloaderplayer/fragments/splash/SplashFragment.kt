@@ -34,6 +34,7 @@ import com.example.a4kvideodownloaderplayer.ads.billing.BillingUtils
 import com.example.a4kvideodownloaderplayer.ads.consent_form.AdmobConsentForm
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
+import com.example.a4kvideodownloaderplayer.ads.utils.logger.Logger
 import com.example.a4kvideodownloaderplayer.databinding.FragmentSplashBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.aiartgenerator.utils.AppPrefs

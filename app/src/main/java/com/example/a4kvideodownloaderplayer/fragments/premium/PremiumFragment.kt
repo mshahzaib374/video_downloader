@@ -8,8 +8,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.example.a4kvideodownloaderplayer.MainActivity
@@ -29,6 +29,8 @@ import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.privacyPolicyUrl
 import com.example.a4kvideodownloaderplayer.helper.termsUrl
 import com.google.android.gms.ads.LoadAdError
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PremiumFragment : DialogFragment() {
     private var _binding: PremiumFragmentBinding? = null
@@ -37,8 +39,6 @@ class PremiumFragment : DialogFragment() {
     private var subscribedList = emptyList<Purchase>()
     private var exitBinding: RestrictPremiumDialogLayoutBinding? = null
     private var exitDialog: Dialog? = null
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,7 +138,7 @@ class PremiumFragment : DialogFragment() {
                         return@setOnClickListener
                     }
                 }*/
-                if (Admobify.isPremiumUser()){
+                if (Admobify.isPremiumUser()) {
                     restrictDialog()
                     return@setOnClickListener
                 }
@@ -246,16 +246,15 @@ class PremiumFragment : DialogFragment() {
             object : InterAdShowCallback() {
                 override fun adNotAvailable() {}
                 override fun adShowFullScreen() {
-                    dismiss()
+                    lifecycleScope.launch {
+                        delay(800)
+                        dismiss()
+                    }
 
                 }
 
                 override fun adDismiss() {
-                    Toast.makeText(
-                        context ?: return,
-                        getString(R.string.video_downloaded_successfully),
-                        Toast.LENGTH_SHORT
-                    ).show()
+
                 }
 
                 override fun adFailedToShow() {

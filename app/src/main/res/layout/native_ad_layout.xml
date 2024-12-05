@@ -2,7 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#F1F0FF"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +19,7 @@
             android:layout_gravity="center"
             android:text="AD"
             android:textAlignment="center"
-            android:textColor="#EF5223"
+            android:textColor="#0074F1"
             android:textSize="@dimen/_12ssp"
             android:layout_marginStart="@dimen/_10sdp"
             app:layout_constraintStart_toEndOf="@id/tvHeadline"
@@ -83,8 +85,8 @@
             android:padding="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/mediaView"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Google Play"
-            android:background="@drawable/downloading_bg"
+            tools:text="Google Play"
+            android:background="#0074F1"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="@dimen/_10ssp"

@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -477,6 +478,9 @@ class MainFragment : Fragment() {
             binding?.viewPagerDashboardLight?.currentItem = it
 
             binding?.apply {
+                tabHome.isEnabled = true
+                tabDownload.isEnabled = true
+                tabSettings.isEnabled = true
                 iconHome.setImageResource(R.drawable.home_icon)
                 iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
                 textHome.setTextColor(Color.parseColor("#BEB8B8"))
@@ -568,6 +572,10 @@ class MainFragment : Fragment() {
             setCancelable(false)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             window?.setDimAmount(0.5f)
+            window?.setLayout(
+                (resources.displayMetrics.widthPixels * 0.9).toInt(),  // 90% of screen width
+                WindowManager.LayoutParams.WRAP_CONTENT                    // Adjust height as needed
+            )
             show()
             dialogEventListener?.onDialogShown()
         }

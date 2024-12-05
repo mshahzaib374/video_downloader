@@ -16,8 +16,8 @@ android {
         applicationId = "vid.hd.videodownloader.videoplayer.download.all.videosapp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 5
-        versionName = "1.5"
+        versionCode = 6
+        versionName = "1.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         val formattedDate = SimpleDateFormat("yyyy_MM_dd_HH_mm")
@@ -106,8 +106,8 @@ dependencies {
 
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.kotlinx.coroutines.android)
-    implementation (libs.glide)/*
-    implementation (libs.okhttp)*/
+    implementation (libs.glide)
+    implementation (libs.okhttp)
     implementation(libs.androidx.lifecycle.process)
 
 

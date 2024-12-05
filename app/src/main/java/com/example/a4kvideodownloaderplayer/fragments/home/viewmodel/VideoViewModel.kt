@@ -12,15 +12,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.fragments.home.model.ApiResponse
 import com.example.a4kvideodownloaderplayer.fragments.home.retrofit.RetrofitInstance
 import com.example.a4kvideodownloaderplayer.fragments.home.retrofit.VideoApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -43,41 +48,45 @@ class VideoViewModel : ViewModel() {
         _downloadStatus.value = ""
     }
 
-    fun downloadVideo(url: String, context: Context) {
-        downloadJob = CoroutineScope(Dispatchers.IO).launch {
-            /* try {*/
-            val videoRequest = VideoApiService.VideoRequest(videoUrl = url)
-            RetrofitInstance.api.downloadVideo(videoRequest)
-                .enqueue(object : retrofit2.Callback<ResponseBody> {
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: retrofit2.Response<ResponseBody>
-                    ) {
-                        Log.e("TAG", "onResponse: $response")
-                        if (response.isSuccessful) {
+    fun newDownloadVideoApi(url: String, context: Context) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val videoRequest = VideoApiService.VideoRequest(videoUrl = url)
+                RetrofitInstance.api.downloadVideoNewApi(videoRequest)
+                    .enqueue(object : retrofit2.Callback<ResponseBody> {
+                        override fun onResponse(
+                            call: Call<ResponseBody>,
+                            response: retrofit2.Response<ResponseBody>
+                        ) {
+                            Log.e("TAG", "onResponse: $response")
+                            if (response.isSuccessful) {
                                 response.body()?.let { body ->
-                                    saveFileFromResponse(body, context)
+                                    newSaveFileFromResponse(body, context)
                                 } ?: run {
                                     _downloadStatus.postValue("ERROR")
                                 }
 
-                        } else if(response.code() == 400) {
-                            _downloadStatus.postValue("ERROR_SIZE")
+                            } else if(response.code() == 400) {
+                                _downloadStatus.postValue("ERROR_SIZE")
+                            }
+
+                            else {
+                                _downloadStatus.postValue("ERROR")
+                            }
                         }
 
-                        else {
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                             _downloadStatus.postValue("ERROR")
                         }
-                    }
+                    })
+            }catch (e : Exception){
+                _downloadStatus.postValue("ERROR")
+            }
 
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        _downloadStatus.postValue("ERROR")
-                    }
-                })
         }
     }
 
-    private fun saveFileFromResponse(body: ResponseBody, context: Context) {
+    private fun newSaveFileFromResponse(body: ResponseBody, context: Context) {
         try {
             // Get the Downloads directory
             val downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -109,12 +118,12 @@ class VideoViewModel : ViewModel() {
     }
 
 
-    /*fun downloadVideo(url: String, context: Context) {
+    fun oldDownloadVideoApi(url: String, context: Context) {
         viewModelScope.launch {
             try {
                 val json = """{"videoURL": "$url"}"""
                 val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
-                val response: Call<ApiResponse> = RetrofitInstance.api.downloadVideo(
+                val response: Call<ApiResponse> = RetrofitInstance.api.downloadVideoOldApi(
                     requestBody
                 )
                 response.enqueue(object : retrofit2.Callback<ApiResponse> {
@@ -124,6 +133,7 @@ class VideoViewModel : ViewModel() {
                     ) {
                         if (response.isSuccessful) {
                             response.body()?.let { body ->
+
                                 downloadFileFromUrl(body.message, context)
                             } ?: run {
                                 //ERROR
@@ -148,7 +158,7 @@ class VideoViewModel : ViewModel() {
                 _downloadStatus.postValue("ERROR")
             }
         }
-    }*/
+    }
 
 
     fun downloadFileFromUrl(videoUrl: String, context: Context) {
@@ -226,6 +236,8 @@ class VideoViewModel : ViewModel() {
                         if (statusIndex == DownloadManager.STATUS_RUNNING && totalBytesIndex > 0) {
                             val progress =
                                 (bytesDownloadedIndex * 100L / totalBytesIndex).toInt()
+                            Log.e("TAG", "onResponse: $progress" )
+
                             _downloadProgress.postValue(progress)
                         } else if (statusIndex == DownloadManager.STATUS_SUCCESSFUL) {
                             _downloadStatus.postValue("SUCCESS")
