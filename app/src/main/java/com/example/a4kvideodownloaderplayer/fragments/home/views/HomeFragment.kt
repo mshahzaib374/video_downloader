@@ -29,7 +29,9 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdUtils
 import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.HomeFragmentBinding
+import com.example.a4kvideodownloaderplayer.databinding.MediumNativeAdsBinding
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
+import com.example.a4kvideodownloaderplayer.databinding.NativeSmallAdBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 import com.example.a4kvideodownloaderplayer.fragments.main.MainFragment
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
@@ -39,15 +41,12 @@ import com.example.a4kvideodownloaderplayer.helper.DownloadDialogHelper
 import com.google.android.gms.ads.LoadAdError
 
 class HomeFragment : Fragment() {
-
     private var binding: HomeFragmentBinding? = null
     private val videoViewModel: VideoViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by activityViewModels()
-
     private var progressDialog: ProgressDialog? = null
     private var downloadDialog: DownloadDialogHelper? = null
     private var isLinkedien = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,13 +60,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         context?.logFirebaseEvent("home_fragment", "screen_opened")
-
         binding?.apply {
-
-
             premiumIcon.setOnClickListener {
                 PremiumFragment().show(parentFragmentManager, "HomeFragment")
-
             }
 
             val socialMediaPatterns = mapOf(
@@ -78,7 +73,8 @@ class HomeFragment : Fragment() {
                     RegexOption.IGNORE_CASE
                 ), // Includes shortened URL
                 "Snapchat" to Regex("snapchat\\.com", RegexOption.IGNORE_CASE),
-                "Linkedin" to Regex("linkedin\\.com", RegexOption.IGNORE_CASE)
+                "Linkedin" to Regex("linkedin\\.com", RegexOption.IGNORE_CASE),
+                "Instagram" to Regex("instagram\\.com", RegexOption.IGNORE_CASE)
             )
 
             input.addTextChangedListener(object : TextWatcher {
@@ -104,11 +100,10 @@ class HomeFragment : Fragment() {
             })
 
 
-
             cardViewDashboardHomeUpper.setBackgroundResource(R.drawable.rounded_corners_home_fragment_card)
             downloadTv.setOnClickListener {
                 context?.logFirebaseEvent("home_fragment", "download_button_clicked")
-
+                context?.logFirebaseEvent("home_fragment", "Entered Download Link ${input.text.toString().trim()}")
                 val downloadUrl = input.text.toString().trim()
                 if (!URLUtil.isValidUrl(downloadUrl)) {
                     Toast.makeText(
@@ -151,7 +146,6 @@ class HomeFragment : Fragment() {
 
             pasteLinkTv.setOnClickListener {
                 context?.logFirebaseEvent("home_fragment", "paste_button_clicked")
-
                 pasteClipboardText()
             }
         }
@@ -161,7 +155,16 @@ class HomeFragment : Fragment() {
 
         videoViewModel.downloadStatus.observe(viewLifecycleOwner) { status ->
             Log.e("TAG", "onViewCreated: $status")
-            // Log.e("TAG", "onViewCreated: $status", )
+            var isLangSelected=false
+            homeViewModel.isLanguageSelected.observe(viewLifecycleOwner){isLanguageSelected->
+                    isLangSelected=isLanguageSelected
+            }
+
+            if (isLangSelected){
+                homeViewModel.isLanguageSelected(false)
+                return@observe
+            }
+
             binding?.input?.text?.clear()
             when (status) {
                 "SUCCESS" -> {
@@ -221,7 +224,6 @@ class HomeFragment : Fragment() {
             override fun onAdShown() {
                 Log.e("TAG", "onAdShown: ")
                 binding?.nativeContainer?.visibility = View.INVISIBLE
-
             }
 
             override fun onAdDismissed() {
@@ -229,6 +231,7 @@ class HomeFragment : Fragment() {
                 binding?.nativeContainer?.visibility = View.VISIBLE
             }
         }
+
 
         MainFragment.dialogEventListener = object : MainFragment.Companion.DialogEventListener {
             override fun onDialogShown() {
@@ -256,6 +259,7 @@ class HomeFragment : Fragment() {
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_disable)
                             fIV5.setImageResource(R.drawable.lin_disable)
+                            fIV6.setImageResource(R.drawable.insta_disable)
                         }
 
                         "TikTok" -> {
@@ -264,6 +268,7 @@ class HomeFragment : Fragment() {
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_disable)
                             fIV5.setImageResource(R.drawable.lin_disable)
+                            fIV6.setImageResource(R.drawable.insta_disable)
                         }
 
                         "Pinterest" -> {
@@ -272,6 +277,7 @@ class HomeFragment : Fragment() {
                             fIV3.setImageResource(R.drawable.pin_enable)
                             fIV4.setImageResource(R.drawable.snp_disable)
                             fIV5.setImageResource(R.drawable.lin_disable)
+                            fIV6.setImageResource(R.drawable.insta_disable)
                         }
 
                         "Snapchat" -> {
@@ -280,6 +286,7 @@ class HomeFragment : Fragment() {
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_enable)
                             fIV5.setImageResource(R.drawable.lin_disable)
+                            fIV6.setImageResource(R.drawable.insta_disable)
                         }
 
                         "Linkedin" -> {
@@ -288,6 +295,17 @@ class HomeFragment : Fragment() {
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_disable)
                             fIV5.setImageResource(R.drawable.lin_enable)
+                            fIV6.setImageResource(R.drawable.insta_disable)
+
+                        }
+
+                        "Instagram" -> {
+                            fIV.setImageResource(R.drawable.f_disable)
+                            fIV2.setImageResource(R.drawable.t_disable)
+                            fIV3.setImageResource(R.drawable.pin_disable)
+                            fIV4.setImageResource(R.drawable.snp_disable)
+                            fIV5.setImageResource(R.drawable.lin_disable)
+                            fIV6.setImageResource(R.drawable.insta_enable)
 
                         }
 
@@ -297,6 +315,7 @@ class HomeFragment : Fragment() {
                             fIV3.setImageResource(R.drawable.pin_disable)
                             fIV4.setImageResource(R.drawable.snp_disable)
                             fIV5.setImageResource(R.drawable.lin_disable)
+                            fIV6.setImageResource(R.drawable.insta_disable)
                         }
                     }
                 }
@@ -309,6 +328,7 @@ class HomeFragment : Fragment() {
                     fIV3.setImageResource(R.drawable.pin_disable)
                     fIV4.setImageResource(R.drawable.snp_disable)
                     fIV5.setImageResource(R.drawable.lin_disable)
+                    fIV6.setImageResource(R.drawable.insta_disable)
                 }
             }
         }
@@ -351,16 +371,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadDefaultNativeAd() {
-        val bind = NativeAdLayoutBinding.inflate(layoutInflater)
+        val bind = MediumNativeAdsBinding.inflate(layoutInflater)
         bind.apply {
 
             val nativeAdModel = NativeAdItemsModel(
                 root,
-                adHeadline = tvHeadline,
-                adBody = tvBody,
-                adIcon = appIcon,
-                mediaView = mediaView,
-                adCTA = adCTA
+                adHeadline = adHeadline,
+                adBody = adBody,
+                adIcon = null,
+                mediaView = AdMedia,
+                adCTA = adCallToAction
             )
 
             NativeAdUtils().loadNativeAd(
@@ -441,7 +461,6 @@ class HomeFragment : Fragment() {
                 homeViewModel.updatePageSelector(1)
 
             }
-
         },
             object : InterAdShowCallback() {
                 override fun adNotAvailable() {}

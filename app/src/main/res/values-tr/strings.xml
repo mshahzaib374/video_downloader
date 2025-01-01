@@ -87,6 +87,11 @@
     <string name="video_size_is_too_large">5 dakikadan uzun videoların indirilmesine izin verilmez.</string>
     <string name="continue_with_ads">Reklamlarla Devam Et</string>
     <string name="or">VEYA</string>
+    <string name="disclaimer_desc">Bu 4K Video Downloader ve Player uygulaması bağımsız olarak geliştirilmiştir ve diğer platformlar veya hizmetlerle bağlantılı değildir veya onlar tarafından onaylanmamıştır. Bir video indirme ve içerik kaydetme aracı olarak, kullanıcılar indirdikleri materyalleri kullanmanın telif haklarını ihlal etmediğinden veya içerik sahiplerinin haklarını çiğnemediğinden emin olma sorumluluğunu taşır. İndirilen içerikleri kullanmadan veya paylaşmadan önce, kullanıcıların telif hakkı sahiplerinden gerekli izinleri alması gerekir.</string>
+    <string name="let_s_start">Hadi başlayalım</string>
+    <string name="go_to_home">Ana Sayfaya Git</string>
+    <string name="two_ad_left">2 Reklam Kaldı</string>
+    <string name="one_ad_left">1 Reklam Kaldı</string>
 
 
 </resources>

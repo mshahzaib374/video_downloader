@@ -54,12 +54,17 @@ class SettingsFragment : Fragment() {
                /* if (findNavController().currentDestination?.id == R.id.mainFragment) {
                     findNavController().navigate(R.id.action_mainFragment_to_languageFragment)
                 }*/
+                /*if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                    findNavController().navigate(R.id.action_mainFragment_to_languageFragment)
+                }*/
             }
+
             languageIcon.setOnClickListener {
                 context?.logFirebaseEvent("disclaimer_fragment", "language_button_clicked")
-                if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                LanguageDialogFragment().show(parentFragmentManager, "SettingsFragment")
+                /*if (findNavController().currentDestination?.id == R.id.mainFragment) {
                     findNavController().navigate(R.id.action_mainFragment_to_languageFragment)
-                }
+                }*/
             }
 
             privacyPolicyTv.setOnClickListener {

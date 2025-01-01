@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 7,
-      "versionName": "1.7_test",
-      "outputFile": "video_downloader_v1.7_test(7)_2024_12_05_18_30-release.apk"
+      "versionCode": 12,
+      "versionName": "1.12",
+      "outputFile": "video_downloader_v1.12(12)_2024_12_16_17_43-release.apk"
     }
   ],
   "elementType": "File",
@@ -22,14 +22,14 @@
       "minApi": 28,
       "maxApi": 30,
       "baselineProfiles": [
-        "baselineProfiles/1/video_downloader_v1.7_test(7)_2024_12_05_18_30-release.dm"
+        "baselineProfiles/1/video_downloader_v1.12(12)_2024_12_16_17_43-release.dm"
       ]
     },
     {
       "minApi": 31,
       "maxApi": 2147483647,
       "baselineProfiles": [
-        "baselineProfiles/0/video_downloader_v1.7_test(7)_2024_12_05_18_30-release.dm"
+        "baselineProfiles/0/video_downloader_v1.12(12)_2024_12_16_17_43-release.dm"
       ]
     }
   ],

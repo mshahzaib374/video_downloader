@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_video_l
+import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdLoadCallback
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdOptions
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdShowCallback
@@ -21,6 +22,7 @@ import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterstitialAdU
 import com.example.a4kvideodownloaderplayer.databinding.VideoplayerFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
+import com.example.aiartgenerator.utils.AppPrefs
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -38,6 +40,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     private var videoUri: String? = null
     private var videoName: String? = null
     private var videoPath: String? = null
+    private var mIsAppOpenShown=false
     private var isVideoEnded = false
     private var isControlsViewed = true
 
@@ -63,6 +66,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
         }
 
         initClicksEvents()
+        initAppOpenListener()
     }
 
 
@@ -256,20 +260,23 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
 
         }
 
-
     }
 
     override fun onStart() {
         super.onStart()
-        if (Util.SDK_INT >= 24) {
-            initPlayer()
+        if (!mIsAppOpenShown) {
+            if (Util.SDK_INT >= 24) {
+                initPlayer()
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (Util.SDK_INT < 24 || mPlayer == null) {
-            initPlayer()
+        if (!mIsAppOpenShown) {
+            if (Util.SDK_INT < 24 || mPlayer == null) {
+                initPlayer()
+            }
         }
     }
 
@@ -320,6 +327,24 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
 
             Player.STATE_IDLE -> {
                 binding!!.progressBarVideoPlay.visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    private fun initAppOpenListener(){
+        OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
+            override fun onAdShown() {
+                    mPlayer?.pause()
+                mIsAppOpenShown=true
+            }
+
+            override fun onAdDismissed() {
+                mIsAppOpenShown=false
+                if (isVideoEnded) {
+                    mPlayer?.seekTo(0) // Seek to the start of the video
+                    isVideoEnded = false // Reset the flag
+                }
+                mPlayer!!.play()
             }
         }
     }

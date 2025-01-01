@@ -8,17 +8,28 @@
       android:pathData="M35,35m-35,0a35,35 0,1 1,70 0a35,35 0,1 1,-70 0">
     <aapt:attr name="android:fillColor">
       <gradient 
-          android:startX="1.316"
-          android:startY="40"
-          android:endX="70"
-          android:endY="40"
+          android:startX="35.657"
+          android:startY="5.658"
+          android:endX="35.657"
+          android:endY="74.342"
           android:type="linear">
-        <item android:offset="0" android:color="#FFE15B5B"/>
-        <item android:offset="1" android:color="#FFD61414"/>
+        <item android:offset="0" android:color="#FFE87C16"/>
+        <item android:offset="1" android:color="#FFB45A04"/>
       </gradient>
     </aapt:attr>
   </path>
-  <path
-      android:pathData="M43.116,24.013C41.901,22.626 41.231,20.844 41.231,19H35.738V41.044C35.696,42.238 35.193,43.368 34.334,44.197C33.475,45.027 32.327,45.49 31.133,45.489C28.609,45.489 26.511,43.427 26.511,40.867C26.511,37.809 29.462,35.516 32.502,36.458V30.84C26.369,30.022 21,34.787 21,40.867C21,46.787 25.907,51 31.116,51C36.698,51 41.231,46.467 41.231,40.867V29.684C43.459,31.284 46.133,32.143 48.876,32.138V26.644C48.876,26.644 45.533,26.804 43.116,24.013Z"
-      android:fillColor="#ffffff"/>
+  <group>
+    <clip-path
+        android:pathData="M52.741,15H17V55H52.741V15Z"/>
+    <path
+        android:pathData="M52.739,15H43.291C48.56,15 52.739,19.453 52.739,25.016V15ZM30.147,28.714C30.147,21.108 35.938,15 43.155,15C41.207,15.053 39.647,16.698 39.647,18.751V40.532C39.647,48.547 33.477,55 25.926,55C28.25,55 30.147,52.999 30.147,50.547V28.714ZM17.001,15H26.543C21.327,15 17.001,19.453 17.001,25.016V15Z"
+        android:fillColor="#ffffff"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M17,15H52.741V55H17V15Z"/>
+    <path
+        android:pathData="M17.002,15H26.45C21.181,15 17.002,19.453 17.002,25.016V15ZM39.595,28.714C39.595,21.108 33.803,15 26.586,15C28.534,15.053 30.095,16.698 30.095,18.751V40.532C30.095,48.547 36.264,55 43.816,55C41.491,55 39.595,52.999 39.595,50.547V28.714ZM52.74,15H43.198C48.414,15 52.74,19.453 52.74,25.016V15Z"
+        android:fillColor="#ffffff"/>
+  </group>
 </vector>

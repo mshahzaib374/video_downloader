@@ -8,6 +8,7 @@
     Unlock a better experience, grant access to your videos. This allows us to provide personalized results.\nYour privacy is always protected
 </string>
     <string name="disclaimer">Disclaimer</string>
+    <string name="disclaimer_desc">This 4K Video Downloader and Player app is independently developed and is not affiliated with or endorsed by any other platforms or services. As a tool for downloading videos and saving content, users are responsible for ensuring that their use of downloaded materials does not infringe on copyrights or violate the rights of content owners. It is the user’s responsibility to obtain the necessary authorization from the copyright holders before using or sharing downloaded content.</string>
     <string name="this_4k_video_downloader_app_does_not_associate_own_or_licensed_with_any_social_media_sites_and_is_not_authorized_by_them_any_violations_of_intellectual_property_rights_and_unauthorized_actions_for_example_re_uploading_or_downloading_of_contents_are_the_sole_responsibility_of_the_user_alone_all_the_trademarks_such_as_logo_name_and_badges_are_completely_the_property_of_their_respective_owners">This 4K Video downloader app does not\n associate, own, or licensed with any social\n media sites and is not authorized by them.\n Any violations of intellectual property rights\n and unauthorized actions, for example, Re-\n uploading or downloading of contents are\n the sole responsibility of the user alone. All\n the trademarks such as logo, name, and\n badges are completely the property of their\n respective owners.</string>
     <string name="ok">OK</string>
     <string name="app_language">App language</string>
@@ -93,5 +94,9 @@
     <string name="video_size_is_too_large">Videos longer than 5 minutes are not allowed to download.</string>
     <string name="continue_with_ads">Continue With Ads</string>
     <string name="or">OR</string>
+    <string name="let_s_start">Let\'s Start</string>
+    <string name="go_to_home">Go to Home</string>
+    <string name="two_ad_left">2 Ad Left</string>
+    <string name="one_ad_left">1 Ad Left</string>
 
 </resources>

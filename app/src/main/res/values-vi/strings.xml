@@ -87,6 +87,11 @@
     <string name="video_size_is_too_large">Không cho phép tải xuống video dài hơn 5 phút.</string>
     <string name="continue_with_ads">Tiếp tục với quảng cáo</string>
     <string name="or">HOẶC</string>
+    <string name="disclaimer_desc">Ứng dụng 4K Video Downloader và Player này được phát triển độc lập và không liên kết hoặc được chứng nhận bởi bất kỳ nền tảng hoặc dịch vụ nào khác. Là một công cụ để tải video và lưu nội dung, người dùng chịu trách nhiệm đảm bảo rằng việc sử dụng tài liệu tải xuống không vi phạm bản quyền hoặc quyền của chủ sở hữu nội dung. Người dùng có trách nhiệm nhận được sự cho phép cần thiết từ chủ sở hữu bản quyền trước khi sử dụng hoặc chia sẻ nội dung đã tải xuống.</string>
+    <string name="let_s_start">Hãy bắt đầu</string>
+    <string name="go_to_home">Đi đến Trang chủ</string>
+    <string name="two_ad_left">Còn lại 2 quảng cáo</string>
+    <string name="one_ad_left">Còn lại 1 quảng cáo</string>
 
 
 </resources>

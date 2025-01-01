@@ -87,6 +87,11 @@
     <string name="video_size_is_too_large">Non è consentito scaricare video più lunghi di 5 minuti.</string>
     <string name="continue_with_ads">Lanjutkan dengan Iklan</string>
     <string name="or">ATAU</string>
+    <string name="disclaimer_desc">Aplikasi 4K Video Downloader dan Player ini dikembangkan secara independen dan tidak terafiliasi atau didukung oleh platform atau layanan lain. Sebagai alat untuk mengunduh video dan menyimpan konten, pengguna bertanggung jawab untuk memastikan bahwa penggunaan materi yang diunduh tidak melanggar hak cipta atau hak pemilik konten. Merupakan tanggung jawab pengguna untuk mendapatkan izin yang diperlukan dari pemegang hak cipta sebelum menggunakan atau membagikan konten yang diunduh.</string>
+    <string name="let_s_start">Mari kita mulai</string>
+    <string name="go_to_home">Pergi ke Beranda</string>
+    <string name="two_ad_left">2 Iklan Tersisa</string>
+    <string name="one_ad_left">1 Iklan Tersisa</string>
 
 
 </resources>

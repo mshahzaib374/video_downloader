@@ -26,6 +26,12 @@ object SplashOpenAppAd {
 
     private var splashOpenAdLoadTime = 0L
 
+    interface AdEventListener {
+        fun onAdShown()
+        fun onAdDismissed()
+    }
+
+    var adEventListener: AdEventListener? = null
 
     fun loadOpenAppAd(
         context: Context,
@@ -149,6 +155,7 @@ object SplashOpenAppAd {
                  Logger.log(Level.DEBUG, Category.SplashOpenAd, "ad dismiss full screen")
 
                 adDismiss.invoke()
+                adEventListener?.onAdDismissed()
             }
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
@@ -161,7 +168,7 @@ object SplashOpenAppAd {
                 setShowingOpenAd(false)
 
                 adFailedToShow.invoke(error)
-
+                adEventListener?.onAdDismissed()
             }
 
             override fun onAdShowedFullScreenContent() {
@@ -171,6 +178,7 @@ object SplashOpenAppAd {
                 setShowingOpenAd(true)
 
                 adShowFullScreen.invoke()
+                adEventListener?.onAdShown()
             }
         }
         return adShow

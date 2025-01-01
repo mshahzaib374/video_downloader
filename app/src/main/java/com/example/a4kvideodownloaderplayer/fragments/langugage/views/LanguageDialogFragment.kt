@@ -12,8 +12,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.ads.advert.banner_language_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAdState
+import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
+import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdUtils
+import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerCallback
 import com.example.a4kvideodownloaderplayer.databinding.LanguageScreenBinding
 import com.example.a4kvideodownloaderplayer.fragments.langugage.model.Languages
 import com.example.a4kvideodownloaderplayer.fragments.langugage.views.adapter.LanguagesAdapter
@@ -57,6 +61,8 @@ class LanguageDialogFragment : DialogFragment() {
         )
         context?.logFirebaseEvent("language_fragment", "screen_opened")
         OpenAppAdState.enable("LanguageFragment")
+
+        loadBannerAds()
     }
 
 
@@ -74,15 +80,15 @@ class LanguageDialogFragment : DialogFragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
+              //  if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
                     binding?.adsBannerPlaceHolder?.visibility = View.INVISIBLE
-                }
+             //   }
             }
 
             override fun onAdDismissed() {
-                if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
+              //  if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
                     binding?.adsBannerPlaceHolder?.visibility = View.VISIBLE
-                }
+             //   }
             }
         }
 
@@ -135,11 +141,39 @@ class LanguageDialogFragment : DialogFragment() {
         }
     }
 
+    private fun loadBannerAds() {
+        binding?.adsBannerPlaceHolder?.visibility = View.VISIBLE
+        binding?.shimmerLayout?.root?.visibility = View.VISIBLE
+
+        BannerAdUtils(activity ?: return).loadBannerAd(
+            adId = getString(R.string.languageBannerAd),
+            remote = banner_language_l,
+            container = binding?.adsBannerPlaceHolder ?: return,
+            adLoadingOrShimmer = binding?.shimmerLayout?.root,
+            adType = BannerAdType.DEFAULT_BANNER,
+            callback = object : BannerCallback() {
+                override fun onAdValidate() {
+                    super.onAdValidate()
+                    binding?.adsBannerPlaceHolder?.visibility = View.GONE
+                    binding?.shimmerLayout?.root?.visibility = View.GONE
+                }
+
+                override fun onAdLoaded(adView: AdView) {
+                    super.onAdLoaded(adView)
+                    ad = adView
+
+                }
+            },
+        )
+    }
+
+
     private fun navigateScreen() {
         homeViewModel.updatePageSelector(2)
+        homeViewModel.isLanguageSelected(true)
         dismiss()
-
     }
+
 
     override fun onResume() {
         super.onResume()

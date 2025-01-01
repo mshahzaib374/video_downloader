@@ -2,6 +2,7 @@ package com.example.a4kvideodownloaderplayer.fragments.langugage.views
 
 import LanguageViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,17 +58,17 @@ class LanguageFragment : Fragment() {
             binding?.backIconLanguageScreen?.visibility = View.GONE
             binding?.backIconLanguageScreen?.isEnabled = false
             OpenAppAdState.disable("LanguageFragment")
-            loadBannerAds()
         } else {
-            binding?.shimmerLayout?.root?.visibility = View.GONE
-            binding?.adsBannerPlaceHolder?.visibility = View.GONE
             OpenAppAdState.enable("LanguageFragment")
         }
+        loadBannerAds()
+
     }
 
     private fun loadBannerAds() {
         binding?.adsBannerPlaceHolder?.visibility = View.VISIBLE
         binding?.shimmerLayout?.root?.visibility = View.VISIBLE
+
         BannerAdUtils(activity ?: return).loadBannerAd(
             adId = getString(R.string.languageBannerAd),
             remote = banner_language_l,
@@ -79,7 +80,6 @@ class LanguageFragment : Fragment() {
                     super.onAdValidate()
                     binding?.adsBannerPlaceHolder?.visibility = View.GONE
                     binding?.shimmerLayout?.root?.visibility = View.GONE
-
                 }
 
                 override fun onAdLoaded(adView: AdView) {
@@ -105,15 +105,15 @@ class LanguageFragment : Fragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
+             //   if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
                     binding?.adsBannerPlaceHolder?.visibility = View.INVISIBLE
-                }
+              //  }
             }
 
             override fun onAdDismissed() {
-                if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
+            //    if (AppPrefs(context ?: return).getBoolean("isFirstTime")) {
                     binding?.adsBannerPlaceHolder?.visibility = View.VISIBLE
-                }
+            //    }
             }
         }
 
@@ -173,6 +173,7 @@ class LanguageFragment : Fragment() {
             }
         } else {
             homeViewModel.updatePageSelector(2)
+            homeViewModel.isLanguageSelected(true)
             findNavController().navigateUp()
         }
 

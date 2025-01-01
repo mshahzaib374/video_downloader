@@ -39,7 +39,7 @@ class LanguagesAdapter(
         items.clear()
         for ((index, language) in languages.withIndex()) {
             items.add(language)
-            if (index == 4 && !AppPrefs(context).getBoolean("isFirstTime")) {
+            if (index == 4 /*&& !AppPrefs(context).getBoolean("isFirstTime")*/) {
                 items.add("AD_PLACEHOLDER") // Placeholder for the ad
             }
         }

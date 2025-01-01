@@ -14,7 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_l
+import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_bottom
+import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_med
+import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_top
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdUtils
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerCallback
@@ -55,23 +57,66 @@ class OnBoardingFragment : Fragment() {
         context?.logFirebaseEvent("on_boarding_fragment", "screen_opened")
 
         attachClickListeners()
-        loadBannerAds()
+        loadBannerAdTop()
+        loadBannerAdMed()
+        loadBannerAdBottom()
     }
 
-    private fun loadBannerAds() {
-        binding?.adsOnboardBannerPlaceHolder?.visibility = View.VISIBLE
-        binding?.shimmerLayout?.root?.visibility = View.VISIBLE
+    private fun loadBannerAdTop() {
+        binding?.adsOnboardBannerPlaceHolderTop?.visibility = View.VISIBLE
+        binding?.shimmerLayoutTop?.root?.visibility = View.VISIBLE
         BannerAdUtils(activity ?: return).loadBannerAd(
             adId = getString(R.string.bannerOnBoardingAd),
-            remote = banner_onboarding_l,
-            container = binding?.adsOnboardBannerPlaceHolder ?: return,
-            adLoadingOrShimmer = binding?.shimmerLayout?.root,
+            remote = banner_onboarding_top,
+            container = binding?.adsOnboardBannerPlaceHolderTop ?: return,
+            adLoadingOrShimmer = binding?.shimmerLayoutTop?.root,
             adType = BannerAdType.DEFAULT_BANNER,
             callback = object : BannerCallback() {
                 override fun onAdValidate() {
                     super.onAdValidate()
-                    binding?.adsOnboardBannerPlaceHolder?.visibility = View.GONE
-                    binding?.shimmerLayout?.root?.visibility = View.GONE
+                    binding?.adsOnboardBannerPlaceHolderTop?.visibility = View.GONE
+                    binding?.shimmerLayoutTop?.root?.visibility = View.GONE
+
+                }
+            },
+        )
+
+    }
+
+    private fun loadBannerAdMed() {
+        binding?.adsOnboardBannerPlaceHolderMed?.visibility = View.VISIBLE
+        binding?.shimmerLayoutMed?.root?.visibility = View.VISIBLE
+        BannerAdUtils(activity ?: return).loadBannerAd(
+            adId = getString(R.string.bannerOnBoardingAd),
+            remote = banner_onboarding_med,
+            container = binding?.adsOnboardBannerPlaceHolderMed ?: return,
+            adLoadingOrShimmer = binding?.shimmerLayoutMed?.root,
+            adType = BannerAdType.DEFAULT_BANNER,
+            callback = object : BannerCallback() {
+                override fun onAdValidate() {
+                    super.onAdValidate()
+                    binding?.adsOnboardBannerPlaceHolderMed?.visibility = View.GONE
+                    binding?.shimmerLayoutMed?.root?.visibility = View.GONE
+
+                }
+            },
+        )
+    }
+
+    private fun loadBannerAdBottom() {
+        binding?.adsOnboardBannerPlaceHolderBottom?.visibility = View.VISIBLE
+        binding?.shimmerLayoutBottom?.root?.visibility = View.VISIBLE
+        BannerAdUtils(activity ?: return).loadBannerAd(
+            adId = getString(R.string.bannerOnBoardingAd),
+            remote = banner_onboarding_bottom,
+            container = binding?.adsOnboardBannerPlaceHolderBottom ?: return,
+            adLoadingOrShimmer = binding?.shimmerLayoutBottom?.root,
+            adType = BannerAdType.DEFAULT_BANNER,
+            callback = object : BannerCallback() {
+                override fun onAdValidate() {
+                    super.onAdValidate()
+                    binding?.adsOnboardBannerPlaceHolderBottom?.visibility = View.GONE
+                    binding?.shimmerLayoutBottom?.root?.visibility = View.GONE
 
                 }
             },

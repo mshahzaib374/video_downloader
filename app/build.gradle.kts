@@ -16,8 +16,8 @@ android {
         applicationId = "vid.hd.videodownloader.videoplayer.download.all.videosapp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 7
-        versionName = "1.7_test"
+        versionCode = 12
+        versionName = "1.12_Test"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         val formattedDate = SimpleDateFormat("yyyy_MM_dd_HH_mm")
@@ -32,28 +32,33 @@ android {
             resValue("string", "bannerOnBoardingAd", "ca-app-pub-4199820502555116/7000590482")
             resValue("string", "languageNativeAd", "ca-app-pub-4199820502555116/5903131232")
             resValue("string", "languageBannerAd", "ca-app-pub-4199820502555116/8064160646")
+            resValue("string", "splashBannerAd", "ca-app-pub-4199820502555116/3592558438")
             resValue("string", "homeNativeAd", "ca-app-pub-4199820502555116/4124915630")
             resValue("string", "homeInterstitialAd", "ca-app-pub-4199820502555116/9650804557")
             resValue("string", "appOpenAdSplash", "ca-app-pub-4199820502555116/1610432933")
             resValue("string", "appOpenAdResume", "ca-app-pub-4199820502555116/1556692113")
             resValue("string", "exitNativeAd", "ca-app-pub-4199820502555116/1059105889")
             resValue("string", "playerInterstitialAd", "ca-app-pub-4199820502555116/2835770729")
+            resValue("string", "disclaimerInterstitialAd", "ca-app-pub-4199820502555116/9774823408")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
             debug {
                 resValue("string", "appAdId", "ca-app-pub-3940256099942544~3347511713")
                 resValue("string", "bannerOnBoardingAd", "ca-app-pub-3940256099942544/9214589741")
                 resValue("string", "languageNativeAd", "ca-app-pub-3940256099942544/2247696110")
                 resValue("string", "languageBannerAd", "ca-app-pub-3940256099942544/9214589741")
+                resValue("string", "splashBannerAd", "ca-app-pub-3940256099942544/9214589741")
                 resValue("string", "homeNativeAd", "ca-app-pub-3940256099942544/2247696110")
                 resValue("string", "homeInterstitialAd", "ca-app-pub-3940256099942544/1033173712")
                 resValue("string", "appOpenAdSplash", "ca-app-pub-3940256099942544/9257395921")
                 resValue("string", "appOpenAdResume", "ca-app-pub-3940256099942544/9257395921")
                 resValue("string", "exitNativeAd", "ca-app-pub-3940256099942544/2247696110")
                 resValue("string", "playerInterstitialAd", "ca-app-pub-3940256099942544/1033173712")
+                resValue("string", "disclaimerInterstitialAd", "ca-app-pub-3940256099942544/1033173712")
 
             }
         }
@@ -80,7 +85,6 @@ android {
 
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -111,10 +115,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.process)
 
 
-    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
-    implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
+    implementation (libs.exoplayer)
+    implementation (libs.exoplayer.ui)
 
-    //firebase
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-analytics")
@@ -122,17 +125,18 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-messaging-ktx")
 
-    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+    implementation (libs.shimmer)
 
 
     //admob
     implementation(libs.play.services.ads)
     implementation(libs.billing)
 
+    //mediation
+    implementation(libs.facebook)
+
     //in app update
-    implementation("com.google.android.play:app-update-ktx:2.1.0")
-
-
+    implementation(libs.app.update.ktx)
 
 
 }

@@ -12,9 +12,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.analytics
 
-
 object AppUtils {
-
     var isComingFromSettingLanguage = false
 
     fun getDefaultLanguages(): List<Languages> {

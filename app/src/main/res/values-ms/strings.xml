@@ -87,6 +87,11 @@
     <string name="video_size_is_too_large">Video lebih daripada 5 minit tidak dibenarkan untuk dimuat turun.</string>
     <string name="continue_with_ads">Teruskan Dengan Iklan</string>
     <string name="or">ATAU</string>
+    <string name="disclaimer_desc">Aplikasi 4K Video Downloader dan Player ini dibangunkan secara bebas dan tidak berkaitan atau disokong oleh mana-mana platform atau perkhidmatan lain. Sebagai alat untuk memuat turun video dan menyimpan kandungan, pengguna bertanggungjawab memastikan bahawa penggunaan bahan yang dimuat turun tidak melanggar hak cipta atau hak pemilik kandungan. Adalah tanggungjawab pengguna untuk mendapatkan kebenaran yang diperlukan daripada pemegang hak cipta sebelum menggunakan atau berkongsi kandungan yang dimuat turun.</string>
+    <string name="let_s_start">Mari kita mulakan</string>
+    <string name="go_to_home">Pergi ke Laman Utama</string>
+    <string name="two_ad_left">2 Iklan Tinggal</string>
+    <string name="one_ad_left">1 Iklan Tinggal</string>
 
 
 </resources>

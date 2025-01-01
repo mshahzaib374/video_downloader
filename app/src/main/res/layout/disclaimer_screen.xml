@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.DisclaimerScreenActivity">
+    >
+
+    <ImageView
+        android:id="@+id/cross_ic"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_2sdp"
+        android:elevation="@dimen/_10sdp"
+        android:src="@drawable/premium_close_ic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/disclaimer_screen_upper_red_curve"
@@ -40,7 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:layout_margin="@dimen/_8sdp"
+        android:layout_margin="@dimen/_6sdp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layout_constraintBottom_toTopOf="@+id/disclaimer_screen_ok_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,11 +64,10 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/_4sdp"
             android:fontFamily="@font/poppinsregular"
-            android:gravity="center_horizontal"
-            android:text="@string/this_4k_video_downloader_app_does_not_associate_own_or_licensed_with_any_social_media_sites_and_is_not_authorized_by_them_any_violations_of_intellectual_property_rights_and_unauthorized_actions_for_example_re_uploading_or_downloading_of_contents_are_the_sole_responsibility_of_the_user_alone_all_the_trademarks_such_as_logo_name_and_badges_are_completely_the_property_of_their_respective_owners"
+            android:gravity="center"
+            android:text="@string/disclaimer_desc"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold" />
-
 
     </ScrollView>
 
@@ -68,9 +78,11 @@
         android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/custom_gradient_btn"
         android:fontFamily="@font/poppinsregular"
-        android:text="@string/ok"
+        android:text="@string/go_to_home"
+        android:paddingHorizontal="@dimen/_2sdp"
         android:textColor="@color/disclaimer_text_color"
         android:textSize="@dimen/_12ssp"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/disclaimer_screen_scroll_view"
         app:layout_constraintHeight_percent="0.06"

@@ -11,18 +11,65 @@
         android:id="@+id/horizontalGuideLine"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintGuide_percent="0.5"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="380dp" />
+
+    <FrameLayout
+        android:id="@+id/ads_onboard_banner_place_holder_top"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:background="#F1F0FF"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/shimmerLayout_top"
+        layout="@layout/shimmer_small_native_design"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/ads_onboard_banner_place_holder_top"
+        app:layout_constraintStart_toStartOf="@+id/ads_onboard_banner_place_holder_top"
+        app:layout_constraintEnd_toEndOf="@+id/ads_onboard_banner_place_holder_top"
+        app:layout_constraintBottom_toBottomOf="@+id/ads_onboard_banner_place_holder_top"/>
+
 
     <ImageView
         android:id="@+id/on_boarding_screen_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/onboarding_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/horizontalGuideLine"
-         />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ads_onboard_banner_place_holder_top" />
+
+    <FrameLayout
+        android:id="@+id/ads_onboard_banner_place_holder_med"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:background="#F1F0FF"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/horizontalGuideLine" />
+
+    <include
+        android:id="@+id/shimmerLayout_med"
+        layout="@layout/shimmer_small_native_design"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/ads_onboard_banner_place_holder_med"
+        app:layout_constraintStart_toStartOf="@+id/ads_onboard_banner_place_holder_med"
+        app:layout_constraintEnd_toEndOf="@+id/ads_onboard_banner_place_holder_med"
+        app:layout_constraintBottom_toBottomOf="@+id/ads_onboard_banner_place_holder_med"/>
+
+
 
     <TextView
         android:id="@+id/allow_access_tv"
@@ -33,10 +80,11 @@
         android:textColor="@color/onboarding_allow_access_color"
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/_20sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/allow_storage_access_to_read_and_write_files_on_your_device__enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security__it_enables_efficient_data_storage_and_retrieval_for_seamless_use_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalGuideLine"
+        app:layout_constraintTop_toBottomOf="@+id/ads_onboard_banner_place_holder_med"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -44,16 +92,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:fontFamily="@font/poppinsregular"
         android:text="@string/allow_storage_access_to_read_and_write_files_on_your_device_enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security_it_enables_efficient_data_storage_and_retrieval_for_seamless_user_experiences"
         android:textAlignment="center"
-        android:textSize="@dimen/_10ssp"
         android:textColor="@color/onboarding_allow_access_color"
-        android:layout_marginVertical="@dimen/_20sdp"
-        app:layout_constraintTop_toBottomOf="@+id/allow_access_tv"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toTopOf="@+id/on_boarding_screen_next_button"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allow_access_tv" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/on_boarding_screen_next_button"
@@ -68,13 +116,13 @@
         android:textColor="@color/next_color"
         android:textAllCaps="false"
         android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@+id/ads_onboard_banner_place_holder"
+        app:layout_constraintBottom_toTopOf="@+id/ads_onboard_banner_place_holder_bottom"
         app:layout_constraintEnd_toEndOf="@id/allow_storage_access_to_read_and_write_files_on_your_device__enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security__it_enables_efficient_data_storage_and_retrieval_for_seamless_use_tv"
         app:layout_constraintStart_toStartOf="@id/allow_storage_access_to_read_and_write_files_on_your_device__enhancing_functionality_but_requiring_careful_consideration_for_privacy_and_security__it_enables_efficient_data_storage_and_retrieval_for_seamless_use_tv" />
 
 
     <FrameLayout
-        android:id="@+id/ads_onboard_banner_place_holder"
+        android:id="@+id/ads_onboard_banner_place_holder_bottom"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#F1F0FF"
@@ -86,15 +134,15 @@
         />
 
     <include
-        android:id="@+id/shimmerLayout"
+        android:id="@+id/shimmerLayout_bottom"
         layout="@layout/shimmer_small_native_design"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/ads_onboard_banner_place_holder"
-        app:layout_constraintStart_toStartOf="@+id/ads_onboard_banner_place_holder"
-        app:layout_constraintEnd_toEndOf="@+id/ads_onboard_banner_place_holder"
-        app:layout_constraintBottom_toBottomOf="@+id/ads_onboard_banner_place_holder"/>
+        app:layout_constraintTop_toTopOf="@+id/ads_onboard_banner_place_holder_bottom"
+        app:layout_constraintStart_toStartOf="@+id/ads_onboard_banner_place_holder_bottom"
+        app:layout_constraintEnd_toEndOf="@+id/ads_onboard_banner_place_holder_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/ads_onboard_banner_place_holder_bottom"/>
 
 
 

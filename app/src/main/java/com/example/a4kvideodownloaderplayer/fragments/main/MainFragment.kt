@@ -66,7 +66,6 @@ class MainFragment : Fragment() {
         OpenAppAdState.enable("MainFragment")
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -114,6 +113,7 @@ class MainFragment : Fragment() {
             }
         )
     }
+
 
     private fun registerViewPager() {
         binding?.viewPagerDashboardLight?.apply {

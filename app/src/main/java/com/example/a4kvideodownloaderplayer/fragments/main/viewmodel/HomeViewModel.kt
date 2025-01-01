@@ -9,6 +9,14 @@ class HomeViewModel : ViewModel() {
     var pageSelector: LiveData<Int> = _pageSelector
 
 
+    private val _isLanguageSelected = MutableLiveData<Boolean>()
+    val isLanguageSelected: LiveData<Boolean> get() = _isLanguageSelected
+
+    fun isLanguageSelected(value:Boolean){
+        _isLanguageSelected.value=value
+    }
+
+
     fun updatePageSelector(position: Int) {
         _pageSelector.value = position
     }

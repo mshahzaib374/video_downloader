@@ -37,9 +37,13 @@ class PremiumFragment : DialogFragment() {
     private var billingUtils: BillingUtils? = null
     private var SKUID = "one_month_package"
     private var subscribedList = emptyList<Purchase>()
+    private var mAdCount=2
     private var exitBinding: RestrictPremiumDialogLayoutBinding? = null
     private var exitDialog: Dialog? = null
 
+    companion object{
+        var onDismissAdCapping=2
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,7 @@ class PremiumFragment : DialogFragment() {
         _binding = PremiumFragmentBinding.inflate(inflater, container, false)
         return _binding?.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -123,11 +128,17 @@ class PremiumFragment : DialogFragment() {
             }
 
             premiumCloseIV.setOnClickListener {
-                showInterAd()
+                if (onDismissAdCapping!=0){
+                    onDismissAdCapping--
+                    dismiss()
+                }else {
+                    showInterAd()
+                }
             }
 
             premiumContinue.setOnClickListener {
-                showInterAd()
+                    showInterAd()
+
             }
 
             premiumBuy.setOnClickListener {
@@ -138,10 +149,10 @@ class PremiumFragment : DialogFragment() {
                         return@setOnClickListener
                     }
                 }*/
-                if (Admobify.isPremiumUser()) {
+             /*   if (Admobify.isPremiumUser()) {
                     restrictDialog()
                     return@setOnClickListener
-                }
+                }*/
                 billingUtils?.subscribe(SKUID)
             }
 
@@ -241,13 +252,20 @@ class PremiumFragment : DialogFragment() {
                 dismiss()
 
             }
-
         },
             object : InterAdShowCallback() {
                 override fun adNotAvailable() {}
                 override fun adShowFullScreen() {
+                   /* if(mAdCount==1){
+                        _binding?.adRemainingTv?.text=context?.getString(R.string.one_ad_left)
+                        return
+                    }*/
+                    if (onDismissAdCapping==0){
+                        onDismissAdCapping=2
+                    }
                     lifecycleScope.launch {
                         delay(800)
+                        onDismissAdCapping=2
                         dismiss()
                     }
 

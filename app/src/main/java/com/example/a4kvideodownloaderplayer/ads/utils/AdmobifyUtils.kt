@@ -54,6 +54,9 @@ object AdmobifyUtils {
         visibility = View.GONE
     }
 
+    internal fun View.invisible() {
+        visibility = View.INVISIBLE
+    }
 
     internal fun View.show() {
         visibility = View.VISIBLE

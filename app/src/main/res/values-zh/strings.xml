@@ -87,6 +87,11 @@
     <string name="video_size_is_too_large">不允许下载超过 5 分钟的视频。</string>
     <string name="continue_with_ads">继续观看广告</string>
     <string name="or">或</string>
+    <string name="disclaimer_desc">此 4K 视频下载器和播放器应用程序是独立开发的，与任何其他平台或服务无关，也未获得其认可。作为一个下载视频和保存内容的工具，用户有责任确保其使用下载的材料不会侵犯版权或违反内容所有者的权利。用户有责任在使用或共享下载的内容之前，获得版权持有者的必要授权。</string>
+    <string name="let_s_start">让我们开始吧</string>
+    <string name="go_to_home">回到首页</string>
+    <string name="two_ad_left">剩余 2 个广告</string>
+    <string name="one_ad_left">剩余 1 个广告</string>
 
 
 

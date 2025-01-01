@@ -87,6 +87,10 @@
     <string name="video_size_is_too_large">No se permite descargar videos de más de 5 minutos.</string>
     <string name="continue_with_ads">Continuar con anuncios</string>
     <string name="or">O</string>
-
+    <string name="disclaimer_desc">Esta aplicación 4K Video Downloader y Player ha sido desarrollada de forma independiente y no está afiliada ni respaldada por otras plataformas o servicios. Como herramienta para descargar videos y guardar contenido, los usuarios son responsables de asegurarse de que el uso de los materiales descargados no infrinja derechos de autor ni viole los derechos de los propietarios del contenido. Es responsabilidad del usuario obtener la autorización necesaria de los titulares de los derechos de autor antes de usar o compartir contenido descargado.</string>
+    <string name="let_s_start">Empecemos</string>
+    <string name="go_to_home">Ir a Inicio</string>
+    <string name="two_ad_left">Quedan 2 anuncios</string>
+    <string name="one_ad_left">Queda 1 anuncio</string>
 
 </resources>

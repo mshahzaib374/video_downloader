@@ -86,8 +86,12 @@
     <string name="you_already_have_access_to_the_premium">لديك بالفعل وصول إلى الحزمة المميزة! استمتع بجميع الميزات والفوائد الحصرية المتاحة لك</string>
     <string name="video_size_is_too_large">لا يُسمح بتنزيل مقاطع الفيديو التي تزيد مدتها عن 5 دقائق.</string>
     <string name="continue_with_ads">استمر مع الإعلانات</string>
+        <string name="disclaimer_desc">تم تطوير تطبيق مشغل ومُحمل الفيديو 4K هذا بشكل مستقل ولا يرتبط أو يتم اعتماده من قبل أي منصات أو خدمات أخرى. كأداة لتحميل الفيديوهات وحفظ المحتوى، يتحمل المستخدمون مسؤولية ضمان أن استخدامهم للمواد التي تم تحميلها لا ينتهك حقوق الطبع والنشر أو حقوق مالكي المحتوى. يتحمل المستخدم مسؤولية الحصول على التفويض اللازم من مالكي حقوق الطبع والنشر قبل استخدام أو مشاركة المحتوى الذي تم تحميله.</string>
     <string name="or">أو</string>
-
+        <string name="let_s_start">لنبدأ</string>
+        <string name="go_to_home">اذهب إلى الصفحة الرئيسية</string>
+        <string name="two_ad_left">تبقت إعلانان</string>
+        <string name="one_ad_left">تبقت إعلان واحد</string>
 
 
 </resources>

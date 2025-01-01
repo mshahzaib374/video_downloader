@@ -129,7 +129,7 @@ class DownloadedFragment : Fragment() {
                     val relativePath = cursor.getString(pathColumn)
                     val filePath = "$downloadsPath/$relativePath/$fileName"
                     val contentUri = ContentUris.withAppendedId(queryUri, id) // Add to video list
-                    Log.e("TAG", "dateColumn: ${cursor.getLong(dateColumn)}" )
+                    Log.e("TAG", "dateColumn: ${cursor.getLong(dateColumn)}")
                     videosList.add(
                         VideoFile(
                             id,
@@ -186,19 +186,27 @@ class DownloadedFragment : Fragment() {
 
         // Update the UI with the video list
         if (videosList.isNotEmpty()) {
-            videoAdapter = VideoAdapter(videosList) {
-                if (findNavController().currentDestination?.id == R.id.mainFragment) {
-                    Bundle().apply {
-                        putString("videoUri", it.contentUri.toString())
-                        putString("videoName", it.fileName)
-                        putString("videoPath", it.filePath)
-                        findNavController().navigate(
-                            R.id.action_mainFragment_to_VideoPlayerFragment,
-                            this
-                        )
+            videoAdapter = VideoAdapter(
+                activity?.application ?: return,
+                context ?: return,
+                videosList,
+                videoDeleted = {
+                    getVideoFiles()
+                },
+                navigate = {
+                    if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                        Bundle().apply {
+                            putString("videoUri", it.contentUri.toString())
+                            putString("videoName", it.fileName)
+                            putString("videoPath", it.filePath)
+                            findNavController().navigate(
+                                R.id.action_mainFragment_to_VideoPlayerFragment,
+                                this
+                            )
+                        }
                     }
                 }
-            }
+            )
             binding?.rv?.adapter = videoAdapter
             binding?.progressBar?.visibility = View.GONE
             binding?.noVideoTv?.visibility = View.GONE

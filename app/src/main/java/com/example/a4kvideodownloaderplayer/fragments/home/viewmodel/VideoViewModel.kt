@@ -38,11 +38,12 @@ class VideoViewModel : ViewModel() {
     private var downloadManager: DownloadManager? = null
     private val _downloadStatus = MutableLiveData<String>()
     val downloadStatus: LiveData<String> get() = _downloadStatus
-
     private val _downloadProgress = MutableLiveData<Int>()
     val downloadProgress: LiveData<Int> get() = _downloadProgress
 
     private var downloadId: Long = 0
+
+
 
     fun resetDownloadStatus() {
         _downloadStatus.value = ""
@@ -110,7 +111,8 @@ class VideoViewModel : ViewModel() {
                     inputStream.copyTo(outputStream)
                 }
             }
-            _downloadStatus.postValue("SUCCESS")
+          //  _downloadStatus.postValue("SUCCESS")
+            _downloadStatus.value="SUCCESS"
         } catch (e: Exception) {
             // Handle exception during file saving
             _downloadStatus.postValue("ERROR")
@@ -240,7 +242,8 @@ class VideoViewModel : ViewModel() {
 
                             _downloadProgress.postValue(progress)
                         } else if (statusIndex == DownloadManager.STATUS_SUCCESSFUL) {
-                            _downloadStatus.postValue("SUCCESS")
+                           // _downloadStatus.postValue("SUCCESS")
+                            _downloadStatus.value="SUCCESS"
                             cursor.close()
                             return
                         } else if (statusIndex == DownloadManager.STATUS_FAILED) {
