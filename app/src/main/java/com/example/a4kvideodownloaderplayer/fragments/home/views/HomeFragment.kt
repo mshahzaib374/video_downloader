@@ -15,6 +15,7 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_home_l
@@ -30,14 +31,14 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.HomeFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.MediumNativeAdsBinding
-import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
-import com.example.a4kvideodownloaderplayer.databinding.NativeSmallAdBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
-import com.example.a4kvideodownloaderplayer.fragments.main.MainFragment
+import com.example.a4kvideodownloaderplayer.fragments.home.views.adapter.PopularVideosAdapter
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
+import com.example.a4kvideodownloaderplayer.fragments.main.views.MainFragment
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.DownloadDialogHelper
+import com.example.a4kvideodownloaderplayer.helper.showTrendingVideos
 import com.google.android.gms.ads.LoadAdError
 
 class HomeFragment : Fragment() {
@@ -46,7 +47,6 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels()
     private var progressDialog: ProgressDialog? = null
     private var downloadDialog: DownloadDialogHelper? = null
-    private var isLinkedien = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -100,10 +100,12 @@ class HomeFragment : Fragment() {
             })
 
 
-            cardViewDashboardHomeUpper.setBackgroundResource(R.drawable.rounded_corners_home_fragment_card)
             downloadTv.setOnClickListener {
                 context?.logFirebaseEvent("home_fragment", "download_button_clicked")
-                context?.logFirebaseEvent("home_fragment", "Entered Download Link ${input.text.toString().trim()}")
+                context?.logFirebaseEvent(
+                    "home_fragment",
+                    "Entered Download Link ${input.text.toString().trim()}"
+                )
                 val downloadUrl = input.text.toString().trim()
                 if (!URLUtil.isValidUrl(downloadUrl)) {
                     Toast.makeText(
@@ -117,28 +119,11 @@ class HomeFragment : Fragment() {
                         downloadDialog = DownloadDialogHelper {
                             //videoViewModel.cancelDownload()
                         }
-                        // downloadDialog?.initListeners(context ?: return@checkForYoutubeLink)
                         downloadDialog?.showDownloadDialog(context ?: return@checkForYoutubeLink)
                         videoViewModel.newDownloadVideoApi(
                             downloadUrl,
                             context ?: return@checkForYoutubeLink
                         )
-                        /*checkForLinkedinLink(downloadUrl) {
-                            if (it) {
-                                Log.d("SHAH", "oldDownloadVideoApi: ")
-                                videoViewModel.oldDownloadVideoApi(
-                                    downloadUrl,
-                                    context ?: return@checkForLinkedinLink
-                                )
-                            } else {
-                                Log.d("SHAH", "newDownloadVideoApi: ")
-                                videoViewModel.newDownloadVideoApi(
-                                    downloadUrl,
-                                    context ?: return@checkForLinkedinLink
-                                )
-                            }
-                        }*/
-
                     }
                 }
 
@@ -152,15 +137,16 @@ class HomeFragment : Fragment() {
 
         setUpProgressDialog()
         loadDefaultNativeAd()
+        loadPopularVideos()
 
         videoViewModel.downloadStatus.observe(viewLifecycleOwner) { status ->
             Log.e("TAG", "onViewCreated: $status")
-            var isLangSelected=false
-            homeViewModel.isLanguageSelected.observe(viewLifecycleOwner){isLanguageSelected->
-                    isLangSelected=isLanguageSelected
+            var isLangSelected = false
+            homeViewModel.isLanguageSelected.observe(viewLifecycleOwner) { isLanguageSelected ->
+                isLangSelected = isLanguageSelected
             }
 
-            if (isLangSelected){
+            if (isLangSelected) {
                 homeViewModel.isLanguageSelected(false)
                 return@observe
             }
@@ -245,6 +231,21 @@ class HomeFragment : Fragment() {
 
         }
 
+    }
+
+    private fun loadPopularVideos() {
+        val adapter = PopularVideosAdapter(context ?: return, showTrendingVideos()) {
+            if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                Bundle().apply {
+                    putString("videoUrl", it.url)
+                    findNavController().navigate(
+                        R.id.action_mainFragment_to_PopularVideoPlayerFragment,
+                        this
+                    )
+                }
+            }
+        }
+        binding?.popularRecyclerview?.adapter = adapter
     }
 
     private fun checkSocialMediaLink(link: String, socialMediaPatterns: Map<String, Regex>) {

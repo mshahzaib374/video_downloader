@@ -2,13 +2,18 @@ package com.example.a4kvideodownloaderplayer.fragments.home.viewmodel
 
 
 import android.app.DownloadManager
+import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.media.MediaScannerConnection
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,6 +60,7 @@ class VideoViewModel : ViewModel() {
                 val videoRequest = VideoApiService.VideoRequest(videoUrl = url)
                 RetrofitInstance.api.downloadVideoNewApi(videoRequest)
                     .enqueue(object : retrofit2.Callback<ResponseBody> {
+                        @RequiresApi(Build.VERSION_CODES.Q)
                         override fun onResponse(
                             call: Call<ResponseBody>,
                             response: retrofit2.Response<ResponseBody>
@@ -63,6 +69,7 @@ class VideoViewModel : ViewModel() {
                             if (response.isSuccessful) {
                                 response.body()?.let { body ->
                                     newSaveFileFromResponse(body, context)
+                                    //saveFileToDownloads(context, body, "4kVideoDownloader.mp4")
                                 } ?: run {
                                     _downloadStatus.postValue("ERROR")
                                 }
@@ -87,21 +94,38 @@ class VideoViewModel : ViewModel() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun saveFileToDownloads(context: Context, body: ResponseBody, fileName: String): Uri? {
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Downloads.DISPLAY_NAME, fileName)
+            put(MediaStore.Downloads.MIME_TYPE, "video/mp4")
+            put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/4kVideoDownloader")
+        }
+
+        val resolver = context.contentResolver
+        val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+
+        uri?.let {
+            resolver.openOutputStream(it).use { outputStream ->
+                body.byteStream().copyTo(outputStream!!)
+            }
+        }
+
+        return uri
+    }
+
+
     private fun newSaveFileFromResponse(body: ResponseBody, context: Context) {
         try {
             // Get the Downloads directory
             val downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-
             // Create a subfolder named "4kVideoDownloader"
             val subFolder = File(downloadsFolder, "4kVideoDownloader")
             if (!subFolder.exists()) {
                 subFolder.mkdirs()
             }
-
-            val timestamp =
-                SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-            val fileName =
-                "video_$timestamp.mp4" // Replace with `uniqueName.mp4` for UUID option
+            val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            val fileName = "video_$timestamp.mp4" // Replace with `uniqueName.mp4` for UUID option
             // Create the file in the subfolder
             val file =
                 File(subFolder, fileName) // You can modify the filename dynamically if needed
@@ -110,6 +134,10 @@ class VideoViewModel : ViewModel() {
                 FileOutputStream(file).use { outputStream ->
                     inputStream.copyTo(outputStream)
                 }
+            }
+            // Notify the media scanner about the new file
+            MediaScannerConnection.scanFile(context, arrayOf(file.absolutePath), null) { path, uri ->
+                Log.d("FileSave", "File scanned into gallery: $path")
             }
           //  _downloadStatus.postValue("SUCCESS")
             _downloadStatus.value="SUCCESS"

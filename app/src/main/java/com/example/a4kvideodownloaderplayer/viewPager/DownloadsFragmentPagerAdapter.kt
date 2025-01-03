@@ -3,7 +3,7 @@ package com.example.a4kvideodownloaderplayer.viewPager
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.a4kvideodownloaderplayer.fragments.InProgressFragment
-import com.example.a4kvideodownloaderplayer.fragments.downloaded.DownloadedFragment
+import com.example.a4kvideodownloaderplayer.fragments.downloaded.views.DownloadedFragment
 
 class DownloadsFragmentPagerAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {

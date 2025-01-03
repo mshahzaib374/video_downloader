@@ -92,7 +92,7 @@
     <string name="two_ad_left">2 annonces restantes</string>
     <string name="one_ad_left">1 annonce restante</string>
     <string name="disclaimer_desc">Cette application 4K Video Downloader et Player a été développée indépendamment et n est affiliée ou approuvée par aucune autre plateforme ou service. En tant qu outil de téléchargement de vidéos et de sauvegarde de contenu, il incombe aux utilisateurs de s assurer que l utilisation des matériaux téléchargés ne viole pas les droits d auteur ou les droits des propriétaires de contenu. Il est de la responsabilité de l utilisateur d obtenir l autorisation nécessaire des détenteurs de droits d auteur avant d utiliser ou de partager le contenu téléchargé.</string>
-
+    <string name="popular_videos">Popular Videos</string>
 
 
 </resources>

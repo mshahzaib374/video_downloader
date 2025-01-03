@@ -1,9 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/white" /> <!-- Change to your desired color -->
-
-    <corners
-        android:bottomLeftRadius="27dp"
-        android:bottomRightRadius="27dp"
-        android:topLeftRadius="18dp"
-        android:topRightRadius="18dp" />
-</shape>

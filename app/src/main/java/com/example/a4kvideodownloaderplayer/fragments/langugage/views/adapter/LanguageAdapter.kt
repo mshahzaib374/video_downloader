@@ -20,7 +20,6 @@ import com.example.a4kvideodownloaderplayer.databinding.LanguageLayoutItemBindin
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.databinding.RecyclerviewNativeAdBinding
 import com.example.a4kvideodownloaderplayer.fragments.langugage.model.Languages
-import com.example.aiartgenerator.utils.AppPrefs
 import com.google.android.gms.ads.LoadAdError
 
 class LanguagesAdapter(

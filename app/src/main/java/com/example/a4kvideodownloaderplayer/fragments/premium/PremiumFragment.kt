@@ -24,7 +24,7 @@ import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterstitialAdU
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.PremiumFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.RestrictPremiumDialogLayoutBinding
-import com.example.a4kvideodownloaderplayer.fragments.main.MainFragment.Companion.dialogEventListener
+import com.example.a4kvideodownloaderplayer.fragments.main.views.MainFragment.Companion.dialogEventListener
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.privacyPolicyUrl
 import com.example.a4kvideodownloaderplayer.helper.termsUrl

@@ -21,8 +21,7 @@
             android:id="@+id/thumbnailImageView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_140sdp"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/thumbnail" />
+            android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
 
@@ -30,7 +29,8 @@
         android:id="@+id/playIcon"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
-        android:src="@drawable/play_icon"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/vector_play_ic"
         app:layout_constraintBottom_toTopOf="@+id/lineView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

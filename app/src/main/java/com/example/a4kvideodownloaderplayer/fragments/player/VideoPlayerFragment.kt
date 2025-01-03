@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +23,6 @@ import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterstitialAdU
 import com.example.a4kvideodownloaderplayer.databinding.VideoplayerFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
-import com.example.aiartgenerator.utils.AppPrefs
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -44,6 +44,13 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     private var isVideoEnded = false
     private var isControlsViewed = true
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this) {
+            showAds()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

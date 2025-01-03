@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.fragments.home.model.PopularVideo
 
 fun Activity.moreApps() {
     try {
@@ -59,18 +60,29 @@ fun Activity.shareApp() {
 
 }
 
-fun Activity.feedback(){
+fun Activity.feedback() {
     try {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:") // Only email apps should handle this
             putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.feedback_email)))
             putExtra(Intent.EXTRA_SUBJECT, "App Feedback")
         }
-
         startActivity(intent)
-    }catch (e:Exception){
-
+    } catch (_: Exception) {
     }
 
+}
 
+fun showTrendingVideos(): MutableList<PopularVideo> {
+    return mutableListOf<PopularVideo>().apply {
+        add(PopularVideo("https://videos.pond5.com/sexy-girl-dancing-sexy-man-footage-108406067_main_xxl.mp4"))
+        add(PopularVideo("https://www.pond5.com/stock-footage/item/294913315-all-parts-sexy-woman-dancing-seductive-dance-twerking-dancer.mp4"))
+    }
+}
+
+fun showExitVideos(): MutableList<PopularVideo> {
+    return mutableListOf<PopularVideo>().apply {
+        add(PopularVideo("https://videos.pond5.com/sexy-girl-dancing-sexy-man-footage-108406067_main_xxl.mp4"))
+        add(PopularVideo("https://www.pond5.com/stock-footage/item/294913315-all-parts-sexy-woman-dancing-seductive-dance-twerking-dancer.mp4"))
+    }
 }

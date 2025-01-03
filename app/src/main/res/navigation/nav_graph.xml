@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.a4kvideodownloaderplayer.fragments.main.MainFragment"
+        android:name="com.example.a4kvideodownloaderplayer.fragments.main.views.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_languageFragment"
@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_mainFragment_to_VideoPlayerFragment"
             app:destination="@id/videoPlayerFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_PopularVideoPlayerFragment"
+            app:destination="@id/PopularVideoPlayerFragment" />
         <action
             android:id="@+id/action_mainFragment_to_premiumFragment"
             app:destination="@id/premiumFragment" />
@@ -99,6 +102,11 @@
         android:id="@+id/videoPlayerFragment"
         android:name="com.example.a4kvideodownloaderplayer.fragments.player.VideoPlayerFragment"
         android:label="VideoPlayerFragment" />
+
+    <fragment
+        android:id="@+id/PopularVideoPlayerFragment"
+        android:name="com.example.a4kvideodownloaderplayer.fragments.player.PopularVideoPlayerFragment"
+        android:label="PopularVideoPlayerFragment" />
     <fragment
         android:id="@+id/premiumFragment2"
         android:name="com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment"

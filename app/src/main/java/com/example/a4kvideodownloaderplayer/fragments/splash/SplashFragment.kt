@@ -46,7 +46,6 @@ import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.hide
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.invisible
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.show
-import com.example.a4kvideodownloaderplayer.ads.utils.logger.Logger
 import com.example.a4kvideodownloaderplayer.databinding.FragmentSplashBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.aiartgenerator.utils.AppPrefs
