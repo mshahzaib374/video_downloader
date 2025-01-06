@@ -41,14 +41,14 @@ class VideoViewModel : ViewModel() {
 
     private var downloadJob: Job? = null
     private var downloadManager: DownloadManager? = null
+
     private val _downloadStatus = MutableLiveData<String>()
     val downloadStatus: LiveData<String> get() = _downloadStatus
+
     private val _downloadProgress = MutableLiveData<Int>()
     val downloadProgress: LiveData<Int> get() = _downloadProgress
 
     private var downloadId: Long = 0
-
-
 
     fun resetDownloadStatus() {
         _downloadStatus.value = ""
@@ -235,7 +235,6 @@ class VideoViewModel : ViewModel() {
         //downloadManager?.remove(downloadId)
         downloadJob?.cancel()
     }
-
 
     private fun trackDownloadProgress(
         context: Context,

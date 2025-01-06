@@ -19,7 +19,13 @@ public class VideoUtils {
     private static final String TAG = "AudioExtractorDecoder";
 
     @SuppressLint("NewApi")
-    public void genVideoUsingMuxer(String srcPath, String dstPath, int startMs, int endMs, boolean useAudio, boolean useVideo) throws IOException {
+    public void genVideoUsingMuxer(
+            String srcPath,
+            String dstPath,
+            int startMs,
+            int endMs,
+            boolean useAudio,
+            boolean useVideo) throws IOException {
         // Set up MediaExtractor to read from the source.
         MediaExtractor extractor = new MediaExtractor();
         extractor.setDataSource(srcPath);

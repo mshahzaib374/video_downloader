@@ -75,14 +75,30 @@ fun Activity.feedback() {
 
 fun showTrendingVideos(): MutableList<PopularVideo> {
     return mutableListOf<PopularVideo>().apply {
-        add(PopularVideo("https://videos.pond5.com/sexy-girl-dancing-sexy-man-footage-108406067_main_xxl.mp4"))
-        add(PopularVideo("https://www.pond5.com/stock-footage/item/294913315-all-parts-sexy-woman-dancing-seductive-dance-twerking-dancer.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/1.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/10.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/11.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/12.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/13.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/14.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/15.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/16.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/17.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/19.mp4"))
     }
 }
 
 fun showExitVideos(): MutableList<PopularVideo> {
     return mutableListOf<PopularVideo>().apply {
-        add(PopularVideo("https://videos.pond5.com/sexy-girl-dancing-sexy-man-footage-108406067_main_xxl.mp4"))
-        add(PopularVideo("https://www.pond5.com/stock-footage/item/294913315-all-parts-sexy-woman-dancing-seductive-dance-twerking-dancer.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/1.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/10.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/11.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/12.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/13.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/14.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/15.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/16.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/17.mp4"))
+        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/19.mp4"))
     }
 }

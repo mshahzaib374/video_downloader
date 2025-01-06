@@ -392,8 +392,8 @@ class HomeFragment : Fragment() {
                 nativeAdModel, object : NativeAdCallback() {
                     override fun adFailed(error: LoadAdError?) {
                         super.adFailed(error)
-                        binding?.nativeContainer?.visibility = View.INVISIBLE
-                        binding?.shimmerHomeLayout?.root?.visibility = View.INVISIBLE
+                        binding?.nativeContainer?.visibility = View.GONE
+                        binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
 
 
@@ -404,8 +404,8 @@ class HomeFragment : Fragment() {
                     }
 
                     override fun adValidate() {
-                        binding?.nativeContainer?.visibility = View.INVISIBLE
-                        binding?.shimmerHomeLayout?.root?.visibility = View.INVISIBLE
+                        binding?.nativeContainer?.visibility = View.GONE
+                        binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
 
 

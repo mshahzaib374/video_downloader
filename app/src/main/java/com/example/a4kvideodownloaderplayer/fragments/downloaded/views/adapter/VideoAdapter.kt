@@ -25,6 +25,7 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.databinding.RecyclerviewNativeAdBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
+import com.example.a4kvideodownloaderplayer.fragments.main.views.MainFragment
 import com.google.android.gms.ads.LoadAdError
 import java.io.File
 
@@ -167,9 +168,27 @@ class VideoAdapter(
                     override fun adLoaded() {
                         binding.root.visibility = View.VISIBLE
                     }
+
+                    override fun adValidate() {
+                        binding.root.visibility = View.GONE
+                    }
                 },
                 NativeAdType.DEFAULT_AD
             )
+
+            MainFragment.dialogEventListener = object : MainFragment.Companion.DialogEventListener {
+                override fun onDialogShown() {
+                    Log.e("adapter", "onDialogShown: ", )
+                    binding.root.visibility = View.INVISIBLE
+
+                }
+
+                override fun onDialogDismissed() {
+                    Log.e("adapter", "onDialogDismissed: ", )
+                    binding.root.visibility = View.VISIBLE
+                }
+
+            }
         }
     }
 

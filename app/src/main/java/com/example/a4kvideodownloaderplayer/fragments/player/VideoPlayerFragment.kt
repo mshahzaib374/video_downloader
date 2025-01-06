@@ -48,6 +48,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this) {
+            mPlayer?.stop()
             showAds()
         }
     }

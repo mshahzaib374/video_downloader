@@ -322,22 +322,21 @@
         android:fontFamily="@font/manropebold"
         android:text="@string/popular_videos"
         android:textSize="@dimen/_11ssp"
-        app:layout_constraintStart_toStartOf="@+id/nativeContainer"
+        app:layout_constraintStart_toStartOf="@+id/card_view_dashboard_home_upper"
         app:layout_constraintTop_toBottomOf="@+id/nativeContainer" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/popularRecyclerview"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/nativeContainer"
-        app:layout_constraintStart_toStartOf="@+id/nativeContainer"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@+id/card_view_dashboard_home_upper"
+        app:layout_constraintStart_toStartOf="@+id/card_view_dashboard_home_upper"
         app:layout_constraintTop_toBottomOf="@+id/popularLabel"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:spanCount="3"
         tools:itemCount="5"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
         tools:listitem="@layout/item_popular_video" />
 
 
