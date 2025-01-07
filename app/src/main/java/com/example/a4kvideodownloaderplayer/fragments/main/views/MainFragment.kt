@@ -97,6 +97,9 @@ class MainFragment : Fragment() {
                             tabHome.isEnabled = false
                             tabDownload.isEnabled = true
                             tabSettings.isEnabled = true
+                            polygon1.visibility = View.VISIBLE
+                            polygon2.visibility = View.INVISIBLE
+                            polygon3.visibility = View.INVISIBLE
                             lastButtonClickID = binding?.tabHome?.id ?: -1
                             iconHome.setImageResource(R.drawable.home_selected_icon)
                             iconHome.imageTintList =

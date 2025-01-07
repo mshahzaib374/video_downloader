@@ -15,7 +15,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -55,15 +54,16 @@ class DownloadedFragment : Fragment() {
 
             }
         }
+        getVideoFiles()
 
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
+    /*@RequiresApi(Build.VERSION_CODES.Q)
     override fun onResume() {
         super.onResume()
         getVideoFiles()
-    }
+    }*/
 
 
     /*private fun getVideoFiles() {

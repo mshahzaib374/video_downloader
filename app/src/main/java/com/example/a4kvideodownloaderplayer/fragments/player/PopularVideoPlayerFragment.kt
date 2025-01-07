@@ -213,22 +213,16 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
         binding?.apply {
             if (!isControlsViewed) {
                 isControlsViewed = true
-                //backIcon.visibility = View.VISIBLE
-               // titleTv.visibility = View.VISIBLE
                 playOrPause.visibility = View.VISIBLE
                 rewindBtn.visibility = View.VISIBLE
                 forwardBtn.visibility = View.VISIBLE
-                controls.visibility = View.VISIBLE
-                //shareIcon.visibility = View.VISIBLE
+                controls.show()
             } else {
                 isControlsViewed = false
-                //backIcon.visibility = View.GONE
-                //titleTv.visibility = View.GONE
                 playOrPause.visibility = View.GONE
                 rewindBtn.visibility = View.GONE
                 forwardBtn.visibility = View.GONE
-                controls.visibility = View.GONE
-               // shareIcon.visibility = View.GONE
+                controls.hide()
             }
         }
     }

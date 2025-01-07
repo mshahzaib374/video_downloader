@@ -29,6 +29,7 @@ import com.example.a4kvideodownloaderplayer.ads.advert.fullScreenCappingL
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_disclaimer_l
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_l
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_video_l
+import com.example.a4kvideodownloaderplayer.ads.advert.native_downloaded_video_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_exit_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_home_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_language_l
@@ -188,6 +189,7 @@ class SplashFragment : Fragment() {
                     app_open_l = adsRemoteModel?.app_open_l == true
                     fullScreenCappingL = adsRemoteModel?.fullScreenCappingL ?: 2000
                     fullscreen_video_l = adsRemoteModel?.fullscreen_video_l == true
+                    native_downloaded_video_l = adsRemoteModel?.native_downloaded_video_l == true
 
 
                     Log.d("REMOTE_CONFIG", "native_language_l: $native_language_l")
@@ -203,6 +205,7 @@ class SplashFragment : Fragment() {
                     Log.d("REMOTE_CONFIG", "app_open_l: $app_open_l")
                     Log.d("REMOTE_CONFIG", "fullScreenCapping: $fullScreenCappingL")
                     Log.d("REMOTE_CONFIG", "fullscreen_video_l: $fullscreen_video_l")
+                    Log.d("REMOTE_CONFIG", "native_downloaded_video_l: $native_downloaded_video_l")
 
 
                     if (AppPrefs(context ?: return@fetchRemotes).getBoolean("isFirstTime")) {

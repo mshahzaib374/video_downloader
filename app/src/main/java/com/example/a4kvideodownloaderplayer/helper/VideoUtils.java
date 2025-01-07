@@ -31,8 +31,7 @@ public class VideoUtils {
         extractor.setDataSource(srcPath);
         int trackCount = extractor.getTrackCount();
         // Set up MediaMuxer for the destination.
-        MediaMuxer muxer;
-        muxer = new MediaMuxer(dstPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+        MediaMuxer muxer = new MediaMuxer(dstPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
         // Set up the tracks and retrieve the max buffer size for selected
         // tracks.
         HashMap<Integer, Integer> indexMap = new HashMap<Integer, Integer>(trackCount);
@@ -104,4 +103,7 @@ public class VideoUtils {
         muxer.release();
         return;
     }
+
+
+
 }

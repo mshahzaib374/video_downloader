@@ -140,7 +140,6 @@ class HomeFragment : Fragment() {
         loadPopularVideos()
 
         videoViewModel.downloadStatus.observe(viewLifecycleOwner) { status ->
-            Log.e("TAG", "onViewCreated: $status")
             var isLangSelected = false
             homeViewModel.isLanguageSelected.observe(viewLifecycleOwner) { isLanguageSelected ->
                 isLangSelected = isLanguageSelected
@@ -208,12 +207,12 @@ class HomeFragment : Fragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                Log.e("TAG", "onAdShown: ")
+                Log.e("TAG", "onAdShown:")
                 binding?.nativeContainer?.visibility = View.INVISIBLE
             }
 
             override fun onAdDismissed() {
-                Log.e("TAG", "onAdDismissed: ")
+                Log.e("TAG", "onAdDismissed:")
                 binding?.nativeContainer?.visibility = View.VISIBLE
             }
         }
@@ -221,12 +220,13 @@ class HomeFragment : Fragment() {
 
         MainFragment.dialogEventListener = object : MainFragment.Companion.DialogEventListener {
             override fun onDialogShown() {
-                binding?.nativeContainer?.visibility = View.INVISIBLE
+                binding?.nativeContainer?.visibility = View.GONE
 
             }
 
             override fun onDialogDismissed() {
                 binding?.nativeContainer?.visibility = View.VISIBLE
+
             }
 
         }
@@ -372,6 +372,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadDefaultNativeAd() {
+        Log.e("Khan", "load native: ")
         val bind = MediumNativeAdsBinding.inflate(layoutInflater)
         bind.apply {
 
@@ -392,6 +393,8 @@ class HomeFragment : Fragment() {
                 nativeAdModel, object : NativeAdCallback() {
                     override fun adFailed(error: LoadAdError?) {
                         super.adFailed(error)
+                        Log.e("Khan", "load failed: ")
+
                         binding?.nativeContainer?.visibility = View.GONE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
@@ -399,11 +402,13 @@ class HomeFragment : Fragment() {
 
                     override fun adLoaded() {
                         super.adLoaded()
+                        Log.e("Khan", "loaded: ")
                         binding?.nativeContainer?.visibility = View.VISIBLE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
 
                     override fun adValidate() {
+                        Log.e("Khan", "load adValidate: ")
                         binding?.nativeContainer?.visibility = View.GONE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }

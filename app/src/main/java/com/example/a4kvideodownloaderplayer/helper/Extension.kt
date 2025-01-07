@@ -75,30 +75,26 @@ fun Activity.feedback() {
 
 fun showTrendingVideos(): MutableList<PopularVideo> {
     return mutableListOf<PopularVideo>().apply {
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/1.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/10.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/11.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/12.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/13.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/14.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/15.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/16.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/17.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/19.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid1.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid2.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid3.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid4.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid5.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid6.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid7.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid8.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid9.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid10.mp4"))
     }
 }
 
 fun showExitVideos(): MutableList<PopularVideo> {
     return mutableListOf<PopularVideo>().apply {
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/1.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/10.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/11.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/12.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/13.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/14.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/15.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/16.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/17.mp4"))
-        add(PopularVideo("https://thefitcaresdashboard-space-bucket.s3.us-west-1.amazonaws.com/exitvideos/19.mp4"))
+
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid11.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid12.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid13.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid14.mp4"))
+        add(PopularVideo("http://51.20.108.109:8080/downloads/vid15.mp4"))
     }
 }

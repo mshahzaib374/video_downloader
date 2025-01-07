@@ -17,6 +17,7 @@ data class AdsRemoteModel(
     var native_exit_l : Boolean? = true,
     var app_open_l : Boolean? = true,
     var fullscreen_video_l : Boolean? = true,
+    var native_downloaded_video_l : Boolean? = true,
     var fullScreenCappingL : Long? = 5000
 )
 

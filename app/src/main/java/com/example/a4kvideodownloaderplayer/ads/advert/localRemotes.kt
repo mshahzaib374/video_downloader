@@ -16,3 +16,4 @@ var native_exit_l  = true
 var app_open_l  = true
 var fullScreenCappingL  : Long = 2000
 var fullscreen_video_l  = true
+var native_downloaded_video_l  = true

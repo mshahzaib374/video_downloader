@@ -125,13 +125,11 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
 
         binding?.rewindBtn!!.setOnClickListener {
             context?.logFirebaseEvent("video_player_fragment", "rewind_clicked")
-
             mPlayer!!.seekTo(mPlayer!!.currentPosition - 10000)
         }
 
         binding?.forwardBtn!!.setOnClickListener {
             context?.logFirebaseEvent("video_player_fragment", "forward_clicked")
-
             mPlayer!!.seekTo(mPlayer!!.currentPosition + 10000)
         }
 
@@ -166,12 +164,12 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
             .setRemoteConfig(fullscreen_video_l).setLoadingDelayForDialog(2)
             .setFullScreenLoading(false)
             .build(activity ?: return)
+
         InterstitialAdUtils(adOptions).loadAndShowInterAd(object :
             InterAdLoadCallback() {
             override fun adAlreadyLoaded() {}
             override fun adLoaded() {}
             override fun adFailed(error: LoadAdError?, msg: String?) {
-                Log.d("TAG", "ads Failed")
                 homeViewModel.updatePageSelector(1)
                 findNavController().navigateUp()
             }
@@ -222,17 +220,17 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
                 playOrPause.visibility = View.VISIBLE
                 rewindBtn.visibility = View.VISIBLE
                 forwardBtn.visibility = View.VISIBLE
-                controls.visibility = View.VISIBLE
+                controls.show()
                 shareIcon.visibility = View.VISIBLE
             } else {
                 isControlsViewed = false
-                backIcon.visibility = View.GONE
-                titleTv.visibility = View.GONE
-                playOrPause.visibility = View.GONE
-                rewindBtn.visibility = View.GONE
-                forwardBtn.visibility = View.GONE
-                controls.visibility = View.GONE
-                shareIcon.visibility = View.GONE
+                backIcon.visibility = View.INVISIBLE
+                titleTv.visibility = View.INVISIBLE
+                playOrPause.visibility = View.INVISIBLE
+                rewindBtn.visibility = View.INVISIBLE
+                forwardBtn.visibility = View.INVISIBLE
+                controls.hide()
+                shareIcon.visibility = View.INVISIBLE
             }
         }
     }
@@ -245,22 +243,6 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
             binding?.playerView?.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
             val mediaItem = MediaItem.fromUri(Uri.parse(videoUri) ?: return)
             it.addMediaItem(mediaItem)
-            //it.setMediaSource(buildMediaSource())
-            /*videoList?.let { items ->
-                items.forEach { data ->
-                    if (data.isApi30) {
-                        Log.e("TAG", "initPlayer: ${data.documentFile.uri}")
-                        val item: MediaItem = MediaItem.fromUri(data.documentFile.uri)
-                        it.addMediaItem(item)
-                    } else {
-                        Log.e("TAG", "initPlayer: ${data.file.path}")
-                        val item: MediaItem = MediaItem.fromUri(Uri.parse(data.file.path))
-                        it.addMediaItem(item)
-                    }
-
-                }
-            }*/
-            // Prepare the player.
             it.prepare()
             it.playWhenReady = true
             it.addListener(this)
@@ -356,24 +338,6 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
             }
         }
     }
-
-    /*override fun onPositionDiscontinuity(
-        oldPosition: Player.PositionInfo,
-        newPosition: Player.PositionInfo,
-        reason: Int
-    ) {
-        pos = newPosition.mediaItemIndex
-        Log.e("TAG", "onPositionDiscontinuity: $pos")
-        if (pos!! <= videoList!!.size) {
-            val videoItem = videoList!![pos!!]
-            isApi30 = videoItem.isApi30
-            if (isApi30!!) {
-                videoUri = videoItem.documentFile.uri.toString()
-            } else {
-                videoUri = Uri.fromFile(videoItem.file).toString()
-            }
-        }
-    }*/
 
 
 }

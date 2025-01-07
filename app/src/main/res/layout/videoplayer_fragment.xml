@@ -113,7 +113,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/playerView"
         app:layout_constraintEnd_toStartOf="@+id/rotate"
         app:layout_constraintStart_toStartOf="parent"
-        app:show_timeout="0" />
+        app:show_timeout="0"
+        />
 
     <ImageView
         android:id="@+id/rotate"
