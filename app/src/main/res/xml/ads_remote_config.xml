@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
     <entry>
-        <key>ads_json_05</key>
+        <key>ads_json_06</key>
         <value>
             {
             "native_language_l": true,
-            "banner_language_l": true,
-            "banner_splash_top": true,
-            "banner_splash_med": true,
+            "banner_splash_top": false,
+            "banner_splash_med": false,
             "banner_splash_bottom": true,
-            "banner_onboarding_top": true,
+            "banner_onboarding_top": false,
             "banner_onboarding_med": true,
-            "banner_onboarding_bottom": true,
+            "banner_onboarding_bottom": false,
             "native_home_l": true,
             "fullscreen_home_l": true,
             "fullscreen_disclaimer_l": true,

@@ -18,7 +18,6 @@ import com.example.a4kvideodownloaderplayer.ads.advert.AdsRemoteModel
 import com.example.a4kvideodownloaderplayer.ads.advert.RemoteConfigurations
 import com.example.a4kvideodownloaderplayer.ads.advert.adsRemoteModel
 import com.example.a4kvideodownloaderplayer.ads.advert.app_open_l
-import com.example.a4kvideodownloaderplayer.ads.advert.banner_language_l
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_bottom
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_med
 import com.example.a4kvideodownloaderplayer.ads.advert.banner_onboarding_top
@@ -160,7 +159,7 @@ class SplashFragment : Fragment() {
             ),
             premiumUser = Admobify.isPremiumUser()
         )
-       // Logger.enableLogging()
+        //Logger.enableLogging()
         loadSplashAppOpen()
 
     }
@@ -168,19 +167,18 @@ class SplashFragment : Fragment() {
     private fun adsRemoteConfig() {
         RemoteConfigurations.fetchRemotes(
             activity ?: return,
-            jsonKey = "ads_json_05",
+            jsonKey = "ads_json_06",
             defaultXml = R.xml.ads_remote_config,
             onSuccess = {
                 try {
                     val data = Gson().fromJson(it, AdsRemoteModel::class.java)
                     adsRemoteModel = data
                     native_language_l = adsRemoteModel?.native_language_l == true
-                    banner_language_l = adsRemoteModel?.banner_language_l == true
-                    banner_splash_top = adsRemoteModel?.banner_splash_top == true
-                    banner_splash_med = adsRemoteModel?.banner_splash_med == true
+                    banner_splash_top = adsRemoteModel?.banner_splash_top == false
+                    banner_splash_med = adsRemoteModel?.banner_splash_med == false
                     banner_splash_bottom = adsRemoteModel?.banner_splash_bottom == true
-                    banner_onboarding_top = adsRemoteModel?.banner_onboarding_top == true
-                    banner_onboarding_med = adsRemoteModel?.banner_onboarding_med == true
+                    banner_onboarding_top = adsRemoteModel?.banner_onboarding_top == false
+                    banner_onboarding_med = adsRemoteModel?.banner_onboarding_med == false
                     banner_onboarding_bottom = adsRemoteModel?.banner_onboarding_bottom == true
                     native_home_l = adsRemoteModel?.native_home_l == true
                     fullscreen_home_l = adsRemoteModel?.fullscreen_home_l == true
@@ -193,7 +191,6 @@ class SplashFragment : Fragment() {
 
 
                     Log.d("REMOTE_CONFIG", "native_language_l: $native_language_l")
-                    Log.d("REMOTE_CONFIG", "banner_language_l: $banner_language_l")
                     Log.d("REMOTE_CONFIG", "banner_onboarding_top: $banner_onboarding_top")
                     Log.d("REMOTE_CONFIG", "banner_onboarding_med: $banner_onboarding_med")
                     Log.d("REMOTE_CONFIG", "banner_onboarding_bottom: $banner_onboarding_bottom")

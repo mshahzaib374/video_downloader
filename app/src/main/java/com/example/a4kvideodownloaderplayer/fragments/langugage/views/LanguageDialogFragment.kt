@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.advert.banner_language_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAdState
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
@@ -62,7 +61,7 @@ class LanguageDialogFragment : DialogFragment() {
         context?.logFirebaseEvent("language_fragment", "screen_opened")
         OpenAppAdState.enable("LanguageFragment")
 
-        loadBannerAds()
+        //loadBannerAds()
     }
 
 
@@ -147,7 +146,7 @@ class LanguageDialogFragment : DialogFragment() {
 
         BannerAdUtils(activity ?: return).loadBannerAd(
             adId = getString(R.string.languageBannerAd),
-            remote = banner_language_l,
+            remote = true,
             container = binding?.adsBannerPlaceHolder ?: return,
             adLoadingOrShimmer = binding?.shimmerLayout?.root,
             adType = BannerAdType.DEFAULT_BANNER,

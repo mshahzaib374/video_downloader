@@ -20,6 +20,7 @@ import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdShowCall
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterstitialAdUtils
 import com.example.a4kvideodownloaderplayer.databinding.PopularVideoplayerFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
+import com.example.a4kvideodownloaderplayer.fragments.player.viewmodel.VideoPlayerViewModel
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
@@ -35,16 +36,16 @@ import kotlinx.coroutines.launch
 class PopularVideoPlayerFragment : Fragment(), Player.Listener {
     private val homeViewModel: HomeViewModel by activityViewModels()
     private var binding: PopularVideoplayerFragmentBinding? = null
-    private var mPlayer: ExoPlayer? = null
+    private val videoPlayerViewModel: VideoPlayerViewModel by activityViewModels()
     private var videoUrl: String? = null
-    private var mIsAppOpenShown=false
+    private var mIsAppOpenShown = false
     private var isVideoEnded = false
     private var isControlsViewed = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         activity?.onBackPressedDispatcher?.addCallback(this) {
-             mPlayer?.stop()
+        activity?.onBackPressedDispatcher?.addCallback(this) {
+            videoPlayerViewModel.player?.stop()
             showAds()
         }
     }
@@ -62,7 +63,7 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        context?.logFirebaseEvent("video_player_fragment", "screen_opened")
+        context?.logFirebaseEvent("popular_player_fragment", "screen_opened")
         homeViewModel.updatePageSelector(0)
 
         arguments?.let {
@@ -79,21 +80,21 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
             toggleControllerVisibility()
         }
 
-       /* binding?.shareIcon?.setOnClickListener {
-            context?.logFirebaseEvent("video_player_fragment", "share_button_clicked")
-            if (mPlayer!!.isPlaying) {
-                mPlayer!!.pause()
-                binding!!.playOrPause.setImageResource(R.drawable.play_ic)
-            }
-            val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "video/mp4"
-                putExtra(Intent.EXTRA_STREAM, Uri.parse(videoUri))
-            }
-            // Grant permission to the receiving app to access the URI
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            context?.startActivity(Intent.createChooser(shareIntent, "Share Video"))
-        }
-*/
+        /* binding?.shareIcon?.setOnClickListener {
+             context?.logFirebaseEvent("video_player_fragment", "share_button_clicked")
+             if (mPlayer!!.isPlaying) {
+                 mPlayer!!.pause()
+                 binding!!.playOrPause.setImageResource(R.drawable.play_ic)
+             }
+             val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                 type = "video/mp4"
+                 putExtra(Intent.EXTRA_STREAM, Uri.parse(videoUri))
+             }
+             // Grant permission to the receiving app to access the URI
+             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+             context?.startActivity(Intent.createChooser(shareIntent, "Share Video"))
+         }
+ */
 
         /*binding?.titleTv!!.text = videoName ?: ""
         binding?.backIcon!!.setOnClickListener {
@@ -106,15 +107,15 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
         binding?.playOrPause!!.setOnClickListener {
             context?.logFirebaseEvent("video_player_fragment", "play_pause_clicked")
 
-            if (mPlayer!!.isPlaying) {
-                mPlayer!!.pause()
+            if (videoPlayerViewModel.player!!.isPlaying) {
+                videoPlayerViewModel.player!!.pause()
                 binding!!.playOrPause.setImageResource(R.drawable.play_ic)
             } else {
                 if (isVideoEnded) {
-                    mPlayer?.seekTo(0) // Seek to the start of the video
+                    videoPlayerViewModel.player?.seekTo(0) // Seek to the start of the video
                     isVideoEnded = false // Reset the flag
                 }
-                mPlayer!!.play()
+                videoPlayerViewModel.player!!.play()
                 binding!!.playOrPause.setImageResource(R.drawable.pause_ic)
             }
         }
@@ -122,13 +123,13 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
         binding?.rewindBtn!!.setOnClickListener {
             context?.logFirebaseEvent("video_player_fragment", "rewind_clicked")
 
-            mPlayer!!.seekTo(mPlayer!!.currentPosition - 10000)
+            videoPlayerViewModel.player!!.seekTo(videoPlayerViewModel.player!!.currentPosition - 10000)
         }
 
         binding?.forwardBtn!!.setOnClickListener {
             context?.logFirebaseEvent("video_player_fragment", "forward_clicked")
 
-            mPlayer!!.seekTo(mPlayer!!.currentPosition + 10000)
+            videoPlayerViewModel.player!!.seekTo(videoPlayerViewModel.player!!.currentPosition + 10000)
         }
 
         binding?.prevBtn!!.setOnClickListener {
@@ -167,7 +168,6 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
             override fun adAlreadyLoaded() {}
             override fun adLoaded() {}
             override fun adFailed(error: LoadAdError?, msg: String?) {
-                Log.d("TAG", "ads Failed")
                 homeViewModel.updatePageSelector(0)
                 findNavController().navigateUp()
             }
@@ -183,6 +183,7 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
                     homeViewModel.updatePageSelector(0)
                     findNavController().navigateUp()
                 }
+
                 override fun adShowFullScreen() {
                     viewLifecycleOwner.lifecycleScope.launch {
                         delay(800)
@@ -229,7 +230,7 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
 
 
     private fun initPlayer() {
-        mPlayer = ExoPlayer.Builder(context ?: return).build().also {
+        videoPlayerViewModel.player = ExoPlayer.Builder(context ?: return).build().also {
             binding!!.playerView.player = it
             binding!!.controls.player = it
             binding?.playerView?.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
@@ -271,8 +272,12 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
 
     override fun onResume() {
         super.onResume()
+        if (videoPlayerViewModel.player != null) {
+            videoPlayerViewModel.player?.playWhenReady = videoPlayerViewModel.playWhenReady
+            videoPlayerViewModel.player?.seekTo(videoPlayerViewModel.playbackPosition)
+        }
         if (!mIsAppOpenShown) {
-            if (Util.SDK_INT < 24 || mPlayer == null) {
+            if (Util.SDK_INT < 24 || videoPlayerViewModel.player == null) {
                 initPlayer()
             }
         }
@@ -280,6 +285,11 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
 
     override fun onPause() {
         super.onPause()
+        if (videoPlayerViewModel.player != null) {
+            videoPlayerViewModel.playbackPosition = videoPlayerViewModel.player?.currentPosition ?:0
+            videoPlayerViewModel.playWhenReady = videoPlayerViewModel.player?.playWhenReady ?:true
+            videoPlayerViewModel.player?.playWhenReady = false
+        }
         if (Util.SDK_INT < 24) {
             releasePlayer()
         }
@@ -293,12 +303,12 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
     }
 
     private fun releasePlayer() {
-        if (mPlayer == null) {
+        if (videoPlayerViewModel.player == null) {
             return
         }
         //release player when done
-        mPlayer!!.release()
-        mPlayer = null
+        videoPlayerViewModel.player!!.release()
+        videoPlayerViewModel.player = null
     }
 
 
@@ -329,20 +339,20 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
         }
     }
 
-    private fun initAppOpenListener(){
+    private fun initAppOpenListener() {
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                    mPlayer?.pause()
-                mIsAppOpenShown=true
+                videoPlayerViewModel.player?.pause()
+                mIsAppOpenShown = true
             }
 
             override fun onAdDismissed() {
-                mIsAppOpenShown=false
+                mIsAppOpenShown = false
                 if (isVideoEnded) {
-                    mPlayer?.seekTo(0) // Seek to the start of the video
+                    videoPlayerViewModel.player?.seekTo(0) // Seek to the start of the video
                     isVideoEnded = false // Reset the flag
                 }
-                mPlayer!!.play()
+                videoPlayerViewModel.player!!.play()
             }
         }
     }
@@ -364,8 +374,6 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
             }
         }
     }*/
-
-
 
 
 }

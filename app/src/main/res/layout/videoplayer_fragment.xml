@@ -100,8 +100,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="@+id/playerView" />
+
+    <ImageView
+        android:id="@+id/rotateIV"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/vector__rotate_"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@+id/controls"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <com.google.android.exoplayer2.ui.PlayerControlView
         android:id="@+id/controls"

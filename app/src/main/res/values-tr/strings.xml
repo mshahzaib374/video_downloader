@@ -93,6 +93,7 @@
     <string name="two_ad_left">2 Reklam Kaldı</string>
     <string name="one_ad_left">1 Reklam Kaldı</string>
     <string name="popular_videos">Popüler Videolar</string>
+    <string name="no_internet">İnternet Yok</string>
 
 
 </resources>

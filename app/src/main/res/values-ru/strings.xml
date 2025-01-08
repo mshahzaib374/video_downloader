@@ -93,6 +93,7 @@
     <string name="two_ad_left">Осталось 2 объявления</string>
     <string name="one_ad_left">Осталось 1 объявление</string>
     <string name="popular_videos">Популярные видео</string>
+    <string name="no_internet">Нет интернета</string>
 
 
 </resources>

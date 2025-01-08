@@ -93,6 +93,7 @@
     <string name="two_ad_left">광고 2개 남음</string>
     <string name="one_ad_left">광고 1개 남음</string>
     <string name="popular_videos">인기 동영상</string>
+    <string name="no_internet">인터넷 없음</string>
 
 
 </resources>

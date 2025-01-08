@@ -1,5 +1,6 @@
 package com.example.a4kvideodownloaderplayer.fragments.player.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.android.exoplayer2.ExoPlayer
 
@@ -11,6 +12,7 @@ class VideoPlayerViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
+        Log.e("TAG", "onCleared")
         player?.release()
         player = null
     }

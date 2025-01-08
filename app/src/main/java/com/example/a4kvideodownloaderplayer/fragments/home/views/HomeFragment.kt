@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +28,7 @@ import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdItemsModel
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdUtils
 import com.example.a4kvideodownloaderplayer.ads.native_ads.ad_types.NativeAdType
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
+import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.databinding.HomeFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.MediumNativeAdsBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
@@ -102,10 +102,6 @@ class HomeFragment : Fragment() {
 
             downloadTv.setOnClickListener {
                 context?.logFirebaseEvent("home_fragment", "download_button_clicked")
-                context?.logFirebaseEvent(
-                    "home_fragment",
-                    "Entered Download Link ${input.text.toString().trim()}"
-                )
                 val downloadUrl = input.text.toString().trim()
                 if (!URLUtil.isValidUrl(downloadUrl)) {
                     Toast.makeText(
@@ -207,12 +203,10 @@ class HomeFragment : Fragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                Log.e("TAG", "onAdShown:")
                 binding?.nativeContainer?.visibility = View.INVISIBLE
             }
 
             override fun onAdDismissed() {
-                Log.e("TAG", "onAdDismissed:")
                 binding?.nativeContainer?.visibility = View.VISIBLE
             }
         }
@@ -221,11 +215,19 @@ class HomeFragment : Fragment() {
         MainFragment.dialogEventListener = object : MainFragment.Companion.DialogEventListener {
             override fun onDialogShown() {
                 binding?.nativeContainer?.visibility = View.GONE
+                binding?.shimmerHomeLayout?.root?.visibility = View.GONE
 
             }
 
             override fun onDialogDismissed() {
-                binding?.nativeContainer?.visibility = View.VISIBLE
+                if (Admobify.isPremiumUser()) {
+                    binding?.nativeContainer?.visibility = View.GONE
+                    binding?.shimmerHomeLayout?.root?.visibility = View.GONE
+                } else {
+                    binding?.nativeContainer?.visibility = View.VISIBLE
+                    binding?.shimmerHomeLayout?.root?.visibility = View.VISIBLE
+
+                }
 
             }
 
@@ -236,13 +238,18 @@ class HomeFragment : Fragment() {
     private fun loadPopularVideos() {
         val adapter = PopularVideosAdapter(context ?: return, showTrendingVideos()) {
             if (findNavController().currentDestination?.id == R.id.mainFragment) {
-                Bundle().apply {
-                    putString("videoUrl", it.url)
-                    findNavController().navigate(
-                        R.id.action_mainFragment_to_PopularVideoPlayerFragment,
-                        this
-                    )
-                }
+               if (AdmobifyUtils.isNetworkAvailable(context)){
+                   Bundle().apply {
+                       putString("videoUrl", it.url)
+                       findNavController().navigate(
+                           R.id.action_mainFragment_to_PopularVideoPlayerFragment,
+                           this
+                       )
+                   }
+               }else{
+                   Toast.makeText(context, R.string.no_internet, Toast.LENGTH_SHORT).show()
+               }
+
             }
         }
         binding?.popularRecyclerview?.adapter = adapter
@@ -255,6 +262,7 @@ class HomeFragment : Fragment() {
                 binding?.apply {
                     when (platform) {
                         "Facebook" -> {
+                            context?.logFirebaseEvent("home_fragment", "facebook_link")
                             fIV.setImageResource(R.drawable.f_enable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
@@ -264,6 +272,7 @@ class HomeFragment : Fragment() {
                         }
 
                         "TikTok" -> {
+                            context?.logFirebaseEvent("home_fragment", "tiktok_link")
                             fIV.setImageResource(R.drawable.f_disable)
                             fIV2.setImageResource(R.drawable.t_enable)
                             fIV3.setImageResource(R.drawable.pin_disable)
@@ -273,6 +282,7 @@ class HomeFragment : Fragment() {
                         }
 
                         "Pinterest" -> {
+                            context?.logFirebaseEvent("home_fragment", "pinterest_link")
                             fIV.setImageResource(R.drawable.f_disable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_enable)
@@ -282,6 +292,7 @@ class HomeFragment : Fragment() {
                         }
 
                         "Snapchat" -> {
+                            context?.logFirebaseEvent("home_fragment", "snapchat_link")
                             fIV.setImageResource(R.drawable.f_disable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
@@ -291,6 +302,7 @@ class HomeFragment : Fragment() {
                         }
 
                         "Linkedin" -> {
+                            context?.logFirebaseEvent("home_fragment", "linkedin_link")
                             fIV.setImageResource(R.drawable.f_disable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
@@ -301,6 +313,7 @@ class HomeFragment : Fragment() {
                         }
 
                         "Instagram" -> {
+                            context?.logFirebaseEvent("home_fragment", "instagram_link")
                             fIV.setImageResource(R.drawable.f_disable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
@@ -311,6 +324,7 @@ class HomeFragment : Fragment() {
                         }
 
                         else -> {
+                            context?.logFirebaseEvent("home_fragment", "other_link")
                             fIV.setImageResource(R.drawable.f_disable)
                             fIV2.setImageResource(R.drawable.t_disable)
                             fIV3.setImageResource(R.drawable.pin_disable)
@@ -351,16 +365,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun checkForLinkedinLink(downloadUrl: String, isLinkedinURL: (Boolean) -> Unit = {}) {
-        val linkedinRegex = Regex("https?://(www\\.)?linkedin\\.com/.*", RegexOption.IGNORE_CASE)
-        if (linkedinRegex.matches(downloadUrl)) {
-            isLinkedinURL.invoke(true)
-        } else {
-            isLinkedinURL.invoke(false)
-        }
-
-    }
-
     private fun pasteClipboardText() {
         val clipboard = activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         if (clipboard.hasPrimaryClip()) {
@@ -372,10 +376,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadDefaultNativeAd() {
-        Log.e("Khan", "load native: ")
         val bind = MediumNativeAdsBinding.inflate(layoutInflater)
         bind.apply {
-
             val nativeAdModel = NativeAdItemsModel(
                 root,
                 adHeadline = adHeadline,
@@ -393,8 +395,6 @@ class HomeFragment : Fragment() {
                 nativeAdModel, object : NativeAdCallback() {
                     override fun adFailed(error: LoadAdError?) {
                         super.adFailed(error)
-                        Log.e("Khan", "load failed: ")
-
                         binding?.nativeContainer?.visibility = View.GONE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
@@ -402,13 +402,11 @@ class HomeFragment : Fragment() {
 
                     override fun adLoaded() {
                         super.adLoaded()
-                        Log.e("Khan", "loaded: ")
                         binding?.nativeContainer?.visibility = View.VISIBLE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
 
                     override fun adValidate() {
-                        Log.e("Khan", "load adValidate: ")
                         binding?.nativeContainer?.visibility = View.GONE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
@@ -445,7 +443,6 @@ class HomeFragment : Fragment() {
             override fun adAlreadyLoaded() {}
             override fun adLoaded() {}
             override fun adFailed(error: LoadAdError?, msg: String?) {
-                // todo
                 homeViewModel.updatePageSelector(1)
                 Toast.makeText(
                     context ?: return,
@@ -457,7 +454,6 @@ class HomeFragment : Fragment() {
             }
 
             override fun adValidate() {
-                // todo
                 Toast.makeText(
                     context ?: return,
                     getString(R.string.video_downloaded_successfully),
@@ -471,7 +467,6 @@ class HomeFragment : Fragment() {
             object : InterAdShowCallback() {
                 override fun adNotAvailable() {}
                 override fun adShowFullScreen() {
-                    //todo
                     videoViewModel.resetDownloadStatus()
                     homeViewModel.updatePageSelector(1)
 
@@ -486,7 +481,6 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun adFailedToShow() {
-                    //todo
                     homeViewModel.updatePageSelector(1)
                 }
 

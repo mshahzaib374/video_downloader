@@ -6,11 +6,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -84,7 +84,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         attachObserver()
         registerViewPager()
-        context?.checkForInAppUpdate(activity?:return)
+        context?.checkForInAppUpdate(activity ?: return)
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -219,7 +219,7 @@ class MainFragment : Fragment() {
             lastButtonClickID = buttonID
             adCount++
             if ((adCount % 3) == 0) {
-                if (!AdmobifyUtils.isNetworkAvailable(context ?: return) ) {
+                if (!AdmobifyUtils.isNetworkAvailable(context ?: return)) {
                     when (selectedTab) {
                         "home" -> {
                             polygon1.visibility = View.VISIBLE
@@ -469,7 +469,8 @@ class MainFragment : Fragment() {
                     "download" -> {
                         polygon2.visibility = View.VISIBLE
                         iconDownload.setImageResource(R.drawable.download_icon)
-                        iconDownload.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                        iconDownload.imageTintList =
+                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
                         textDownload.setTextColor(Color.parseColor("#ffffff"))
                         binding?.viewPagerDashboardLight?.setCurrentItem(
                             1,
@@ -555,7 +556,7 @@ class MainFragment : Fragment() {
                         binding?.viewPagerDashboardLight?.setCurrentItem(
                             2,
                             true
-                        ) // Navigate to page 0 (Home)
+                        )
 
                     }
                 }
@@ -579,7 +580,6 @@ class MainFragment : Fragment() {
                     tabSettings.isEnabled = true
                     updateTabSelection(it.id, "download")
                 }
-                // Handle navigation to "Download" fragment
             }
 
             tabSettings.setOnClickListener {
@@ -590,7 +590,6 @@ class MainFragment : Fragment() {
                     tabSettings.isEnabled = false
                     updateTabSelection(it.id, "settings")
                 }
-                // Handle navigation to "Settings" fragment
             }
         }
     }
@@ -612,15 +611,20 @@ class MainFragment : Fragment() {
         }
 
         exitBinding?.apply {
-            val videoListAdapter = VideoSliderAdapter(context?:return, showExitVideos()){
+            val videoListAdapter = VideoSliderAdapter(context ?: return, showExitVideos()) {
                 if (findNavController().currentDestination?.id == R.id.mainFragment) {
-                    Bundle().apply {
-                        putString("videoUrl", it.url)
-                        findNavController().navigate(
-                            R.id.action_mainFragment_to_PopularVideoPlayerFragment,
-                            this
-                        )
+                    if (AdmobifyUtils.isNetworkAvailable(context)) {
+                        Bundle().apply {
+                            putString("videoUrl", it.url)
+                            findNavController().navigate(
+                                R.id.action_mainFragment_to_PopularVideoPlayerFragment,
+                                this
+                            )
+                        }
+                    } else {
+                        Toast.makeText(context, R.string.no_internet, Toast.LENGTH_SHORT).show()
                     }
+
                 }
             }
             viewPager.adapter = videoListAdapter
@@ -724,9 +728,5 @@ class MainFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("TAG", "onResume: ")
-    }
 
 }

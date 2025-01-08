@@ -93,6 +93,7 @@
         <string name="two_ad_left">تبقت إعلانان</string>
         <string name="one_ad_left">تبقت إعلان واحد</string>
     <string name="popular_videos">الفيديوهات الشائعة</string>
+    <string name="no_internet">لا يوجد اتصال بالإنترنت</string>
 
 
 </resources>

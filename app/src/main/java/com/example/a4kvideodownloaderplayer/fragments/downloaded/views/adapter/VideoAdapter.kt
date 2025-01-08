@@ -29,7 +29,6 @@ import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.databinding.RecyclerviewNativeAdBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
-import com.example.a4kvideodownloaderplayer.fragments.main.views.MainFragment
 import com.google.android.gms.ads.LoadAdError
 import java.io.File
 import java.text.SimpleDateFormat
@@ -47,6 +46,8 @@ class VideoAdapter(
 
     private val VIEW_TYPE_VIDEO = 0
     private val VIEW_TYPE_AD = 1
+    private var showAds: Boolean = true
+
 
     // Adjusted list with ad placeholders
     private val combinedList = mutableListOf<Any>()
@@ -55,11 +56,17 @@ class VideoAdapter(
         prepareList()
     }
 
+    fun toggleAds(show: Boolean) {
+        showAds = show
+        prepareList()
+        notifyDataSetChanged()
+    }
+
     private fun prepareList() {
         combinedList.clear()
         for ((index, video) in videoList.withIndex()) {
             combinedList.add(video)
-            if ((index + 1) % 4 == 0 && !Admobify.isPremiumUser() && AdmobifyUtils.isNetworkAvailable(context)) {
+            if (showAds && (index + 1) % 4 == 0 && !Admobify.isPremiumUser() && AdmobifyUtils.isNetworkAvailable(context)) {
                 combinedList.add("AD_PLACEHOLDER")
             }
         }
@@ -206,19 +213,8 @@ class VideoAdapter(
                 NativeAdType.DEFAULT_AD
             )
 
-            MainFragment.dialogEventListener = object : MainFragment.Companion.DialogEventListener {
-                override fun onDialogShown() {
-                    Log.e("adapter", "onDialogShown: ")
-                    binding.root.visibility = View.INVISIBLE
 
-                }
 
-                override fun onDialogDismissed() {
-                    Log.e("adapter", "onDialogDismissed: ")
-                    //binding.root.visibility = View.VISIBLE
-                }
-
-            }
         }
     }
 
@@ -299,6 +295,7 @@ class VideoAdapter(
                 }
             }
     }
+
 
 }
 

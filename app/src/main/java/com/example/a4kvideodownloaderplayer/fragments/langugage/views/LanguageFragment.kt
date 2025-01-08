@@ -13,7 +13,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.advert.banner_language_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAdState
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
@@ -60,7 +59,7 @@ class LanguageFragment : Fragment() {
         } else {
             OpenAppAdState.enable("LanguageFragment")
         }
-        loadBannerAds()
+        //loadBannerAds()
 
     }
 
@@ -70,7 +69,7 @@ class LanguageFragment : Fragment() {
 
         BannerAdUtils(activity ?: return).loadBannerAd(
             adId = getString(R.string.languageBannerAd),
-            remote = banner_language_l,
+            remote = true,
             container = binding?.adsBannerPlaceHolder ?: return,
             adLoadingOrShimmer = binding?.shimmerLayout?.root,
             adType = BannerAdType.DEFAULT_BANNER,

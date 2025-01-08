@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.DownloadedFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
@@ -28,7 +29,7 @@ import java.io.File
 
 class DownloadedFragment : Fragment() {
 
-    private lateinit var videoAdapter: VideoAdapter
+    private var videoAdapter: VideoAdapter?= null
     private var binding: DownloadedFragmentBinding? = null
 
     override fun onCreateView(
@@ -57,13 +58,22 @@ class DownloadedFragment : Fragment() {
         getVideoFiles()
 
 
+        OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
+            override fun onAdShown() {
+                videoAdapter?.toggleAds(false)
+
+            }
+
+            override fun onAdDismissed() {
+                Log.e("adapter", "onDialogDismissed: ")
+                videoAdapter?.toggleAds(true)
+            }
+
+        }
+
+
     }
 
-    /*@RequiresApi(Build.VERSION_CODES.Q)
-    override fun onResume() {
-        super.onResume()
-        getVideoFiles()
-    }*/
 
 
     /*private fun getVideoFiles() {

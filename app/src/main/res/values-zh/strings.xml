@@ -93,6 +93,7 @@
     <string name="two_ad_left">剩余 2 个广告</string>
     <string name="one_ad_left">剩余 1 个广告</string>
     <string name="popular_videos">热门视频</string>
+    <string name="no_internet">无互联网</string>
 
 
 </resources>

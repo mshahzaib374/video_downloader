@@ -93,6 +93,7 @@
     <string name="two_ad_left">เหลือโฆษณา 2 รายการ</string>
     <string name="one_ad_left">เหลือโฆษณา 1 รายการ</string>
     <string name="popular_videos">วิดีโอที่ได้รับความนิยม</string>
+    <string name="no_internet">ไม่มีอินเทอร์เน็ต</string>
 
 
 </resources>
