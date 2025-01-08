@@ -34,7 +34,6 @@ import com.example.a4kvideodownloaderplayer.databinding.MediumNativeAdsBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 import com.example.a4kvideodownloaderplayer.fragments.home.views.adapter.PopularVideosAdapter
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
-import com.example.a4kvideodownloaderplayer.fragments.main.views.MainFragment
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.DownloadDialogHelper
@@ -203,34 +202,12 @@ class HomeFragment : Fragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                binding?.nativeContainer?.visibility = View.INVISIBLE
+                binding?.nativeContainer?.visibility = View.GONE
             }
 
             override fun onAdDismissed() {
                 binding?.nativeContainer?.visibility = View.VISIBLE
             }
-        }
-
-
-        MainFragment.dialogEventListener = object : MainFragment.Companion.DialogEventListener {
-            override fun onDialogShown() {
-                binding?.nativeContainer?.visibility = View.GONE
-                binding?.shimmerHomeLayout?.root?.visibility = View.GONE
-
-            }
-
-            override fun onDialogDismissed() {
-                if (Admobify.isPremiumUser()) {
-                    binding?.nativeContainer?.visibility = View.GONE
-                    binding?.shimmerHomeLayout?.root?.visibility = View.GONE
-                } else {
-                    binding?.nativeContainer?.visibility = View.VISIBLE
-                    binding?.shimmerHomeLayout?.root?.visibility = View.VISIBLE
-
-                }
-
-            }
-
         }
 
     }

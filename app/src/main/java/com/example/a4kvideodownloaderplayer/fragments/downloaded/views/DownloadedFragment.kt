@@ -16,21 +16,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
-import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
 import com.example.a4kvideodownloaderplayer.databinding.DownloadedFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.views.adapter.VideoAdapter
+import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import java.io.File
 
 class DownloadedFragment : Fragment() {
 
-    private var videoAdapter: VideoAdapter?= null
+    private var videoAdapter: VideoAdapter? = null
     private var binding: DownloadedFragmentBinding? = null
+    private val homeViewModel: HomeViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,18 +47,20 @@ class DownloadedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             rv.layoutManager = GridLayoutManager(context, 2)
-            if (Admobify.isPremiumUser()) {
-                premiumIcon.visibility = View.GONE
-            } else {
-                premiumIcon.visibility = View.VISIBLE
-            }
 
             premiumIcon.setOnClickListener {
                 PremiumFragment().show(parentFragmentManager, "DownloadedFragment")
 
             }
         }
+
         getVideoFiles()
+
+        homeViewModel.pageSelector.observe(viewLifecycleOwner) {
+            if (it == 1) {
+                getVideoFiles()
+            }
+        }
 
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
@@ -65,7 +70,6 @@ class DownloadedFragment : Fragment() {
             }
 
             override fun onAdDismissed() {
-                Log.e("adapter", "onDialogDismissed: ")
                 videoAdapter?.toggleAds(true)
             }
 
@@ -73,7 +77,6 @@ class DownloadedFragment : Fragment() {
 
 
     }
-
 
 
     /*private fun getVideoFiles() {

@@ -46,6 +46,7 @@ import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.hide
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.invisible
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.show
+import com.example.a4kvideodownloaderplayer.ads.utils.logger.Logger
 import com.example.a4kvideodownloaderplayer.databinding.FragmentSplashBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.aiartgenerator.utils.AppPrefs
@@ -155,11 +156,12 @@ class SplashFragment : Fragment() {
             testDevicesList = arrayListOf(
                 "40FCFB5F8EE015FEC661521E08D51DB6",
                 "9BBA43A5DE227FB7AD3E9A1D6CDE3B9B",
-                "7C12541A1F5DAD8864C7DDBC33D2E96B"
+                "7C12541A1F5DAD8864C7DDBC33D2E96B",
+                "608D73A6D4228BA4F1C4638DC40AE6F1"
             ),
             premiumUser = Admobify.isPremiumUser()
         )
-        //Logger.enableLogging()
+        Logger.enableLogging()
         loadSplashAppOpen()
 
     }
@@ -174,11 +176,11 @@ class SplashFragment : Fragment() {
                     val data = Gson().fromJson(it, AdsRemoteModel::class.java)
                     adsRemoteModel = data
                     native_language_l = adsRemoteModel?.native_language_l == true
-                    banner_splash_top = adsRemoteModel?.banner_splash_top == false
-                    banner_splash_med = adsRemoteModel?.banner_splash_med == false
-                    banner_splash_bottom = adsRemoteModel?.banner_splash_bottom == true
-                    banner_onboarding_top = adsRemoteModel?.banner_onboarding_top == false
-                    banner_onboarding_med = adsRemoteModel?.banner_onboarding_med == false
+                    banner_splash_top = adsRemoteModel?.banner_splash_top ?: false
+                    banner_splash_med = adsRemoteModel?.banner_splash_med ?: false
+                    banner_splash_bottom = adsRemoteModel?.banner_splash_bottom ?: true
+                    banner_onboarding_top = adsRemoteModel?.banner_onboarding_top ?: false
+                    banner_onboarding_med = adsRemoteModel?.banner_onboarding_med ?: false
                     banner_onboarding_bottom = adsRemoteModel?.banner_onboarding_bottom == true
                     native_home_l = adsRemoteModel?.native_home_l == true
                     fullscreen_home_l = adsRemoteModel?.fullscreen_home_l == true
