@@ -94,6 +94,11 @@
     <string name="one_ad_left">1 annuncio rimasto</string>
     <string name="popular_videos">Video Popolari</string>
     <string name="no_internet">Nessuna connessione Internet</string>
+    <string name="converter">Convertitore</string>
+    <string name="all_videos">All Videos</string>
+    <string name="mp3_converted">Mp3 Converted</string>
+    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
+    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
 
 
 </resources>

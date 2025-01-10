@@ -1,13 +1,11 @@
 package com.example.a4kvideodownloaderplayer.fragments.downloaded.views.adapter
 
 import android.app.Application
+import android.app.RecoverableSecurityException
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -31,9 +29,6 @@ import com.example.a4kvideodownloaderplayer.databinding.RecyclerviewNativeAdBind
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
 import com.google.android.gms.ads.LoadAdError
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 class VideoAdapter(
@@ -41,7 +36,8 @@ class VideoAdapter(
     private val context: Context,
     private val videoList: MutableList<VideoFile>,
     private val navigate: (VideoFile) -> Unit,
-    private val videoDeleted: () -> Unit
+    private val videoDeleted: () -> Unit,
+    private val videoDeletedRecovery: (RecoverableSecurityException, Int, Uri) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val VIEW_TYPE_VIDEO = 0
@@ -102,51 +98,6 @@ class VideoAdapter(
                     .setTitle(context.getString(R.string.delete_video))
                     .setMessage(context.getString(R.string.are_you_sure_you_want_to_delete_this_video))
                     .setPositiveButton(context.getString(R.string.yes)) { _, _ ->
-                        val downloadsFolder = Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_DOWNLOADS
-                        ).absolutePath
-
-                        // Create a subfolder named "4kVideoDownloader"
-                        val subFolder = File(downloadsFolder, "4kVideoDownloader")
-                        if (!subFolder.exists()) {
-                            subFolder.mkdirs()
-                        }
-
-                        val timestamp =
-                            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-                        val fileName =
-                            "audio_$timestamp.mp3" // Replace with `uniqueName.mp4` for UUID option
-                        // Create the file in the subfolder
-                        val file = File(
-                            subFolder,
-                            fileName
-                        ) // You can modify the filename dynamically if needed
-                        Log.e("TAG", "bind: ${videoFile.filePath}")
-                       /* AudioConverter()
-                            .extractAudio(
-                                getRealPathFromURI(videoFile.contentUri) ?: "",
-                                file.path,
-                                onSuccess = {
-                                    Log.e("Khan", "onSuccess")
-                                },
-                                onFailed = {
-                                    Log.e("Khan", "onFailed")
-                                },
-                                above2Min = {
-                                    Log.e("Khan", "above2Min")
-                                },
-                                noAudioFound = {
-                                    Log.e("Khan", "noAudioFound")
-                                }
-                            )*/
-                        /*VideoUtils().genVideoUsingMuxer(
-                            getRealPathFromURI(videoFile.contentUri),
-                            file.path,
-                            -1,
-                            -1,
-                            true,
-                            false
-                        )*/
                         deleteImage(videoFile.contentUri, adapterPosition)
                     }
                     .setNegativeButton(context.getString(R.string.no), null)
@@ -159,19 +110,7 @@ class VideoAdapter(
         }
     }
 
-    private fun getRealPathFromURI(contentURI: Uri): String? {
-        val result: String?
-        val cursor: Cursor? = context.contentResolver.query(contentURI, null, null, null, null)
-        if (cursor == null) {
-            result = contentURI.path
-        } else {
-            cursor.moveToFirst()
-            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            result = cursor.getString(idx)
-            cursor.close()
-        }
-        return result
-    }
+
 
     // Ad ViewHolder
     inner class AdViewHolder(
@@ -264,19 +203,23 @@ class VideoAdapter(
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            } catch (e: Exception) {
-                Log.e("TAG", "deleteImage: ${e.message}")
-                e.printStackTrace()
+            }
+            catch (e : RecoverableSecurityException){
+                videoDeletedRecovery.invoke(e, position, contentUri)
+
             }
         } else {
             val isFileDeleted = File(contentUri.path ?: "").delete()
             if (isFileDeleted) {
-                combinedList.removeAt(position)
-                videoList.removeAt(position / 5 * 4)
                 videoDeleted.invoke()
-                notifyDataSetChanged()
             }
         }
+    }
+
+    fun updateAdapter(position: Int){
+        combinedList.removeAt(position)
+        videoList.removeAt(position / 5 * 4)
+        notifyDataSetChanged()
     }
 
 
@@ -296,8 +239,8 @@ class VideoAdapter(
             }
     }
 
-
 }
+
 
 
 /*

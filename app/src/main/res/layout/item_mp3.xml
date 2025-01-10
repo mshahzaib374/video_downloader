@@ -1,0 +1,47 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+
+    <View
+        android:id="@+id/thumbnailCardView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#f6f0f0"
+        android:layout_margin="8dp"/>
+
+
+    <TextView
+        android:id="@+id/fileNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:fontFamily="@font/manropeextrabold"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteIv"
+        app:layout_constraintStart_toEndOf="@+id/deleteIv"
+        app:layout_constraintTop_toTopOf="@+id/deleteIv"
+        tools:text="Video Name" />
+
+
+
+
+    <ImageView
+        android:id="@+id/deleteIv"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:padding="@dimen/_8sdp"
+        app:tint="#9ED61414"
+        app:layout_constraintStart_toStartOf="@+id/thumbnailCardView"
+        app:layout_constraintTop_toTopOf="@+id/thumbnailCardView"
+        app:layout_constraintBottom_toBottomOf="@+id/thumbnailCardView"
+        android:src="@drawable/vector__28_" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

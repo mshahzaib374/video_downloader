@@ -4,6 +4,9 @@ import android.media.MediaCodec
 import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.media.MediaMuxer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.nio.ByteBuffer
 
@@ -17,68 +20,71 @@ class AudioConverter {
         onFailed: () -> Unit,
         onSuccess: () -> Unit,
     ) {
-        try {
-            val mediaExtractor = MediaExtractor()
-            mediaExtractor.setDataSource(inputFilePath)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val mediaExtractor = MediaExtractor()
+                mediaExtractor.setDataSource(inputFilePath)
 
-            // Check duration
-            val durationUs = getDuration(mediaExtractor)
-            val maxDurationUs = 2 * 60 * 1_000_000L // 2 minutes in microseconds
-            if (durationUs > maxDurationUs) {
-                above2Min.invoke()
-                return
-            }
+                // Check duration
+                val durationUs = getDuration(mediaExtractor)
+                val maxDurationUs = 20 * 60 * 1_000_000L // 5 minutes in microseconds
+                if (durationUs > maxDurationUs) {
+                    above2Min.invoke()
+                    return@launch
+                }
 
-            val mediaMuxer = MediaMuxer(outputFilePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4)
-            val trackCount = mediaExtractor.trackCount
-            var audioTrackIndex = -1
-            var maxInputSize = 0
+                val mediaMuxer = MediaMuxer(outputFilePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4)
+                val trackCount = mediaExtractor.trackCount
+                var audioTrackIndex = -1
+                var maxInputSize = 0
 
-            for (i in 0 until trackCount) {
-                val trackFormat = mediaExtractor.getTrackFormat(i)
-                if (isAudioTrack(trackFormat)) {
-                    val maxInputSizeFromThisTrack = trackFormat.getInteger(MediaFormat.KEY_MAX_INPUT_SIZE)
-                    if (maxInputSizeFromThisTrack > maxInputSize) {
-                        maxInputSize = maxInputSizeFromThisTrack
+                for (i in 0 until trackCount) {
+                    val trackFormat = mediaExtractor.getTrackFormat(i)
+                    if (isAudioTrack(trackFormat)) {
+                        val maxInputSizeFromThisTrack = trackFormat.getInteger(MediaFormat.KEY_MAX_INPUT_SIZE)
+                        if (maxInputSizeFromThisTrack > maxInputSize) {
+                            maxInputSize = maxInputSizeFromThisTrack
+                        }
+                        mediaExtractor.selectTrack(i)
+                        audioTrackIndex = mediaMuxer.addTrack(trackFormat)
                     }
-                    mediaExtractor.selectTrack(i)
-                    audioTrackIndex = mediaMuxer.addTrack(trackFormat)
                 }
-            }
 
-            if (audioTrackIndex == -1) {
-                noAudioFound.invoke()
-                return
-            }
-
-            val inputBuffer = ByteBuffer.allocate(maxInputSize)
-            val bufferInfo = MediaCodec.BufferInfo()
-            mediaMuxer.start()
-
-            while (true) {
-                val isInputBufferEnd = getInputBufferFromExtractor(mediaExtractor, inputBuffer, bufferInfo)
-                if (isInputBufferEnd) {
-                    break
+                if (audioTrackIndex == -1) {
+                    noAudioFound.invoke()
+                    return@launch
                 }
-                mediaMuxer.writeSampleData(audioTrackIndex, inputBuffer, bufferInfo)
-                mediaExtractor.advance()
-            }
 
-            mediaMuxer.stop()
-            mediaMuxer.release()
-            mediaExtractor.release()
+                val inputBuffer = ByteBuffer.allocate(maxInputSize)
+                val bufferInfo = MediaCodec.BufferInfo()
+                mediaMuxer.start()
 
-            // Validate the conversion
-            if (!isFileConverted(outputFilePath)) {
+                while (true) {
+                    val isInputBufferEnd = getInputBufferFromExtractor(mediaExtractor, inputBuffer, bufferInfo)
+                    if (isInputBufferEnd) {
+                        break
+                    }
+                    mediaMuxer.writeSampleData(audioTrackIndex, inputBuffer, bufferInfo)
+                    mediaExtractor.advance()
+                }
+
+                mediaMuxer.stop()
+                mediaMuxer.release()
+                mediaExtractor.release()
+
+                // Validate the conversion
+                if (!isFileConverted(outputFilePath)) {
+                    onFailed.invoke()
+                    return@launch
+                }else{
+                    onSuccess.invoke()
+                    return@launch
+                }
+            }catch (e: Exception) {
                 onFailed.invoke()
-                return
-            }else{
-                onSuccess.invoke()
-                return
             }
-        }catch (e: Exception) {
-            onFailed.invoke()
         }
+
 
     }
 

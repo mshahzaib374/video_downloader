@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,7 @@ import com.example.a4kvideodownloaderplayer.databinding.MainFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.MediumNativeAdsBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.views.adapter.VideoSliderAdapter
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
+import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.ViewPagerViewModel
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.checkForInAppUpdate
 import com.example.a4kvideodownloaderplayer.helper.showExitVideos
 import com.example.a4kvideodownloaderplayer.viewPager.ViewPagerAdapterDashboard
@@ -51,6 +53,8 @@ class MainFragment : Fragment() {
     private var exitBinding: ExitDialogLayoutBinding? = null
     private var binding: MainFragmentBinding? = null
     private val homeViewModel: HomeViewModel by activityViewModels()
+    val viewPagerViewModel: ViewPagerViewModel by activityViewModels()
+
     private var lastButtonClickID: Int = -1
 
     private var adCount: Int = 0
@@ -85,7 +89,7 @@ class MainFragment : Fragment() {
         attachObserver()
         registerViewPager()
         context?.checkForInAppUpdate(activity ?: return)
-        requireActivity().onBackPressedDispatcher.addCallback(
+        activity?.onBackPressedDispatcher?.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -100,11 +104,17 @@ class MainFragment : Fragment() {
                             polygon1.visibility = View.VISIBLE
                             polygon2.visibility = View.INVISIBLE
                             polygon3.visibility = View.INVISIBLE
+                            polygon4.visibility = View.INVISIBLE
                             lastButtonClickID = binding?.tabHome?.id ?: -1
                             iconHome.setImageResource(R.drawable.home_selected_icon)
                             iconHome.imageTintList =
                                 ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
                             textHome.setTextColor(Color.parseColor("#FFFFFF"))
+
+                            iconConverter.setImageResource(R.drawable.mp3_converter)
+                            iconConverter.imageTintList =
+                                ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                            textConverter.setTextColor(Color.parseColor("#BEB8B8"))
 
                             iconDownload.setImageResource(R.drawable.downloads_icon)
                             iconDownload.imageTintList =
@@ -125,8 +135,10 @@ class MainFragment : Fragment() {
 
     private fun registerViewPager() {
         binding?.viewPagerDashboardLight?.apply {
-            binding?.viewPagerDashboardLight?.adapter =
-                ViewPagerAdapterDashboard(activity ?: return)
+            activity?.let {
+                binding?.viewPagerDashboardLight?.adapter =
+                    ViewPagerAdapterDashboard(it, viewPagerViewModel)
+            }
             binding?.viewPagerDashboardLight?.isUserInputEnabled = false
 
             registerOnPageChangeCallback(object :
@@ -148,9 +160,16 @@ class MainFragment : Fragment() {
             polygon1.visibility = View.INVISIBLE
             polygon2.visibility = View.INVISIBLE
             polygon3.visibility = View.INVISIBLE
+            polygon4.visibility = View.INVISIBLE
+
             iconHome.setImageResource(R.drawable.home_icon)
             iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
             textHome.setTextColor(Color.parseColor("#BEB8B8"))
+
+            iconConverter.setImageResource(R.drawable.mp3_converter)
+            iconConverter.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+            textConverter.setTextColor(Color.parseColor("#BEB8B8"))
+
 
             iconDownload.setImageResource(R.drawable.downloads_icon)
             iconDownload.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
@@ -182,12 +201,12 @@ class MainFragment : Fragment() {
 
                     }
 
-                    "download" -> {
-                        iconDownload.setImageResource(R.drawable.download_icon)
+                    "convert" -> {
+                        iconConverter.setImageResource(R.drawable.mp3_converter)
                         polygon2.visibility = View.VISIBLE
-                        iconDownload.imageTintList =
+                        iconConverter.imageTintList =
                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textDownload.setTextColor(Color.parseColor("#ffffff"))
+                        textConverter.setTextColor(Color.parseColor("#ffffff"))
                         binding?.viewPagerDashboardLight?.setCurrentItem(
                             1,
                             true
@@ -195,14 +214,27 @@ class MainFragment : Fragment() {
 
                     }
 
+                    "download" -> {
+                        iconDownload.setImageResource(R.drawable.download_icon)
+                        polygon3.visibility = View.VISIBLE
+                        iconDownload.imageTintList =
+                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                        textDownload.setTextColor(Color.parseColor("#ffffff"))
+                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                            2,
+                            true
+                        ) // Navigate to page 0 (Home)
+
+                    }
+
                     "settings" -> {
                         iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                        polygon3.visibility = View.VISIBLE
+                        polygon4.visibility = View.VISIBLE
                         iconSettings.imageTintList =
                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                         textSettings.setTextColor(Color.parseColor("#ffffff"))
                         binding?.viewPagerDashboardLight?.setCurrentItem(
-                            2,
+                            3,
                             true
                         ) // Navigate to page 0 (Home)
 
@@ -227,34 +259,47 @@ class MainFragment : Fragment() {
                             iconHome.imageTintList =
                                 ColorStateList.valueOf(Color.parseColor("#ffffff"))
                             textHome.setTextColor(Color.parseColor("#ffffff"))
-                            binding?.viewPagerDashboardLight?.setCurrentItem(
+                            viewPagerDashboardLight.setCurrentItem(
                                 0,
                                 true
                             )
 
                         }
 
-                        "download" -> {
+                        "convert" -> {
                             polygon2.visibility = View.VISIBLE
-                            iconDownload.setImageResource(R.drawable.download_icon)
-                            iconDownload.imageTintList =
+                            iconConverter.setImageResource(R.drawable.download_icon)
+                            iconConverter.imageTintList =
                                 ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                            textDownload.setTextColor(Color.parseColor("#ffffff"))
-                            binding?.viewPagerDashboardLight?.setCurrentItem(
+                            textConverter.setTextColor(Color.parseColor("#ffffff"))
+                            viewPagerDashboardLight.setCurrentItem(
                                 1,
                                 true
                             ) // Navigate to page 0 (Home)
 
                         }
 
-                        "settings" -> {
+                        "download" -> {
                             polygon3.visibility = View.VISIBLE
+                            iconDownload.setImageResource(R.drawable.download_icon)
+                            iconDownload.imageTintList =
+                                ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                            textDownload.setTextColor(Color.parseColor("#ffffff"))
+                            viewPagerDashboardLight.setCurrentItem(
+                                2,
+                                true
+                            ) // Navigate to page 0 (Home)
+
+                        }
+
+                        "settings" -> {
+                            polygon4.visibility = View.VISIBLE
                             iconSettings.setImageResource(R.drawable.settings_selected_icon)
                             iconSettings.imageTintList =
                                 ColorStateList.valueOf(Color.parseColor("#ffffff"))
                             textSettings.setTextColor(Color.parseColor("#ffffff"))
-                            binding?.viewPagerDashboardLight?.setCurrentItem(
-                                2,
+                            viewPagerDashboardLight.setCurrentItem(
+                                3,
                                 true
                             ) // Navigate to page 0 (Home)
 
@@ -268,12 +313,14 @@ class MainFragment : Fragment() {
                         override fun adFailed(error: LoadAdError?, msg: String?) {
                             when (selectedTab) {
                                 "home" -> {
+                                    polygon1.visibility = View.VISIBLE
+
                                     iconHome.setImageResource(R.drawable.home_selected_icon)
                                     iconHome.imageTintList =
                                         ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                     textHome.setTextColor(Color.parseColor("#ffffff"))
                                     //binding?.viewPagerDashboardLight?.currentItem = 0
-                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                    viewPagerDashboardLight?.setCurrentItem(
                                         0,
                                         true
                                     ) // Navigate to page 0 (Home)
@@ -281,25 +328,43 @@ class MainFragment : Fragment() {
 
                                 }
 
-                                "download" -> {
-                                    iconDownload.setImageResource(R.drawable.download_icon)
-                                    iconDownload.imageTintList =
+                                "convert" -> {
+                                    polygon2.visibility = View.VISIBLE
+
+                                    iconConverter.setImageResource(R.drawable.download_icon)
+                                    iconConverter.imageTintList =
                                         ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                    textConverter.setTextColor(Color.parseColor("#ffffff"))
+                                    viewPagerDashboardLight.setCurrentItem(
                                         1,
                                         true
                                     ) // Navigate to page 0 (Home)
 
                                 }
 
+                                "download" -> {
+                                    polygon3.visibility = View.VISIBLE
+
+                                    iconDownload.setImageResource(R.drawable.download_icon)
+                                    iconDownload.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
+                                    viewPagerDashboardLight?.setCurrentItem(
+                                        2,
+                                        true
+                                    ) // Navigate to page 0 (Home)
+
+                                }
+
                                 "settings" -> {
+                                    polygon4.visibility = View.VISIBLE
+
                                     iconSettings.setImageResource(R.drawable.settings_selected_icon)
                                     iconSettings.imageTintList =
                                         ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                     textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                    binding?.viewPagerDashboardLight?.setCurrentItem(
-                                        2,
+                                    viewPagerDashboardLight.setCurrentItem(
+                                        3,
                                         true
                                     )
 
@@ -310,12 +375,14 @@ class MainFragment : Fragment() {
                         override fun adValidate() {
                             when (selectedTab) {
                                 "home" -> {
+                                    polygon1.visibility = View.VISIBLE
+
                                     iconHome.setImageResource(R.drawable.home_selected_icon)
                                     iconHome.imageTintList =
                                         ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                     textHome.setTextColor(Color.parseColor("#ffffff"))
                                     //binding?.viewPagerDashboardLight?.currentItem = 0
-                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                    viewPagerDashboardLight?.setCurrentItem(
                                         0,
                                         true
                                     ) // Navigate to page 0 (Home)
@@ -323,25 +390,43 @@ class MainFragment : Fragment() {
 
                                 }
 
-                                "download" -> {
-                                    iconDownload.setImageResource(R.drawable.download_icon)
-                                    iconDownload.imageTintList =
+                                "convert" -> {
+                                    polygon2.visibility = View.VISIBLE
+
+                                    iconConverter.setImageResource(R.drawable.download_icon)
+                                    iconConverter.imageTintList =
                                         ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                    binding?.viewPagerDashboardLight?.setCurrentItem(
+                                    textConverter.setTextColor(Color.parseColor("#ffffff"))
+                                    viewPagerDashboardLight.setCurrentItem(
                                         1,
                                         true
                                     ) // Navigate to page 0 (Home)
 
                                 }
 
+                                "download" -> {
+                                    polygon3.visibility = View.VISIBLE
+
+                                    iconDownload.setImageResource(R.drawable.download_icon)
+                                    iconDownload.imageTintList =
+                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
+                                    viewPagerDashboardLight?.setCurrentItem(
+                                        2,
+                                        true
+                                    ) // Navigate to page 0 (Home)
+
+                                }
+
                                 "settings" -> {
+                                    polygon4.visibility = View.VISIBLE
+
                                     iconSettings.setImageResource(R.drawable.settings_selected_icon)
                                     iconSettings.imageTintList =
                                         ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                     textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                    binding?.viewPagerDashboardLight?.setCurrentItem(
-                                        2,
+                                    viewPagerDashboardLight.setCurrentItem(
+                                        3,
                                         true
                                     )
 
@@ -363,7 +448,7 @@ class MainFragment : Fragment() {
                                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                         textHome.setTextColor(Color.parseColor("#ffffff"))
                                         //binding?.viewPagerDashboardLight?.currentItem = 0
-                                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        viewPagerDashboardLight.setCurrentItem(
                                             0,
                                             true
                                         ) // Navigate to page 0 (Home)
@@ -371,27 +456,40 @@ class MainFragment : Fragment() {
 
                                     }
 
-                                    "download" -> {
+                                    "convert" -> {
                                         polygon2.visibility = View.VISIBLE
-                                        iconDownload.setImageResource(R.drawable.download_icon)
-                                        iconDownload.imageTintList =
+                                        iconConverter.setImageResource(R.drawable.download_icon)
+                                        iconConverter.imageTintList =
                                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        textConverter.setTextColor(Color.parseColor("#ffffff"))
+                                        viewPagerDashboardLight.setCurrentItem(
                                             1,
                                             true
                                         ) // Navigate to page 0 (Home)
 
                                     }
 
-                                    "settings" -> {
+                                    "download" -> {
                                         polygon3.visibility = View.VISIBLE
+                                        iconDownload.setImageResource(R.drawable.download_icon)
+                                        iconDownload.imageTintList =
+                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                        textDownload.setTextColor(Color.parseColor("#ffffff"))
+                                        viewPagerDashboardLight.setCurrentItem(
+                                            2,
+                                            true
+                                        ) // Navigate to page 0 (Home)
+
+                                    }
+
+                                    "settings" -> {
+                                        polygon4.visibility = View.VISIBLE
                                         iconSettings.setImageResource(R.drawable.settings_selected_icon)
                                         iconSettings.imageTintList =
                                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                         textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                        binding?.viewPagerDashboardLight?.setCurrentItem(
-                                            2,
+                                        viewPagerDashboardLight.setCurrentItem(
+                                            3,
                                             true
                                         ) // Navigate to page 0 (Home)
 
@@ -411,7 +509,7 @@ class MainFragment : Fragment() {
                                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                         textHome.setTextColor(Color.parseColor("#ffffff"))
                                         //binding?.viewPagerDashboardLight?.currentItem = 0
-                                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        viewPagerDashboardLight.setCurrentItem(
                                             0,
                                             true
                                         ) // Navigate to page 0 (Home)
@@ -419,13 +517,26 @@ class MainFragment : Fragment() {
 
                                     }
 
-                                    "download" -> {
+                                    "convert" -> {
                                         polygon2.visibility = View.VISIBLE
+                                        iconConverter.setImageResource(R.drawable.download_icon)
+                                        iconConverter.imageTintList =
+                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                                        textDownload.setTextColor(Color.parseColor("#ffffff"))
+                                        viewPagerDashboardLight.setCurrentItem(
+                                            1,
+                                            true
+                                        ) // Navigate to page 0 (Home)
+
+                                    }
+
+                                    "download" -> {
+                                        polygon3.visibility = View.VISIBLE
                                         iconDownload.setImageResource(R.drawable.download_icon)
                                         iconDownload.imageTintList =
                                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                         textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        viewPagerDashboardLight.setCurrentItem(
                                             1,
                                             true
                                         ) // Navigate to page 0 (Home)
@@ -433,12 +544,12 @@ class MainFragment : Fragment() {
                                     }
 
                                     "settings" -> {
-                                        polygon3.visibility = View.VISIBLE
+                                        polygon4.visibility = View.VISIBLE
                                         iconSettings.setImageResource(R.drawable.settings_selected_icon)
                                         iconSettings.imageTintList =
                                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                                         textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                                        viewPagerDashboardLight.setCurrentItem(
                                             2,
                                             true
                                         )
@@ -459,34 +570,46 @@ class MainFragment : Fragment() {
                         iconHome.setImageResource(R.drawable.home_selected_icon)
                         iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
                         textHome.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                        viewPagerDashboardLight.setCurrentItem(
                             0,
                             true
                         ) // Navigate to page 0 (Home)
 
                     }
 
-                    "download" -> {
+                    "convert" -> {
                         polygon2.visibility = View.VISIBLE
-                        iconDownload.setImageResource(R.drawable.download_icon)
-                        iconDownload.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                        iconHome.setImageResource(R.drawable.home_selected_icon)
+                        iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                        textHome.setTextColor(Color.parseColor("#ffffff"))
+                        viewPagerDashboardLight.setCurrentItem(
                             1,
                             true
                         ) // Navigate to page 0 (Home)
 
                     }
 
-                    "settings" -> {
+                    "download" -> {
                         polygon3.visibility = View.VISIBLE
+                        iconDownload.setImageResource(R.drawable.download_icon)
+                        iconDownload.imageTintList =
+                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                        textDownload.setTextColor(Color.parseColor("#ffffff"))
+                        viewPagerDashboardLight.setCurrentItem(
+                            2,
+                            true
+                        ) // Navigate to page 0 (Home)
+
+                    }
+
+                    "settings" -> {
+                        polygon4.visibility = View.VISIBLE
                         iconSettings.setImageResource(R.drawable.settings_selected_icon)
                         iconSettings.imageTintList =
                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                         textSettings.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
-                            2,
+                        viewPagerDashboardLight.setCurrentItem(
+                            3,
                             true
                         ) // Navigate to page 0 (Home)
 
@@ -501,18 +624,25 @@ class MainFragment : Fragment() {
 
     private fun attachObserver() {
         homeViewModel.pageSelector.observe(viewLifecycleOwner) {
-            binding?.viewPagerDashboardLight?.currentItem = it
 
             binding?.apply {
+                viewPagerDashboardLight.currentItem = it
                 tabHome.isEnabled = true
                 tabDownload.isEnabled = true
                 tabSettings.isEnabled = true
                 polygon1.visibility = View.INVISIBLE
                 polygon2.visibility = View.INVISIBLE
                 polygon3.visibility = View.INVISIBLE
+                polygon4.visibility = View.INVISIBLE
+
                 iconHome.setImageResource(R.drawable.home_icon)
                 iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
                 textHome.setTextColor(Color.parseColor("#BEB8B8"))
+
+
+                iconConverter.setImageResource(R.drawable.mp3_converter)
+                iconConverter.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textConverter.setTextColor(Color.parseColor("#BEB8B8"))
 
                 iconDownload.setImageResource(R.drawable.downloads_icon)
                 iconDownload.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
@@ -521,26 +651,28 @@ class MainFragment : Fragment() {
                 iconSettings.setImageResource(R.drawable.settings_icon)
                 iconSettings.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
                 textSettings.setTextColor(Color.parseColor("#BEB8B8"))
+                Log.e("TAG", "attachObserver: $it" )
                 when (it) {
                     0 -> {
                         polygon1.visibility = View.VISIBLE
                         iconHome.setImageResource(R.drawable.home_selected_icon)
                         iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
                         textHome.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                        viewPagerDashboardLight.setCurrentItem(
                             0,
                             true
                         ) // Navigate to page 0 (Home)
 
                     }
 
+
                     1 -> {
                         polygon2.visibility = View.VISIBLE
-                        iconDownload.setImageResource(R.drawable.download_icon)
-                        iconDownload.imageTintList =
+                        iconConverter.setImageResource(R.drawable.mp3_converter)
+                        iconConverter.imageTintList =
                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
+                        textConverter.setTextColor(Color.parseColor("#ffffff"))
+                        viewPagerDashboardLight.setCurrentItem(
                             1,
                             true
                         ) // Navigate to page 0 (Home)
@@ -549,12 +681,25 @@ class MainFragment : Fragment() {
 
                     2 -> {
                         polygon3.visibility = View.VISIBLE
+                        iconDownload.setImageResource(R.drawable.download_icon)
+                        iconDownload.imageTintList =
+                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
+                        textDownload.setTextColor(Color.parseColor("#ffffff"))
+                        viewPagerDashboardLight.setCurrentItem(
+                            2,
+                            true
+                        ) // Navigate to page 0 (Home)
+
+                    }
+
+                    3 -> {
+                        polygon4.visibility = View.VISIBLE
                         iconSettings.setImageResource(R.drawable.settings_selected_icon)
                         iconSettings.imageTintList =
                             ColorStateList.valueOf(Color.parseColor("#ffffff"))
                         textSettings.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
-                            2,
+                        viewPagerDashboardLight.setCurrentItem(
+                            3,
                             true
                         )
 
@@ -567,15 +712,27 @@ class MainFragment : Fragment() {
             tabHome.setOnClickListener {
                 if (tabHome.isEnabled) {
                     tabHome.isEnabled = false
+                    tabConverter.isEnabled = true
                     tabDownload.isEnabled = true
                     tabSettings.isEnabled = true
                     updateTabSelection(it.id, "home")
                 }
             }
 
+            tabConverter.setOnClickListener {
+                if (tabConverter.isEnabled) {
+                    tabHome.isEnabled = true
+                    tabConverter.isEnabled = false
+                    tabDownload.isEnabled = true
+                    tabSettings.isEnabled = true
+                    updateTabSelection(it.id, "convert")
+                }
+            }
+
             tabDownload.setOnClickListener {
                 if (tabDownload.isEnabled) {
                     tabHome.isEnabled = true
+                    tabConverter.isEnabled = true
                     tabDownload.isEnabled = false
                     tabSettings.isEnabled = true
                     updateTabSelection(it.id, "download")
@@ -586,6 +743,7 @@ class MainFragment : Fragment() {
 
                 if (tabSettings.isEnabled) {
                     tabHome.isEnabled = true
+                    tabConverter.isEnabled = true
                     tabDownload.isEnabled = true
                     tabSettings.isEnabled = false
                     updateTabSelection(it.id, "settings")

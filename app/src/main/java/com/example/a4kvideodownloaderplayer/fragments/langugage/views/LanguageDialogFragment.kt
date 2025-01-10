@@ -168,7 +168,7 @@ class LanguageDialogFragment : DialogFragment() {
 
 
     private fun navigateScreen() {
-        homeViewModel.updatePageSelector(2)
+        homeViewModel.updatePageSelector(3)
         homeViewModel.isLanguageSelected(true)
         dismiss()
     }

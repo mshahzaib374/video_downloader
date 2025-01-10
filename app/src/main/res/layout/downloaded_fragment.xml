@@ -32,16 +32,6 @@
         />
 
 
-    <ImageView
-        android:id="@+id/premium_icon_downloads_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/premium_icon"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        android:layout_margin="@dimen/_16sdp"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

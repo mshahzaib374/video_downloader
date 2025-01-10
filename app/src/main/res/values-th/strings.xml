@@ -94,6 +94,11 @@
     <string name="one_ad_left">เหลือโฆษณา 1 รายการ</string>
     <string name="popular_videos">วิดีโอที่ได้รับความนิยม</string>
     <string name="no_internet">ไม่มีอินเทอร์เน็ต</string>
+    <string name="converter">เครื่องแปลง</string>
+    <string name="all_videos">All Videos</string>
+    <string name="mp3_converted">Mp3 Converted</string>
+    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
+    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
 
 
 </resources>

@@ -94,6 +94,11 @@
     <string name="disclaimer_desc">Cette application 4K Video Downloader et Player a été développée indépendamment et n est affiliée ou approuvée par aucune autre plateforme ou service. En tant qu outil de téléchargement de vidéos et de sauvegarde de contenu, il incombe aux utilisateurs de s assurer que l utilisation des matériaux téléchargés ne viole pas les droits d auteur ou les droits des propriétaires de contenu. Il est de la responsabilité de l utilisateur d obtenir l autorisation nécessaire des détenteurs de droits d auteur avant d utiliser ou de partager le contenu téléchargé.</string>
     <string name="popular_videos">Vidéos Populaires</string>
     <string name="no_internet">Pas Internet</string>
+    <string name="converter">Convertisseur</string>
+    <string name="all_videos">All Videos</string>
+    <string name="mp3_converted">Mp3 Converted</string>
+    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
+    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
 
 
 </resources>

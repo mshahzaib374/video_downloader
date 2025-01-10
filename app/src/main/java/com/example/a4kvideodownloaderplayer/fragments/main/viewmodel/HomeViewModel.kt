@@ -22,17 +22,4 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    private var _exitDialogStatus: MutableLiveData<Boolean> = MutableLiveData()
-    var exitDialogStatus: LiveData<Boolean> = _exitDialogStatus
-
-
-    fun showExitDialog(status: Boolean) {
-        _exitDialogStatus.value = status
-    }
-
-    fun hideExitDialog(status: Boolean) {
-        _exitDialogStatus.value = status
-    }
-
-
 }

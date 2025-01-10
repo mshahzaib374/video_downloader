@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        >
 
 
     </androidx.viewpager2.widget.ViewPager2>
@@ -47,8 +48,7 @@
             android:focusable="true"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="@dimen/_8sdp"
-            >
+            android:paddingTop="@dimen/_8sdp">
 
             <ImageView
                 android:id="@+id/iconHome"
@@ -67,12 +67,49 @@
 
             <ImageView
                 android:id="@+id/polygon1"
-                android:paddingTop="@dimen/_2sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/polygon_3"
                 android:layout_gravity="center_horizontal"
-                />
+                android:paddingTop="@dimen/_2sdp"
+                android:src="@drawable/polygon_3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tabConverter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tabs_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_8sdp">
+
+            <ImageView
+                android:id="@+id/iconConverter"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/mp3_converter"
+                app:tint="#BEB8B8" />
+
+            <TextView
+                android:id="@+id/textConverter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/converter"
+                android:textColor="#BEB8B8"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/polygon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/_2sdp"
+                android:src="@drawable/polygon_3"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,15 +138,15 @@
                 android:text="@string/downloads"
                 android:textColor="#BEB8B8"
                 android:textSize="12sp" />
+
             <ImageView
-                android:id="@+id/polygon2"
+                android:id="@+id/polygon3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/polygon_3"
                 android:layout_gravity="center_horizontal"
-                android:visibility="invisible"
                 android:paddingTop="@dimen/_2sdp"
-                />
+                android:src="@drawable/polygon_3"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,15 +175,15 @@
                 android:text="@string/settings"
                 android:textColor="#BEB8B8"
                 android:textSize="12sp" />
+
             <ImageView
-                android:id="@+id/polygon3"
+                android:id="@+id/polygon4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/polygon_3"
                 android:layout_gravity="center_horizontal"
-                android:visibility="invisible"
                 android:paddingTop="@dimen/_2sdp"
-                />
+                android:src="@drawable/polygon_3"
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 

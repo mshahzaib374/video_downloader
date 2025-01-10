@@ -1,5 +1,8 @@
 package com.example.a4kvideodownloaderplayer.fragments.downloaded.views
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.RecoverableSecurityException
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
@@ -15,6 +18,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -33,6 +40,29 @@ class DownloadedFragment : Fragment() {
     private var videoAdapter: VideoAdapter? = null
     private var binding: DownloadedFragmentBinding? = null
     private val homeViewModel: HomeViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        recoverableIntentLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Refresh the adapter after permission is granted
+                urii?.let {
+                    val rowsDeleted = context?.contentResolver?.delete(it, null, null) ?: 0
+                    if (rowsDeleted > 0){
+                        videoAdapter?.updateAdapter(pendingDeletePosition)
+                        Toast.makeText(
+                            context ?: return@let,
+                            context?.getString(R.string.video_deleted),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        getVideoFiles()
+                    }
+
+                }
+
+            }
+        }
+    }
 
 
     override fun onCreateView(
@@ -57,7 +87,7 @@ class DownloadedFragment : Fragment() {
         getVideoFiles()
 
         homeViewModel.pageSelector.observe(viewLifecycleOwner) {
-            if (it == 1) {
+            if (it == 2) {
                 getVideoFiles()
             }
         }
@@ -77,36 +107,6 @@ class DownloadedFragment : Fragment() {
 
 
     }
-
-
-    /*private fun getVideoFiles() {
-        binding?.progressBar?.visibility = View.VISIBLE
-        val videoList = mutableListOf<VideoFile>()
-        val downloadsDirectory =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val targetDirectory = File(downloadsDirectory, "4kVideoDownloader")
-        if (targetDirectory.exists()) {
-            val files = targetDirectory.listFiles { file -> file.extension == "mp4" }
-            files?.forEach { file ->
-                val thumbnail = ThumbnailUtils.createVideoThumbnail(
-                    file.path,
-                    MediaStore.Images.Thumbnails.MINI_KIND
-                )
-                videoList.add(VideoFile(file.name, file.path, thumbnail))
-            }
-        }
-        if (videoList.isNotEmpty()) {
-            videoAdapter = VideoAdapter(videoList)
-            binding?.rv?.adapter = videoAdapter
-            binding?.progressBar?.visibility = View.GONE
-            binding?.noVideoTv?.visibility = View.GONE
-        } else {
-            binding?.progressBar?.visibility = View.GONE
-            binding?.noVideoTv?.visibility = View.VISIBLE
-        }
-
-
-    }*/
 
     private fun getVideoFiles() {
         binding?.progressBar?.visibility = View.VISIBLE
@@ -142,7 +142,6 @@ class DownloadedFragment : Fragment() {
                     val relativePath = cursor.getString(pathColumn)
                     val filePath = "$downloadsPath/$relativePath/$fileName"
                     val contentUri = ContentUris.withAppendedId(queryUri, id) // Add to video list
-                    Log.e("TAG", "dateColumn: ${cursor.getLong(dateColumn)}")
                     videosList.add(
                         VideoFile(
                             id,
@@ -218,7 +217,8 @@ class DownloadedFragment : Fragment() {
                             )
                         }
                     }
-                }
+                },
+                videoDeletedRecovery = { e, i, u -> handleRecoverableException(e, i, u) }
             )
             binding?.rv?.adapter = videoAdapter
             binding?.progressBar?.visibility = View.GONE
@@ -228,6 +228,21 @@ class DownloadedFragment : Fragment() {
             binding?.noVideoTv?.visibility = View.VISIBLE
         }
     }
+
+    private var pendingDeletePosition: Int = -1
+    private var urii: Uri ?= null
+
+    @SuppressLint("NewApi")
+    private fun handleRecoverableException(e: RecoverableSecurityException, position: Int, uri : Uri) {
+        pendingDeletePosition = position
+        urii = uri
+        val intentSender = e.userAction.actionIntent.intentSender
+        val request = IntentSenderRequest.Builder(intentSender).build()
+        recoverableIntentLauncher.launch(request)
+    }
+
+    private lateinit var recoverableIntentLauncher: ActivityResultLauncher<IntentSenderRequest>
+
 
 
     private fun generateVideoThumbnail(context: Context, contentUri: Uri): Bitmap? {

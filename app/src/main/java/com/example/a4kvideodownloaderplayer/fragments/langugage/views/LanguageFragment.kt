@@ -2,6 +2,7 @@ package com.example.a4kvideodownloaderplayer.fragments.langugage.views
 
 import LanguageViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,7 @@ class LanguageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("SHAH", "onViewCreated: ", )
         setLanguageAdapter()
         attachObserver()
         context?.logFirebaseEvent("language_fragment", "screen_opened")
@@ -133,7 +135,9 @@ class LanguageFragment : Fragment() {
             }
 
             binding?.textView?.setOnClickListener {
+                Log.e("SHAH", "setLanguageAdapter:1 ", )
                 if (this.language != null) {
+                Log.e("SHAH", "setLanguageAdapter:2 ", )
                     this.language?.let { it1 ->
                         languageViewModel.selectLanguage(
                             it1, this.selectedPosition ?: return@setOnClickListener
@@ -173,6 +177,7 @@ class LanguageFragment : Fragment() {
             homeViewModel.updatePageSelector(2)
             homeViewModel.isLanguageSelected(true)
             findNavController().navigateUp()
+
         }
 
     }

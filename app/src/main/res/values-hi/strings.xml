@@ -94,6 +94,11 @@
     <string name="one_ad_left">1 विज्ञापन बचा है</string>
     <string name="popular_videos">लोकप्रिय वीडियो</string>
     <string name="no_internet">कोई इंटरनेट नहीं</string>
+    <string name="converter">कन्वर्टर</string>
+    <string name="all_videos">All Videos</string>
+    <string name="mp3_converted">Mp3 Converted</string>
+    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
+    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
 
 
 </resources>

@@ -46,6 +46,8 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this) {
             videoPlayerViewModel.player?.stop()
+            videoPlayerViewModel.player?.release()
+            videoPlayerViewModel.player = null
             showAds()
         }
     }

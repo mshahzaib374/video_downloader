@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,7 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels()
     private var progressDialog: ProgressDialog? = null
     private var downloadDialog: DownloadDialogHelper? = null
+    private var isAppOpenAdsShown = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -131,7 +133,6 @@ class HomeFragment : Fragment() {
         }
 
         setUpProgressDialog()
-        loadDefaultNativeAd()
         loadPopularVideos()
 
         videoViewModel.downloadStatus.observe(viewLifecycleOwner) { status ->
@@ -149,7 +150,7 @@ class HomeFragment : Fragment() {
             when (status) {
                 "SUCCESS" -> {
                     if (Admobify.isPremiumUser()) {
-                        homeViewModel.updatePageSelector(1)
+                        homeViewModel.updatePageSelector(2)
                         Toast.makeText(
                             context ?: return@observe,
                             getString(R.string.video_downloaded_successfully),
@@ -202,11 +203,15 @@ class HomeFragment : Fragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                binding?.nativeContainer?.visibility = View.GONE
+                Log.e("SHAH", "onAdShown: ", )
+                isAppOpenAdsShown = true
+                //binding?.nativeContainer?.visibility = View.GONE
             }
 
             override fun onAdDismissed() {
-                binding?.nativeContainer?.visibility = View.VISIBLE
+                Log.e("SHAH", "onAdDismissed: ", )
+                isAppOpenAdsShown = false
+                //binding?.nativeContainer?.visibility = View.VISIBLE
             }
         }
 
@@ -215,17 +220,17 @@ class HomeFragment : Fragment() {
     private fun loadPopularVideos() {
         val adapter = PopularVideosAdapter(context ?: return, showTrendingVideos()) {
             if (findNavController().currentDestination?.id == R.id.mainFragment) {
-               if (AdmobifyUtils.isNetworkAvailable(context)){
-                   Bundle().apply {
-                       putString("videoUrl", it.url)
-                       findNavController().navigate(
-                           R.id.action_mainFragment_to_PopularVideoPlayerFragment,
-                           this
-                       )
-                   }
-               }else{
-                   Toast.makeText(context, R.string.no_internet, Toast.LENGTH_SHORT).show()
-               }
+                if (AdmobifyUtils.isNetworkAvailable(context)) {
+                    Bundle().apply {
+                        putString("videoUrl", it.url)
+                        findNavController().navigate(
+                            R.id.action_mainFragment_to_PopularVideoPlayerFragment,
+                            this
+                        )
+                    }
+                } else {
+                    Toast.makeText(context, R.string.no_internet, Toast.LENGTH_SHORT).show()
+                }
 
             }
         }
@@ -353,6 +358,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadDefaultNativeAd() {
+        Log.e("SHAH", "loadDefaultNativeAd")
         val bind = MediumNativeAdsBinding.inflate(layoutInflater)
         bind.apply {
             val nativeAdModel = NativeAdItemsModel(
@@ -379,11 +385,19 @@ class HomeFragment : Fragment() {
 
                     override fun adLoaded() {
                         super.adLoaded()
-                        binding?.nativeContainer?.visibility = View.VISIBLE
-                        binding?.shimmerHomeLayout?.root?.visibility = View.GONE
+                        if (isAppOpenAdsShown) {
+                            binding?.nativeContainer?.visibility = View.GONE
+                            binding?.shimmerHomeLayout?.root?.visibility = View.GONE
+                        }else{
+                            binding?.nativeContainer?.visibility = View.VISIBLE
+                            binding?.shimmerHomeLayout?.root?.visibility = View.GONE
+                        }
+
                     }
 
                     override fun adValidate() {
+                        Log.e("SHAH", "adValidate")
+
                         binding?.nativeContainer?.visibility = View.GONE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
@@ -420,7 +434,7 @@ class HomeFragment : Fragment() {
             override fun adAlreadyLoaded() {}
             override fun adLoaded() {}
             override fun adFailed(error: LoadAdError?, msg: String?) {
-                homeViewModel.updatePageSelector(1)
+                homeViewModel.updatePageSelector(2)
                 Toast.makeText(
                     context ?: return,
                     getString(R.string.video_downloaded_successfully),
@@ -437,7 +451,7 @@ class HomeFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 videoViewModel.resetDownloadStatus()
-                homeViewModel.updatePageSelector(1)
+                homeViewModel.updatePageSelector(2)
 
             }
         },
@@ -445,7 +459,7 @@ class HomeFragment : Fragment() {
                 override fun adNotAvailable() {}
                 override fun adShowFullScreen() {
                     videoViewModel.resetDownloadStatus()
-                    homeViewModel.updatePageSelector(1)
+                    homeViewModel.updatePageSelector(2)
 
                 }
 
@@ -458,13 +472,20 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun adFailedToShow() {
-                    homeViewModel.updatePageSelector(1)
+                    homeViewModel.updatePageSelector(2)
                 }
 
                 override fun adImpression() {}
 
                 override fun adClicked() {}
             })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isAppOpenAdsShown) {
+            loadDefaultNativeAd()
+        }
     }
 
 }

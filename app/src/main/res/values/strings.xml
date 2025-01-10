@@ -100,5 +100,12 @@
     <string name="one_ad_left">1 Ad Left</string>
     <string name="popular_videos">Trending Videos</string>
     <string name="no_internet">No Internet</string>
+    <string name="converter">Converter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_videos">All Videos</string>
+    <string name="mp3_converted">Mp3 Converted</string>
+    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
+    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
 
 </resources>

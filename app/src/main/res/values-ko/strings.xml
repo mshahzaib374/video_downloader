@@ -94,6 +94,11 @@
     <string name="one_ad_left">광고 1개 남음</string>
     <string name="popular_videos">인기 동영상</string>
     <string name="no_internet">인터넷 없음</string>
+    <string name="converter">변환기</string>
+    <string name="all_videos">All Videos</string>
+    <string name="mp3_converted">Mp3 Converted</string>
+    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
+    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
 
 
 </resources>
