@@ -95,10 +95,20 @@
     <string name="popular_videos">热门视频</string>
     <string name="no_internet">无互联网</string>
     <string name="converter">转换器</string>
-    <string name="all_videos">All Videos</string>
-    <string name="mp3_converted">Mp3 Converted</string>
-    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
-    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
-
+    <string name="all_videos">所有视频</string>
+    <string name="mp3_converted">已转换为MP3</string>
+    <string name="mp3_converter_title">视频转MP3工具可提取视频文件中的音频并保存为MP3格式，便于播放。</string>
+    <string name="add_video_convert">添加视频并转换</string>
+    <string name="your_video_is_being_converted_to_mp3">您的视频正在转换为MP3。</string>
+    <string name="share">分享</string>
+    <string name="delete">删除</string>
+    <string name="audio_deleted">音频已删除</string>
+    <string name="audio_converted">音频转换成功</string>
+    <string name="paste_your_copied_url">粘贴您复制的链接</string>
+    <string name="click_download_button">点击下载按钮</string>
+    <string name="play_downloaded_videos">播放已下载的视频</string>
+    <string name="built_in_player">内置播放器</string>
+    <string name="convert_videos_to_mp3">将视频转换为MP3</string>
+    <string name="how_to_use">如何使用</string>
 
 </resources>

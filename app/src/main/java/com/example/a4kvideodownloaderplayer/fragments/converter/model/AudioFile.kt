@@ -7,5 +7,6 @@ data class AudioFile(
     val contentUri: Uri,
     val fileName: String,
     val filePath: String,
-    val dateModified: Long
+    val dateModified: Long,
+    val duration: String,
 )

@@ -18,6 +18,7 @@ import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdType
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdUtils
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerCallback
 import com.example.a4kvideodownloaderplayer.databinding.LanguageScreenBinding
+import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 import com.example.a4kvideodownloaderplayer.fragments.langugage.model.Languages
 import com.example.a4kvideodownloaderplayer.fragments.langugage.views.adapter.LanguagesAdapter
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
@@ -29,6 +30,8 @@ class LanguageDialogFragment : DialogFragment() {
 
     private var binding: LanguageScreenBinding? = null
     private val languageViewModel: LanguageViewModel by activityViewModels()
+    private val videoViewModel: VideoViewModel by activityViewModels()
+
     private var languagesAdapter: LanguagesAdapter? = null
     private var language: Languages? = null
     private var selectedPosition: Int? = null
@@ -168,6 +171,7 @@ class LanguageDialogFragment : DialogFragment() {
 
 
     private fun navigateScreen() {
+        videoViewModel.resetDownloadStatus()
         homeViewModel.updatePageSelector(3)
         homeViewModel.isLanguageSelected(true)
         dismiss()

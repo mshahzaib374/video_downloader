@@ -3,7 +3,6 @@ package com.example.a4kvideodownloaderplayer.fragments.downloaded.views.adapter
 import android.app.Application
 import android.app.RecoverableSecurityException
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.util.Log
@@ -27,6 +26,7 @@ import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.databinding.RecyclerviewNativeAdBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
+import com.example.a4kvideodownloaderplayer.helper.shareFile
 import com.google.android.gms.ads.LoadAdError
 import java.io.File
 
@@ -37,6 +37,7 @@ class VideoAdapter(
     private val videoList: MutableList<VideoFile>,
     private val navigate: (VideoFile) -> Unit,
     private val videoDeleted: () -> Unit,
+    private val mp3Converter: (VideoFile) -> Unit,
     private val videoDeletedRecovery: (RecoverableSecurityException, Int, Uri) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -79,18 +80,18 @@ class VideoAdapter(
         private val playIcon: ImageView = itemView.findViewById(R.id.playIcon)
         private val shareImageView: ImageView = itemView.findViewById(R.id.shareIv)
         private val deleteImageView: ImageView = itemView.findViewById(R.id.deleteIv)
+        private val mp3Iv: ImageView = itemView.findViewById(R.id.mp3Iv)
 
         fun bind(videoFile: VideoFile) {
             fileNameTextView.text = videoFile.fileName
             thumbnailImageView.setImageBitmap(videoFile.thumbnail)
 
+            mp3Iv.setOnClickListener {
+                mp3Converter.invoke(videoFile)
+            }
+
             shareImageView.setOnClickListener {
-                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                    type = "video/mp4"
-                    putExtra(Intent.EXTRA_STREAM, videoFile.contentUri)
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-                context.startActivity(Intent.createChooser(shareIntent, "Share Video"))
+                context.shareFile(videoFile.contentUri, "video/mp4")
             }
 
             deleteImageView.setOnClickListener {

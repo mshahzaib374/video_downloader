@@ -135,9 +135,7 @@ class LanguageFragment : Fragment() {
             }
 
             binding?.textView?.setOnClickListener {
-                Log.e("SHAH", "setLanguageAdapter:1 ", )
                 if (this.language != null) {
-                Log.e("SHAH", "setLanguageAdapter:2 ", )
                     this.language?.let { it1 ->
                         languageViewModel.selectLanguage(
                             it1, this.selectedPosition ?: return@setOnClickListener
@@ -174,7 +172,7 @@ class LanguageFragment : Fragment() {
                 findNavController().navigate(R.id.action_languageFragment_to_onBoardingFragment)
             }
         } else {
-            homeViewModel.updatePageSelector(2)
+            homeViewModel.updatePageSelector(3)
             homeViewModel.isLanguageSelected(true)
             findNavController().navigateUp()
 

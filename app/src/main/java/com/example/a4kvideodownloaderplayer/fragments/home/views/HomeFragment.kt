@@ -5,7 +5,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -113,9 +112,7 @@ class HomeFragment : Fragment() {
                 }
                 checkForYoutubeLink(downloadUrl) {
                     if (downloadUrl.isNotEmpty()) {
-                        downloadDialog = DownloadDialogHelper {
-                            //videoViewModel.cancelDownload()
-                        }
+                        downloadDialog = DownloadDialogHelper {}
                         downloadDialog?.showDownloadDialog(context ?: return@checkForYoutubeLink)
                         videoViewModel.newDownloadVideoApi(
                             downloadUrl,
@@ -136,7 +133,7 @@ class HomeFragment : Fragment() {
         loadPopularVideos()
 
         videoViewModel.downloadStatus.observe(viewLifecycleOwner) { status ->
-            var isLangSelected = false
+            /*var isLangSelected = false
             homeViewModel.isLanguageSelected.observe(viewLifecycleOwner) { isLanguageSelected ->
                 isLangSelected = isLanguageSelected
             }
@@ -144,11 +141,13 @@ class HomeFragment : Fragment() {
             if (isLangSelected) {
                 homeViewModel.isLanguageSelected(false)
                 return@observe
-            }
-
+            }*/
+            //if (videoViewModel.isDownloadHandled) return@observe
             binding?.input?.text?.clear()
+            Log.e("SHAH", "onResponse: $status")
             when (status) {
                 "SUCCESS" -> {
+                    videoViewModel.isDownloadHandled = true
                     if (Admobify.isPremiumUser()) {
                         homeViewModel.updatePageSelector(2)
                         Toast.makeText(
@@ -167,7 +166,7 @@ class HomeFragment : Fragment() {
                         getString(R.string.video_size_is_too_large),
                         Toast.LENGTH_SHORT
                     ).show()
-                    videoViewModel.resetDownloadStatus()
+                   // videoViewModel.resetDownloadStatus()
                 }
 
                 "ERROR" -> {
@@ -175,19 +174,7 @@ class HomeFragment : Fragment() {
                         context ?: return@observe,
                         getString(R.string.downloading_failed), Toast.LENGTH_SHORT
                     ).show()
-                    videoViewModel.resetDownloadStatus()
-
-
-                }
-
-                else -> {
-                    if (!TextUtils.isEmpty(status)) {
-                        Toast.makeText(
-                            context ?: return@observe,
-                            getString(R.string.downloading_failed),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                   // videoViewModel.resetDownloadStatus()
 
 
                 }
@@ -203,13 +190,13 @@ class HomeFragment : Fragment() {
 
         OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {
             override fun onAdShown() {
-                Log.e("SHAH", "onAdShown: ", )
+                Log.e("SHAH", "onAdShown: ")
                 isAppOpenAdsShown = true
                 //binding?.nativeContainer?.visibility = View.GONE
             }
 
             override fun onAdDismissed() {
-                Log.e("SHAH", "onAdDismissed: ", )
+                Log.e("SHAH", "onAdDismissed: ")
                 isAppOpenAdsShown = false
                 //binding?.nativeContainer?.visibility = View.VISIBLE
             }
@@ -388,7 +375,7 @@ class HomeFragment : Fragment() {
                         if (isAppOpenAdsShown) {
                             binding?.nativeContainer?.visibility = View.GONE
                             binding?.shimmerHomeLayout?.root?.visibility = View.GONE
-                        }else{
+                        } else {
                             binding?.nativeContainer?.visibility = View.VISIBLE
                             binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                         }

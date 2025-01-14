@@ -1,7 +1,11 @@
 package com.example.a4kvideodownloaderplayer.fragments.converter.views
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.RecoverableSecurityException
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -9,16 +13,27 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.databinding.AudioFragmentBinding
+import com.example.a4kvideodownloaderplayer.dialogs.ConverterDialog
 import com.example.a4kvideodownloaderplayer.fragments.converter.viewmodel.AudioViewModel
 import com.example.a4kvideodownloaderplayer.fragments.converter.views.adapter.AudioAdapter
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
+import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.AudioConverter
+import com.example.a4kvideodownloaderplayer.helper.shareFile
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -29,8 +44,33 @@ class AudioFragment : Fragment() {
     private val audioViewModel: AudioViewModel by activityViewModels()
     private var binding: AudioFragmentBinding? = null
     private var audioAdapter: AudioAdapter? = null
+    private var converterDialog: ConverterDialog? = null
+    private var urii: Uri ?= null
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        converterDialog = ConverterDialog(activity ?: return)
+        recoverableIntentLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Refresh the adapter after permission is granted
+                urii?.let {
+                    val rowsDeleted = context?.contentResolver?.delete(it, null, null) ?: 0
+                    if (rowsDeleted > 0){
+                        audioAdapter?.notifyDataSetChanged()
+                        Toast.makeText(
+                            context ?: return@let,
+                            context?.getString(R.string.video_deleted),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        loadAudioFiles()
+                    }
+
+                }
+
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +93,7 @@ class AudioFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
 
                 if (dy > 10 && binding?.addVideoBtn?.isShown == true) {
-                   // binding?.addVideoBtn?.hide()
+                    // binding?.addVideoBtn?.hide()
                     binding?.addVideoBtn?.shrink()
                 }
 
@@ -76,9 +116,30 @@ class AudioFragment : Fragment() {
         audioViewModel.audioFiles.observe(viewLifecycleOwner) { files ->
             if (files.isNotEmpty()) {
                 audioAdapter = AudioAdapter(
+                    context ?: return@observe,
                     files,
-                    navigate = {},
+                    navigate = {
+                        if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                            Bundle().apply {
+                                putString("videoUri", it.contentUri.toString())
+                                putString("videoName", it.fileName)
+                                putString("videoPath", it.filePath)
+                                findNavController().navigate(
+                                    R.id.action_mainFragment_to_AudioPlayerFragment,
+                                    this
+                                )
+                            }
+                        }
+                    },
+                    shareAudio = {
+                        context?.logFirebaseEvent("audio_fragment", "share_button_clicked")
+                        context?.shareFile(it.contentUri, "audio/mp3")
+                    },
+                    deleteAudio = {
+                        deleteImage(it.contentUri)
+                    }
                 )
+                audioAdapter?.notifyDataSetChanged()
                 binding?.apply {
                     rv.adapter = audioAdapter
                     rv.visibility = View.VISIBLE
@@ -100,6 +161,49 @@ class AudioFragment : Fragment() {
 
     }
 
+    private fun deleteImage(contentUri: Uri) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                val rowsDeleted = context?.contentResolver?.delete(contentUri, null, null) ?: 0
+                if (rowsDeleted > 0) {
+                   audioAdapter?.notifyDataSetChanged()
+                    loadAudioFiles()
+                    Toast.makeText(
+                        context?:return,
+                        context?.getString(R.string.audio_deleted),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            catch (e : RecoverableSecurityException){
+                handleRecoverableException(e, contentUri)
+
+            }
+        } else {
+            val isFileDeleted = File(contentUri.path ?: "").delete()
+            if (isFileDeleted) {
+                audioAdapter?.notifyDataSetChanged()
+                Toast.makeText(
+                    context?:return,
+                    context?.getString(R.string.audio_deleted),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun handleRecoverableException(e: RecoverableSecurityException, uri : Uri) {
+        urii = uri
+        val intentSender = e.userAction.actionIntent.intentSender
+        val request = IntentSenderRequest.Builder(intentSender).build()
+        recoverableIntentLauncher.launch(request)
+    }
+
+    private lateinit var recoverableIntentLauncher: ActivityResultLauncher<IntentSenderRequest>
+
+
+
     private fun clickEvents() {
         binding?.apply {
             premiumIcon.setOnClickListener {
@@ -117,10 +221,16 @@ class AudioFragment : Fragment() {
     }
 
 
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // video picker.
             uri?.let {
-                convertToAudio(it)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    converterDialog?.show()
+                    delay(2000)
+                    convertToAudio(it)
+                }
+
             }
         }
 
@@ -144,21 +254,31 @@ class AudioFragment : Fragment() {
             subFolder,
             fileName
         )
-        AudioConverter()
+        AudioConverter(context?:return)
             .extractAudio(
                 getRealPathFromURI(videoUri) ?: "",
                 file.path,
                 onSuccess = {
                     Log.e("Khan", "onSuccess")
+                    converterDialog?.dismiss()
+                    Toast.makeText(
+                        context ?: return@extractAudio,
+                        getString(R.string.audio_converted),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    loadAudioFiles()
                 },
                 onFailed = {
                     Log.e("Khan", "onFailed")
+                    converterDialog?.dismiss()
                 },
                 above2Min = {
                     Log.e("Khan", "above5Min")
+                    converterDialog?.dismiss()
                 },
                 noAudioFound = {
                     Log.e("Khan", "noAudioFound")
+                    converterDialog?.dismiss()
                 }
             )
     }
@@ -176,7 +296,6 @@ class AudioFragment : Fragment() {
         }
         return result
     }
-
 
 
 }

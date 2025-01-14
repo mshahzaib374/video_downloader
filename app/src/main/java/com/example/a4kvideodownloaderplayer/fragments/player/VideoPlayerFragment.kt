@@ -1,6 +1,5 @@
 package com.example.a4kvideodownloaderplayer.fragments.player
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
@@ -25,6 +24,7 @@ import com.example.a4kvideodownloaderplayer.databinding.VideoplayerFragmentBindi
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.fragments.player.viewmodel.VideoPlayerViewModel
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
+import com.example.a4kvideodownloaderplayer.helper.shareFile
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -53,6 +53,8 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this) {
+            videoPlayerViewModel.playbackPosition = 0
+            videoPlayerViewModel.playWhenReady = true
             videoPlayerViewModel.player?.stop()
             videoPlayerViewModel.player?.release()
             videoPlayerViewModel.player = null
@@ -72,7 +74,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         context?.logFirebaseEvent("video_player_fragment", "screen_opened")
-        homeViewModel.updatePageSelector(1)
+        homeViewModel.updatePageSelector(2)
 
         arguments?.let {
             videoUri = it.getString("videoUri")
@@ -83,27 +85,6 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
         initClicksEvents()
         initAppOpenListener()
 
-        /*val orientationEventListener: OrientationEventListener = object : OrientationEventListener(
-            context
-        ) {
-            override fun onOrientationChanged(orientation: Int) {
-                if (orientation == ORIENTATION_UNKNOWN) return
-
-                if (orientation in 46..134) {
-                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
-                } else if (orientation in 136..224) {
-                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
-                } else if (orientation in 226..314) {
-                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                } else {
-                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-                }
-            }
-        }
-        if (orientationEventListener.canDetectOrientation()) {
-            orientationEventListener.enable()
-        }*/
-
     }
 
 
@@ -112,7 +93,6 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
 
 
     private fun initClicksEvents() {
-
         binding?.rotateIV?.setOnClickListener {
             context?.logFirebaseEvent("video_player_fragment", "rotate_button_clicked")
             if (isPotrait) {
@@ -134,20 +114,18 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
                  videoPlayerViewModel.player!!.pause()
                 binding!!.playOrPause.setImageResource(R.drawable.play_ic)
             }
-            val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "video/mp4"
-                putExtra(Intent.EXTRA_STREAM, Uri.parse(videoUri))
-            }
-            // Grant permission to the receiving app to access the URI
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            context?.startActivity(Intent.createChooser(shareIntent, "Share Video"))
+            context?.shareFile(Uri.parse(videoUri))
         }
 
 
         binding?.titleTv!!.text = videoName ?: ""
         binding?.backIcon!!.setOnClickListener {
             context?.logFirebaseEvent("video_player_fragment", "back_button_clicked")
-             videoPlayerViewModel.player?.stop()
+            videoPlayerViewModel.playbackPosition = 0
+            videoPlayerViewModel.playWhenReady = true
+            videoPlayerViewModel.player?.stop()
+            videoPlayerViewModel.player?.release()
+            videoPlayerViewModel.player = null
             showAds()
 
         }
@@ -215,25 +193,25 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
             override fun adAlreadyLoaded() {}
             override fun adLoaded() {}
             override fun adFailed(error: LoadAdError?, msg: String?) {
-                homeViewModel.updatePageSelector(1)
+                homeViewModel.updatePageSelector(2)
                 findNavController().navigateUp()
             }
 
             override fun adValidate() {
-                homeViewModel.updatePageSelector(1)
+                homeViewModel.updatePageSelector(2)
                 findNavController().navigateUp()
             }
 
         },
             object : InterAdShowCallback() {
                 override fun adNotAvailable() {
-                    homeViewModel.updatePageSelector(1)
+                    homeViewModel.updatePageSelector(2)
                     findNavController().navigateUp()
                 }
                 override fun adShowFullScreen() {
                     viewLifecycleOwner.lifecycleScope.launch {
                         delay(800)
-                        homeViewModel.updatePageSelector(1)
+                        homeViewModel.updatePageSelector(2)
                         findNavController().navigateUp()
                     }
 
@@ -244,7 +222,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
                 }
 
                 override fun adFailedToShow() {
-                    homeViewModel.updatePageSelector(1)
+                    homeViewModel.updatePageSelector(2)
                     findNavController().navigateUp()
                 }
 

@@ -83,7 +83,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical"
             android:paddingTop="@dimen/_8sdp">
 

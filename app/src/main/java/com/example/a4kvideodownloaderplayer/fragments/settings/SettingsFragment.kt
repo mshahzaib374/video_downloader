@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.a4kvideodownloaderplayer.databinding.DialogRateUsBinding
 import com.example.a4kvideodownloaderplayer.databinding.SettingsFragmentBinding
+import com.example.a4kvideodownloaderplayer.fragments.howToUse.views.UseDialogFragment
 import com.example.a4kvideodownloaderplayer.fragments.langugage.views.LanguageDialogFragment
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
@@ -47,7 +48,7 @@ class SettingsFragment : Fragment() {
             }
 
             languageTv.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "language_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "language_button_clicked")
                 LanguageDialogFragment().show(parentFragmentManager, "SettingsFragment")
                /* if (findNavController().currentDestination?.id == R.id.mainFragment) {
                     findNavController().navigate(R.id.action_mainFragment_to_languageFragment)
@@ -58,50 +59,57 @@ class SettingsFragment : Fragment() {
             }
 
             languageIcon.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "language_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "language_button_clicked")
                 LanguageDialogFragment().show(parentFragmentManager, "SettingsFragment")
-                /*if (findNavController().currentDestination?.id == R.id.mainFragment) {
-                    findNavController().navigate(R.id.action_mainFragment_to_languageFragment)
-                }*/
+            }
+
+            howUseIcon.setOnClickListener {
+                context?.logFirebaseEvent("setting_fragment", "how_use_button_clicked")
+                UseDialogFragment().show(parentFragmentManager, "HowToUseFragment")
+            }
+
+            howToUseTv.setOnClickListener {
+                context?.logFirebaseEvent("setting_fragment", "how_use_button_clicked")
+                UseDialogFragment().show(parentFragmentManager, "HowToUseFragment")
             }
 
             privacyPolicyTv.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "privacy_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "privacy_button_clicked")
                 activity?.privacyPolicyUrl()
             }
 
             privacyPolicyIcon.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "privacy_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "privacy_button_clicked")
                 activity?.privacyPolicyUrl()
             }
 
             shareWithFriendsIcon.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "share_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "share_button_clicked")
                 activity?.shareApp()
             }
 
             shareWithFriendsTv.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "share_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "share_button_clicked")
                 activity?.shareApp()
             }
 
             feedbackIcon.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "feedback_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "feedback_button_clicked")
                 activity?.feedback()
             }
 
             feedbackTv.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "feedback_button_clicked")
+                context?.logFirebaseEvent("setting_fragment", "feedback_button_clicked")
                 activity?.feedback()
             }
 
             rateUsTv.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "rate_dialog_opened")
+                context?.logFirebaseEvent("setting_fragment", "rate_dialog_opened")
                 showRateUsDialog()
 
             }
             rateUsIcon.setOnClickListener {
-                context?.logFirebaseEvent("disclaimer_fragment", "rate_dialog_opened")
+                context?.logFirebaseEvent("setting_fragment", "rate_dialog_opened")
                 showRateUsDialog()
             }
         }

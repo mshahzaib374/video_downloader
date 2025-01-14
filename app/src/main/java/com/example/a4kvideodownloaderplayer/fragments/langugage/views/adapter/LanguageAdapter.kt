@@ -23,7 +23,7 @@ import com.example.a4kvideodownloaderplayer.fragments.langugage.model.Languages
 import com.google.android.gms.ads.LoadAdError
 
 class LanguagesAdapter(
-    private val application : Application,
+    private val application: Application,
     private val context: Context,
     private var selectedPosition: Int,
     private var selectedLanguage: (Languages, position: Int) -> Unit
@@ -79,7 +79,10 @@ class LanguagesAdapter(
         }
     }
 
-    inner class AdViewHolder(private val binding: RecyclerviewNativeAdBinding, private val nativeBind:NativeAdLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class AdViewHolder(
+        private val binding: RecyclerviewNativeAdBinding,
+        private val nativeBind: NativeAdLayoutBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
             OpenAppAd.adEventListener = object : OpenAppAd.Companion.AdEventListener {

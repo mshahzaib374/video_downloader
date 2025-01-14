@@ -95,10 +95,22 @@
     <string name="popular_videos">Video Popolari</string>
     <string name="no_internet">Nessuna connessione Internet</string>
     <string name="converter">Convertitore</string>
-    <string name="all_videos">All Videos</string>
-    <string name="mp3_converted">Mp3 Converted</string>
-    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
-    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
+    <string name="all_videos">Tutti i video</string>
+    <string name="mp3_converted">Convertito in MP3</string>
+    <string name="mp3_converter_title">Un convertitore da video a MP3 ti consente di estrarre e salvare audio dai file video in formato MP3 per una facile riproduzione.</string>
+    <string name="add_video_convert">Aggiungi video e converti</string>
+    <string name="your_video_is_being_converted_to_mp3">Il tuo video è in fase di conversione in MP3.</string>
+    <string name="share">Condividi</string>
+    <string name="delete">Elimina</string>
+    <string name="audio_deleted">Audio eliminato</string>
+    <string name="audio_converted">Audio convertito con successo</string>
+    <string name="paste_your_copied_url">Incolla il tuo URL copiato</string>
+    <string name="click_download_button">Clicca sul pulsante di download</string>
+    <string name="play_downloaded_videos">Riproduci i video scaricati</string>
+    <string name="built_in_player">Lettore integrato</string>
+    <string name="convert_videos_to_mp3">Converti video in MP3</string>
+    <string name="how_to_use">Come usare</string>
+
 
 
 </resources>

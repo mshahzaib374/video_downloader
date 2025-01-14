@@ -1,9 +1,7 @@
 package com.example.a4kvideodownloaderplayer.fragments.onboarding
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +20,6 @@ import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerAdUtils
 import com.example.a4kvideodownloaderplayer.ads.banner_ads.BannerCallback
 import com.example.a4kvideodownloaderplayer.databinding.OnBoardingScreenBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
-import com.example.a4kvideodownloaderplayer.helper.InternetManager
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -33,14 +30,9 @@ class OnBoardingFragment : Fragment() {
     private var binding: OnBoardingScreenBinding? = null
     private var permissionRequestCount = 0 // Counter for permission requests
     private var isRequestInProgress = false // Flag to track if a request is in progress
-    private var internetManager: InternetManager? = null
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        internetManager =
-            InternetManager(context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

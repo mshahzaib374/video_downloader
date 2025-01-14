@@ -207,11 +207,11 @@ class SplashFragment : Fragment() {
                     Log.d("REMOTE_CONFIG", "native_downloaded_video_l: $native_downloaded_video_l")
 
 
-                    if (AppPrefs(context ?: return@fetchRemotes).getBoolean("isFirstTime")) {
+                    //if (AppPrefs(context ?: return@fetchRemotes).getBoolean("isFirstTime")) {
                         loadBannerAdTop()
                         loadBannerAdMed()
                         loadBannerAdBottom()
-                    }
+                   // }
 
                     OpenAppAd().init(
                         application = activity?.application ?: return@fetchRemotes,

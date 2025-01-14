@@ -85,6 +85,10 @@
         <action
             android:id="@+id/action_mainFragment_to_VideoPlayerFragment"
             app:destination="@id/videoPlayerFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_AudioPlayerFragment"
+            app:destination="@id/audioPlayerFragment" />
         <action
             android:id="@+id/action_mainFragment_to_PopularVideoPlayerFragment"
             app:destination="@id/PopularVideoPlayerFragment" />
@@ -111,5 +115,13 @@
         android:id="@+id/premiumFragment2"
         android:name="com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment"
         android:label="PremiumFragment" />
+    <fragment
+        android:id="@+id/audioFragment"
+        android:name="com.example.a4kvideodownloaderplayer.fragments.converter.views.AudioFragment"
+        android:label="AudioFragment" />
+    <fragment
+        android:id="@+id/audioPlayerFragment"
+        android:name="com.example.a4kvideodownloaderplayer.fragments.player.AudioPlayerFragment"
+        android:label="AudioPlayerFragment" />
 
 </navigation>

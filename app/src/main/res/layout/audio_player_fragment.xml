@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    >
+
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/playerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backIcon"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:surface_type="texture_view"
+        app:use_controller="false" />
+
+
+    <ImageView
+        android:id="@+id/backIcon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:padding="@dimen/_4sdp"
+        android:src="@drawable/player_back_ic"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/backIcon"
+        app:layout_constraintStart_toEndOf="@+id/backIcon"
+        app:layout_constraintTop_toTopOf="@+id/backIcon"
+        tools:text="Video Name" />
+
+    <ImageView
+        android:id="@+id/downloadIcon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_6sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressIcon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:contentDescription="@null"
+        android:indeterminateTint="@color/red"
+        android:padding="@dimen/_6sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/shareIcon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/video_share"
+        app:layout_constraintEnd_toStartOf="@+id/vi"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <View
+        android:id="@+id/vi"
+        android:layout_width="1dp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar_video_play"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:indeterminateTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/playerView" />
+
+    <ImageView
+        android:id="@+id/rotateIV"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:padding="@dimen/_6sdp"
+        android:visibility="gone"
+        android:src="@drawable/vector__rotate_"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@+id/controls"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/controls"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:controller_layout_id="@layout/custom_exo_bottom_controller_view"
+        app:layout_constraintBottom_toBottomOf="@+id/playerView"
+        app:layout_constraintEnd_toStartOf="@+id/rotate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:show_timeout="0"
+        />
+
+    <ImageView
+        android:id="@+id/rotate"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/phone_rotate"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/playOrPause"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/playOrPause"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:contentDescription="@null"
+        android:src="@drawable/pause_ic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/playerView" />
+
+    <ImageView
+        android:id="@+id/rewindBtn"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_32sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/seek_prev_ic"
+        app:layout_constraintBottom_toBottomOf="@+id/playOrPause"
+        app:layout_constraintEnd_toStartOf="@+id/playOrPause"
+        app:layout_constraintTop_toTopOf="@+id/playOrPause" />
+
+    <ImageView
+        android:id="@+id/prevBtn"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_32sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/rewindBtn"
+        app:layout_constraintEnd_toStartOf="@+id/rewindBtn"
+        app:layout_constraintTop_toTopOf="@+id/rewindBtn" />
+
+    <ImageView
+        android:id="@+id/forwardBtn"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_32sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/seek_next_ic"
+        app:layout_constraintBottom_toBottomOf="@+id/playOrPause"
+        app:layout_constraintStart_toEndOf="@+id/playOrPause"
+        app:layout_constraintTop_toTopOf="@+id/playOrPause" />
+
+    <ImageView
+        android:id="@+id/nextBtn"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_32sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/forwardBtn"
+        app:layout_constraintStart_toEndOf="@+id/forwardBtn"
+        app:layout_constraintTop_toTopOf="@+id/forwardBtn" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

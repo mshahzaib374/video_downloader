@@ -2,6 +2,7 @@ package com.example.a4kvideodownloaderplayer.fragments.converter.viewmodel
 
 import android.content.ContentUris
 import android.content.Context
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-class AudioViewModel() : ViewModel() {
+class AudioViewModel : ViewModel() {
 
     private val _audioFiles = MutableLiveData<List<AudioFile>>()
     val audioFiles: LiveData<List<AudioFile>> get() = _audioFiles
@@ -64,8 +65,7 @@ class AudioViewModel() : ViewModel() {
                             cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.RELATIVE_PATH)
                         val dateColumn =
                             cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATE_ADDED)
-                        val durationColumn =
-                            cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+                       // val durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
 
 
                         while (cursor.moveToNext()) {
@@ -73,17 +73,8 @@ class AudioViewModel() : ViewModel() {
                             val fileName = cursor.getString(nameColumn)
                             val filePath =
                                 "$downloadsPath/${cursor.getString(pathColumn)}/$fileName"
-                            val durationInMillis = cursor.getLong(durationColumn)
+                           // val durationInMillis = cursor.getLong(durationColumn)
 
-                            // Fix for duplicate "Download" in path
-                            val filePath2 =
-                                if (cursor.getString(pathColumn).startsWith("Download/")) {
-                                    "$downloadsPath/${
-                                        cursor.getString(pathColumn).substringAfter("Download/")
-                                    }/$fileName"
-                                } else {
-                                    "$downloadsPath/$cursor.getString(pathColumn)/$fileName"
-                                }
 
                             val contentUri = ContentUris.withAppendedId(
                                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
@@ -97,7 +88,8 @@ class AudioViewModel() : ViewModel() {
                                     contentUri,
                                     fileName,
                                     filePath,
-                                    cursor.getLong(dateColumn)
+                                    cursor.getLong(dateColumn),
+                                    ""
                                 )
                             )
                         }
@@ -112,7 +104,8 @@ class AudioViewModel() : ViewModel() {
                                     Uri.fromFile(file),
                                     file.name,
                                     file.absolutePath,
-                                    file.lastModified()
+                                    file.lastModified(),
+                                    ""
                                 )
                             )
                         }
@@ -126,6 +119,26 @@ class AudioViewModel() : ViewModel() {
         }
 
 
+    fun formatDuration(durationInMillis: Long): String {
+        val minutes = (durationInMillis / 1000) / 60
+        val seconds = (durationInMillis / 1000) % 60
+        return String.format("%02d:%02d", minutes, seconds)
+    }
 
+    fun getAudioDuration(filePath: String): Long {
+        val retriever = MediaMetadataRetriever()
+        return try {
+            retriever.setDataSource(filePath)
+            val durationStr =
+                retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+            durationStr?.toLongOrNull() ?: 0L
+        } catch (e: Exception) {
+            0L
+        } finally {
+            retriever.release()
+        }
+
+
+    }
 }
 

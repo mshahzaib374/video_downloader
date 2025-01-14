@@ -95,10 +95,22 @@
     <string name="popular_videos">인기 동영상</string>
     <string name="no_internet">인터넷 없음</string>
     <string name="converter">변환기</string>
-    <string name="all_videos">All Videos</string>
-    <string name="mp3_converted">Mp3 Converted</string>
-    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
-    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
+    <string name="all_videos">모든 비디오</string>
+    <string name="mp3_converted">MP3로 변환됨</string>
+    <string name="mp3_converter_title">비디오를 MP3로 변환하는 도구는 비디오 파일에서 오디오를 추출하고 쉽게 재생할 수 있도록 MP3 형식으로 저장합니다.</string>
+    <string name="add_video_convert">비디오 추가 및 변환</string>
+    <string name="your_video_is_being_converted_to_mp3">비디오가 MP3로 변환 중입니다.</string>
+    <string name="share">공유</string>
+    <string name="delete">삭제</string>
+    <string name="audio_deleted">오디오 삭제됨</string>
+    <string name="audio_converted">오디오가 성공적으로 변환됨</string>
+    <string name="paste_your_copied_url">복사한 URL을 붙여넣기</string>
+    <string name="click_download_button">다운로드 버튼 클릭</string>
+    <string name="play_downloaded_videos">다운로드한 동영상 재생</string>
+    <string name="built_in_player">내장 플레이어</string>
+    <string name="convert_videos_to_mp3">비디오를 MP3로 변환</string>
+    <string name="how_to_use">사용 방법</string>
+
 
 
 </resources>

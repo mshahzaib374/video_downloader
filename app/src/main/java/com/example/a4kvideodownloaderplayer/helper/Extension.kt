@@ -1,10 +1,44 @@
 package com.example.a4kvideodownloaderplayer.helper
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.view.View
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.fragments.home.model.PopularVideo
+import com.example.a4kvideodownloaderplayer.fragments.howToUse.model.ImageSlider
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
+}
+
+fun View.enable() {
+    isEnabled = true
+}
+
+fun View.disable() {
+    isEnabled = false
+}
+
+fun Context.shareFile(contentUri: Uri, fileType : String = "video/mp4") {
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = fileType
+        putExtra(Intent.EXTRA_STREAM, Uri.parse(contentUri.toString()))
+    }
+    // Grant permission to the receiving app to access the URI
+    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    startActivity(Intent.createChooser(shareIntent, "Share Video"))
+}
+
 
 fun Activity.moreApps() {
     try {
@@ -96,5 +130,15 @@ fun showExitVideos(): MutableList<PopularVideo> {
         add(PopularVideo("http://51.20.108.109:8080/downloads/vid13.mp4"))
         add(PopularVideo("http://51.20.108.109:8080/downloads/vid14.mp4"))
         add(PopularVideo("http://51.20.108.109:8080/downloads/vid15.mp4"))
+    }
+}
+
+fun showHowToUseImages(): MutableList<ImageSlider> {
+    return mutableListOf<ImageSlider>().apply {
+        add(ImageSlider(R.drawable.use1))
+        add(ImageSlider(R.drawable.use2))
+        add(ImageSlider(R.drawable.use3))
+        add(ImageSlider(R.drawable.use4))
+        add(ImageSlider(R.drawable.use5))
     }
 }

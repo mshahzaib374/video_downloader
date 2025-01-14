@@ -24,44 +24,60 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.databinding.DownloadedFragmentBinding
+import com.example.a4kvideodownloaderplayer.dialogs.ConverterDialog
+import com.example.a4kvideodownloaderplayer.fragments.converter.viewmodel.AudioViewModel
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.views.adapter.VideoAdapter
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
+import com.example.a4kvideodownloaderplayer.helper.AudioConverter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DownloadedFragment : Fragment() {
 
     private var videoAdapter: VideoAdapter? = null
     private var binding: DownloadedFragmentBinding? = null
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private val audioViewModel: AudioViewModel by activityViewModels()
+
+    private var converterDialog: ConverterDialog? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recoverableIntentLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // Refresh the adapter after permission is granted
-                urii?.let {
-                    val rowsDeleted = context?.contentResolver?.delete(it, null, null) ?: 0
-                    if (rowsDeleted > 0){
-                        videoAdapter?.updateAdapter(pendingDeletePosition)
-                        Toast.makeText(
-                            context ?: return@let,
-                            context?.getString(R.string.video_deleted),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        getVideoFiles()
+        converterDialog = ConverterDialog(activity ?: return)
+
+        recoverableIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // Refresh the adapter after permission is granted
+                    urii?.let {
+                        val rowsDeleted = context?.contentResolver?.delete(it, null, null) ?: 0
+                        if (rowsDeleted > 0) {
+                            videoAdapter?.updateAdapter(pendingDeletePosition)
+                            Toast.makeText(
+                                context ?: return@let,
+                                context?.getString(R.string.video_deleted),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            getVideoFiles()
+                        }
+
                     }
 
                 }
-
             }
-        }
     }
 
 
@@ -218,7 +234,14 @@ class DownloadedFragment : Fragment() {
                         }
                     }
                 },
-                videoDeletedRecovery = { e, i, u -> handleRecoverableException(e, i, u) }
+                videoDeletedRecovery = { e, i, u -> handleRecoverableException(e, i, u) },
+                mp3Converter = {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        converterDialog?.show()
+                        delay(2000)
+                        convertToAudio(it.contentUri)
+                    }
+                }
             )
             binding?.rv?.adapter = videoAdapter
             binding?.progressBar?.visibility = View.GONE
@@ -230,10 +253,14 @@ class DownloadedFragment : Fragment() {
     }
 
     private var pendingDeletePosition: Int = -1
-    private var urii: Uri ?= null
+    private var urii: Uri? = null
 
     @SuppressLint("NewApi")
-    private fun handleRecoverableException(e: RecoverableSecurityException, position: Int, uri : Uri) {
+    private fun handleRecoverableException(
+        e: RecoverableSecurityException,
+        position: Int,
+        uri: Uri
+    ) {
         pendingDeletePosition = position
         urii = uri
         val intentSender = e.userAction.actionIntent.intentSender
@@ -242,7 +269,6 @@ class DownloadedFragment : Fragment() {
     }
 
     private lateinit var recoverableIntentLauncher: ActivityResultLauncher<IntentSenderRequest>
-
 
 
     private fun generateVideoThumbnail(context: Context, contentUri: Uri): Bitmap? {
@@ -272,6 +298,69 @@ class DownloadedFragment : Fragment() {
         } catch (e: Exception) {
             null
         }
+    }
+
+
+    private fun convertToAudio(videoUri: Uri) {
+        val downloadsFolder = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DOWNLOADS
+        ).absolutePath
+
+        // Create a subfolder named "4kVideoDownloader"
+        val subFolder = File(downloadsFolder, "4kVideoDownloader")
+        if (!subFolder.exists()) {
+            subFolder.mkdirs()
+        }
+
+        val timestamp =
+            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val fileName =
+            "audio_$timestamp.mp3" // Replace with `uniqueName.mp4` for UUID option
+        // Create the file in the subfolder
+        val file = File(
+            subFolder,
+            fileName
+        )
+
+        AudioConverter(context?:return)
+            .extractAudio(
+                getRealPathFromURI(videoUri) ?: "",
+                file.path,
+                onSuccess = {
+                    Log.e("Khan", "onSuccess")
+                    converterDialog?.dismiss()
+                    audioViewModel.loadAudioFiles(context?:return@extractAudio)
+                    homeViewModel.updatePageSelector(1)
+
+                },
+                onFailed = {
+                    Log.e("Khan", "onFailed")
+                    converterDialog?.dismiss()
+                },
+                above2Min = {
+                    Log.e("Khan", "above5Min")
+                    converterDialog?.dismiss()
+                },
+                noAudioFound = {
+                    Log.e("Khan", "noAudioFound")
+                    converterDialog?.dismiss()
+                }
+            )
+
+    }
+
+    private fun getRealPathFromURI(contentURI: Uri): String? {
+        val result: String?
+        val cursor: Cursor? = context?.contentResolver?.query(contentURI, null, null, null, null)
+        if (cursor == null) {
+            result = contentURI.path
+        } else {
+            cursor.moveToFirst()
+            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
     }
 }
 

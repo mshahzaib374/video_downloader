@@ -48,6 +48,8 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
             videoPlayerViewModel.player?.stop()
             videoPlayerViewModel.player?.release()
             videoPlayerViewModel.player = null
+            videoPlayerViewModel.playWhenReady = true
+            videoPlayerViewModel.playbackPosition = 0
             showAds()
         }
     }

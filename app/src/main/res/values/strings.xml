@@ -101,11 +101,23 @@
     <string name="popular_videos">Trending Videos</string>
     <string name="no_internet">No Internet</string>
     <string name="converter">Converter</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="all_videos">All Videos</string>
     <string name="mp3_converted">Mp3 Converted</string>
     <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
-    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
+    <string name="add_video_convert">Add Video &amp; Convert</string>
+    <string name="your_video_is_being_converted_to_mp3">Your Video is being Converted to Mp3.</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="audio_deleted">Audio deleted</string>
+    <string name="audio_converted">Audio Converted Successfully</string>
+    <string name="audio_converted_failed">Audio Converted Failed</string>
+    <string name="audio_above_5_min">Video length above 5 min</string>
+    <string name="audio_not_found">Video don\'t have audio</string>
+    <string name="paste_your_copied_url">Paste your Copied URL</string>
+    <string name="click_download_button">Click download button</string>
+    <string name="play_downloaded_videos">Play downloaded Videos</string>
+    <string name="built_in_player">Built-in Player</string>
+    <string name="convert_videos_to_mp3">Convert Videos to MP3</string>
+    <string name="how_to_use">How to use</string>
 
 </resources>

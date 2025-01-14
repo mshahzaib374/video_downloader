@@ -95,10 +95,21 @@
     <string name="popular_videos">Video Phổ Biến</string>
     <string name="no_internet">Không có Internet</string>
     <string name="converter">Bộ chuyển đổi</string>
-    <string name="all_videos">All Videos</string>
-    <string name="mp3_converted">Mp3 Converted</string>
-    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
-    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
+    <string name="all_videos">Tất cả video</string>
+    <string name="mp3_converted">Đã chuyển đổi sang MP3</string>
+    <string name="mp3_converter_title">Trình chuyển đổi Video sang MP3 cho phép bạn trích xuất và lưu âm thanh từ tệp video dưới dạng MP3 để dễ dàng phát lại.</string>
+    <string name="add_video_convert">Thêm video &amp; Chuyển đổi</string>
+    <string name="your_video_is_being_converted_to_mp3">Video của bạn đang được chuyển đổi sang MP3.</string>
+    <string name="share">Chia sẻ</string>
+    <string name="delete">Xóa</string>
+    <string name="audio_deleted">Đã xóa âm thanh</string>
+    <string name="audio_converted">Đã chuyển đổi âm thanh thành công</string>
+    <string name="paste_your_copied_url">Dán URL bạn đã sao chép</string>
+    <string name="click_download_button">Nhấn nút tải xuống</string>
+    <string name="play_downloaded_videos">Phát video đã tải xuống</string>
+    <string name="built_in_player">Trình phát tích hợp</string>
+    <string name="convert_videos_to_mp3">Chuyển đổi video sang MP3</string>
+    <string name="how_to_use">Cách sử dụng</string>
 
 
 </resources>

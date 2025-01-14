@@ -95,10 +95,22 @@
     <string name="popular_videos">Popüler Videolar</string>
     <string name="no_internet">İnternet Yok</string>
     <string name="converter">Dönüştürücü</string>
-    <string name="all_videos">All Videos</string>
-    <string name="mp3_converted">Mp3 Converted</string>
-    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
-    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
+    <string name="all_videos">Tüm Videolar</string>
+    <string name="mp3_converted">MP3 Dönüştürüldü</string>
+    <string name="mp3_converter_title">Video MP3 dönüştürücü, video dosyalarından sesi çıkarıp MP3 formatında kaydetmenizi sağlar.</string>
+    <string name="add_video_convert">Video Ekle ve Dönüştür</string>
+    <string name="your_video_is_being_converted_to_mp3">Videonuz MP3 dönüştürülüyor.</string>
+    <string name="share">Paylaş</string>
+    <string name="delete">Sil</string>
+    <string name="audio_deleted">Ses silindi</string>
+    <string name="audio_converted">Ses başarıyla dönüştürüldü</string>
+    <string name="paste_your_copied_url">Kopyalanan URLyi yapıştırın</string>
+    <string name="click_download_button">İndir düğmesine tıklayın</string>
+    <string name="play_downloaded_videos">İndirilen videoları oynat</string>
+    <string name="built_in_player">Dahili oynatıcı</string>
+    <string name="convert_videos_to_mp3">Videoları MP3 dönüştür</string>
+    <string name="how_to_use">Nasıl kullanılır</string>
+
 
 
 </resources>

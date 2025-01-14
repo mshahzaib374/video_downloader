@@ -5,7 +5,6 @@ import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -49,9 +48,12 @@ class VideoViewModel : ViewModel() {
     val downloadProgress: LiveData<Int> get() = _downloadProgress
 
     private var downloadId: Long = 0
+    var isDownloadHandled: Boolean = false
+
 
     fun resetDownloadStatus() {
         _downloadStatus.value = ""
+        isDownloadHandled = false
     }
 
     fun newDownloadVideoApi(url: String, context: Context) {
@@ -63,9 +65,8 @@ class VideoViewModel : ViewModel() {
                         @RequiresApi(Build.VERSION_CODES.Q)
                         override fun onResponse(
                             call: Call<ResponseBody>,
-                            response: retrofit2.Response<ResponseBody>
+                            response: Response<ResponseBody>
                         ) {
-                            Log.e("TAG", "onResponse: $response")
                             if (response.isSuccessful) {
                                 response.body()?.let { body ->
                                     newSaveFileFromResponse(body, context)
@@ -74,11 +75,9 @@ class VideoViewModel : ViewModel() {
                                     _downloadStatus.postValue("ERROR")
                                 }
 
-                            } else if(response.code() == 400) {
+                            } else if (response.code() == 400) {
                                 _downloadStatus.postValue("ERROR_SIZE")
-                            }
-
-                            else {
+                            } else {
                                 _downloadStatus.postValue("ERROR")
                             }
                         }
@@ -87,7 +86,7 @@ class VideoViewModel : ViewModel() {
                             _downloadStatus.postValue("ERROR")
                         }
                     })
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 _downloadStatus.postValue("ERROR")
             }
 
@@ -99,7 +98,10 @@ class VideoViewModel : ViewModel() {
         val contentValues = ContentValues().apply {
             put(MediaStore.Downloads.DISPLAY_NAME, fileName)
             put(MediaStore.Downloads.MIME_TYPE, "video/mp4")
-            put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/4kVideoDownloader")
+            put(
+                MediaStore.Downloads.RELATIVE_PATH,
+                Environment.DIRECTORY_DOWNLOADS + "/4kVideoDownloader"
+            )
         }
 
         val resolver = context.contentResolver
@@ -118,7 +120,8 @@ class VideoViewModel : ViewModel() {
     private fun newSaveFileFromResponse(body: ResponseBody, context: Context) {
         try {
             // Get the Downloads directory
-            val downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val downloadsFolder =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             // Create a subfolder named "4kVideoDownloader"
             val subFolder = File(downloadsFolder, "4kVideoDownloader")
             if (!subFolder.exists()) {
@@ -136,11 +139,14 @@ class VideoViewModel : ViewModel() {
                 }
             }
             // Notify the media scanner about the new file
-            MediaScannerConnection.scanFile(context, arrayOf(file.absolutePath), null) { path, uri ->
+            /*MediaScannerConnection.scanFile(
+                context,
+                arrayOf(file.absolutePath),
+                null
+            ) { path, uri ->
                 Log.d("FileSave", "File scanned into gallery: $path")
-            }
-          //  _downloadStatus.postValue("SUCCESS")
-            _downloadStatus.value="SUCCESS"
+            }*/
+            _downloadStatus.value = "SUCCESS"
         } catch (e: Exception) {
             // Handle exception during file saving
             _downloadStatus.postValue("ERROR")
@@ -265,12 +271,12 @@ class VideoViewModel : ViewModel() {
                         if (statusIndex == DownloadManager.STATUS_RUNNING && totalBytesIndex > 0) {
                             val progress =
                                 (bytesDownloadedIndex * 100L / totalBytesIndex).toInt()
-                            Log.e("TAG", "onResponse: $progress" )
+                            Log.e("TAG", "onResponse: $progress")
 
                             _downloadProgress.postValue(progress)
                         } else if (statusIndex == DownloadManager.STATUS_SUCCESSFUL) {
-                           // _downloadStatus.postValue("SUCCESS")
-                            _downloadStatus.value="SUCCESS"
+                            // _downloadStatus.postValue("SUCCESS")
+                            _downloadStatus.value = "SUCCESS"
                             cursor.close()
                             return
                         } else if (statusIndex == DownloadManager.STATUS_FAILED) {

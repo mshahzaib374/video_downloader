@@ -95,10 +95,22 @@
     <string name="popular_videos">Video Populer</string>
     <string name="no_internet">Tidak ada internet</string>
     <string name="converter">Pengonversi</string>
-    <string name="all_videos">All Videos</string>
-    <string name="mp3_converted">Mp3 Converted</string>
-    <string name="mp3_converter_title">A Video to MP3 converter lets you extract and save audio from video files in MP3 format for easy playback.</string>
-    <string name="add_video_convert"><![CDATA[Add Video & Convert]]></string>
+    <string name="all_videos">Semua Video</string>
+    <string name="mp3_converted">Dikonversi ke MP3</string>
+    <string name="mp3_converter_title">Pengonversi Video ke MP3 memungkinkan Anda mengekstrak dan menyimpan audio dari file video dalam format MP3 untuk pemutaran yang mudah.</string>
+    <string name="add_video_convert">Tambahkan Video &amp; Konversi</string>
+    <string name="your_video_is_being_converted_to_mp3">Video Anda sedang dikonversi ke MP3.</string>
+    <string name="share">Bagikan</string>
+    <string name="delete">Hapus</string>
+    <string name="audio_deleted">Audio dihapus</string>
+    <string name="audio_converted">Audio berhasil dikonversi</string>
+    <string name="paste_your_copied_url">Tempel URL yang Anda salin</string>
+    <string name="click_download_button">Klik tombol unduh</string>
+    <string name="play_downloaded_videos">Putar video yang diunduh</string>
+    <string name="built_in_player">Pemutar bawaan</string>
+    <string name="convert_videos_to_mp3">Konversi video ke MP3</string>
+    <string name="how_to_use">Cara menggunakan</string>
+
 
 
 </resources>

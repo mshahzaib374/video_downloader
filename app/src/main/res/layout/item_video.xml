@@ -70,6 +70,21 @@
         app:layout_constraintTop_toTopOf="@+id/lineView" />
 
     <ImageView
+        android:id="@+id/mp3Iv"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/mp3_converter"
+        app:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/lineView"
+        app:layout_constraintStart_toEndOf="@+id/shareIv"
+        app:layout_constraintEnd_toStartOf="@+id/deleteIv"
+        app:layout_constraintTop_toTopOf="@+id/lineView" />
+
+
+
+    <ImageView
         android:id="@+id/deleteIv"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"

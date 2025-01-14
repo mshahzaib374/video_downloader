@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.a4kvideodownloaderplayer.R
@@ -41,11 +42,16 @@ import com.example.a4kvideodownloaderplayer.fragments.home.views.adapter.VideoSl
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.ViewPagerViewModel
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.checkForInAppUpdate
+import com.example.a4kvideodownloaderplayer.helper.disable
+import com.example.a4kvideodownloaderplayer.helper.enable
+import com.example.a4kvideodownloaderplayer.helper.invisible
 import com.example.a4kvideodownloaderplayer.helper.showExitVideos
+import com.example.a4kvideodownloaderplayer.helper.visible
 import com.example.a4kvideodownloaderplayer.viewPager.ViewPagerAdapterDashboard
 import com.example.aiartgenerator.utils.AppPrefs
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 
 
 class MainFragment : Fragment() {
@@ -53,7 +59,7 @@ class MainFragment : Fragment() {
     private var exitBinding: ExitDialogLayoutBinding? = null
     private var binding: MainFragmentBinding? = null
     private val homeViewModel: HomeViewModel by activityViewModels()
-    val viewPagerViewModel: ViewPagerViewModel by activityViewModels()
+    private val viewPagerViewModel: ViewPagerViewModel by activityViewModels()
 
     private var lastButtonClickID: Int = -1
 
@@ -96,50 +102,18 @@ class MainFragment : Fragment() {
                     if (currentTabPosition == 0) {
                         exitDialog()
                     } else {
-                        binding?.apply {
-                            viewPagerDashboardLight.currentItem = 0
-                            tabHome.isEnabled = false
-                            tabDownload.isEnabled = true
-                            tabSettings.isEnabled = true
-                            polygon1.visibility = View.VISIBLE
-                            polygon2.visibility = View.INVISIBLE
-                            polygon3.visibility = View.INVISIBLE
-                            polygon4.visibility = View.INVISIBLE
-                            lastButtonClickID = binding?.tabHome?.id ?: -1
-                            iconHome.setImageResource(R.drawable.home_selected_icon)
-                            iconHome.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
-                            textHome.setTextColor(Color.parseColor("#FFFFFF"))
-
-                            iconConverter.setImageResource(R.drawable.mp3_converter)
-                            iconConverter.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
-                            textConverter.setTextColor(Color.parseColor("#BEB8B8"))
-
-                            iconDownload.setImageResource(R.drawable.downloads_icon)
-                            iconDownload.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
-                            textDownload.setTextColor(Color.parseColor("#BEB8B8"))
-
-                            iconSettings.setImageResource(R.drawable.settings_icon)
-                            iconSettings.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
-                            textSettings.setTextColor(Color.parseColor("#BEB8B8"))
-                        }
+                        selectHomeTab()
                     }
                 }
             }
         )
     }
 
-
     private fun registerViewPager() {
         binding?.viewPagerDashboardLight?.apply {
-            activity?.let {
-                binding?.viewPagerDashboardLight?.adapter =
-                    ViewPagerAdapterDashboard(it, viewPagerViewModel)
-            }
-            binding?.viewPagerDashboardLight?.isUserInputEnabled = false
+            adapter = ViewPagerAdapterDashboard(activity ?: return, viewPagerViewModel)
+            isUserInputEnabled = false
+            setOffscreenPageLimit(3)
 
             registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
@@ -152,11 +126,172 @@ class MainFragment : Fragment() {
 
     }
 
+    private fun selectHomeTab() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            binding?.apply {
+                viewPagerDashboardLight.setCurrentItem(0, false)
+                tabHome.disable()
+                tabConverter.enable()
+                tabDownload.enable()
+                tabSettings.enable()
 
-    private fun updateTabSelection(buttonID: Int, selectedTab: String) {
-        // Reset all tabs to unselected state
+                polygon1.visible()
+                polygon2.invisible()
+                polygon3.invisible()
+                polygon4.invisible()
+
+                lastButtonClickID = tabHome.id
+
+                iconHome.setImageResource(R.drawable.home_selected_icon)
+                iconHome.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
+                textHome.setTextColor(Color.parseColor("#FFFFFF"))
+
+                iconConverter.setImageResource(R.drawable.mp3_converter)
+                iconConverter.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textConverter.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconDownload.setImageResource(R.drawable.downloads_icon)
+                iconDownload.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textDownload.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconSettings.setImageResource(R.drawable.settings_icon)
+                iconSettings.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textSettings.setTextColor(Color.parseColor("#BEB8B8"))
+            }
+        }
+
+    }
+
+    private fun selectConverterTab() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            binding?.apply {
+                viewPagerDashboardLight.setCurrentItem(1, false)
+                tabHome.enable()
+                tabConverter.disable()
+                tabDownload.enable()
+                tabSettings.enable()
+
+                polygon1.invisible()
+                polygon2.visible()
+                polygon3.invisible()
+                polygon4.invisible()
+
+                lastButtonClickID = binding?.tabConverter?.id ?: -1
+
+                iconHome.setImageResource(R.drawable.home_selected_icon)
+                iconHome.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textHome.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconConverter.setImageResource(R.drawable.mp3_converter)
+                iconConverter.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
+                textConverter.setTextColor(Color.parseColor("#FFFFFF"))
+
+                iconDownload.setImageResource(R.drawable.downloads_icon)
+                iconDownload.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textDownload.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconSettings.setImageResource(R.drawable.settings_icon)
+                iconSettings.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textSettings.setTextColor(Color.parseColor("#BEB8B8"))
+            }
+        }
+
+    }
+
+    private fun selectDownloadTab() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            binding?.apply {
+                viewPagerDashboardLight.setCurrentItem(2, false)
+                tabHome.enable()
+                tabConverter.enable()
+                tabDownload.disable()
+                tabSettings.enable()
+
+                polygon1.invisible()
+                polygon2.invisible()
+                polygon3.visible()
+                polygon4.invisible()
+
+                lastButtonClickID = binding?.tabDownload?.id ?: -1
+
+                iconHome.setImageResource(R.drawable.home_selected_icon)
+                iconHome.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textHome.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconConverter.setImageResource(R.drawable.mp3_converter)
+                iconConverter.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textConverter.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconDownload.setImageResource(R.drawable.downloads_icon)
+                iconDownload.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
+                textDownload.setTextColor(Color.parseColor("#FFFFFF"))
+
+                iconSettings.setImageResource(R.drawable.settings_icon)
+                iconSettings.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textSettings.setTextColor(Color.parseColor("#BEB8B8"))
+            }
+        }
+
+    }
+
+    private fun selectSettingTab() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            binding?.apply {
+                viewPagerDashboardLight.setCurrentItem(3, false)
+                tabHome.enable()
+                tabConverter.enable()
+                tabDownload.enable()
+                tabSettings.disable()
+
+                polygon1.invisible()
+                polygon2.invisible()
+                polygon3.invisible()
+                polygon4.visible()
+
+                lastButtonClickID = binding?.tabSettings?.id ?: -1
+
+                iconHome.setImageResource(R.drawable.home_selected_icon)
+                iconHome.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textHome.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconConverter.setImageResource(R.drawable.mp3_converter)
+                iconConverter.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textConverter.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconDownload.setImageResource(R.drawable.downloads_icon)
+                iconDownload.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
+                textDownload.setTextColor(Color.parseColor("#BEB8B8"))
+
+                iconSettings.setImageResource(R.drawable.settings_icon)
+                iconSettings.imageTintList =
+                    ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
+                textSettings.setTextColor(Color.parseColor("#FFFFFF"))
+            }
+        }
+
+    }
+
+    private fun resetAllTab() {
         binding?.apply {
-
+            tabHome.enable()
+            tabConverter.enable()
+            tabDownload.enable()
+            tabSettings.enable()
             polygon1.visibility = View.INVISIBLE
             polygon2.visibility = View.INVISIBLE
             polygon3.visibility = View.INVISIBLE
@@ -178,8 +313,33 @@ class MainFragment : Fragment() {
             iconSettings.setImageResource(R.drawable.settings_icon)
             iconSettings.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
             textSettings.setTextColor(Color.parseColor("#BEB8B8"))
+        }
+    }
 
+    private fun checkSelectedTab(selectedTab: String) {
+        when (selectedTab) {
+            "home" -> {
+                selectHomeTab()
+            }
 
+            "convert" -> {
+                selectConverterTab()
+            }
+
+            "download" -> {
+                selectDownloadTab()
+            }
+
+            "settings" -> {
+                selectSettingTab()
+            }
+        }
+    }
+
+    private fun updateTabSelection(buttonID: Int, selectedTab: String) {
+        // Reset all tabs to unselected state
+        binding?.apply {
+            resetAllTab()
             val lastDismissTime = activity.let { AppPrefs(it).getLong("lastAdDismissTime") } ?: 0L
             val currentTimeMillis = SystemClock.elapsedRealtime()
             if (currentTimeMillis - lastDismissTime < fullScreenCappingL) { // 5 seconds
@@ -188,62 +348,9 @@ class MainFragment : Fragment() {
                     Category.OpenAd,
                     "Cannot show ad: Please wait 5 seconds before showing another ad."
                 )
-                when (selectedTab) {
-                    "home" -> {
-                        iconHome.setImageResource(R.drawable.home_selected_icon)
-                        polygon1.visibility = View.VISIBLE
-                        iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textHome.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
-                            0,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-
-                    "convert" -> {
-                        iconConverter.setImageResource(R.drawable.mp3_converter)
-                        polygon2.visibility = View.VISIBLE
-                        iconConverter.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textConverter.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
-                            1,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-
-                    "download" -> {
-                        iconDownload.setImageResource(R.drawable.download_icon)
-                        polygon3.visibility = View.VISIBLE
-                        iconDownload.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
-                            2,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-
-                    "settings" -> {
-                        iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                        polygon4.visibility = View.VISIBLE
-                        iconSettings.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textSettings.setTextColor(Color.parseColor("#ffffff"))
-                        binding?.viewPagerDashboardLight?.setCurrentItem(
-                            3,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-                }
+                checkSelectedTab(selectedTab)
                 return
             }
-
-            //if (lastButtonClickID != buttonID) {
             val adOptions = InterAdOptions().setAdId(getString(R.string.homeInterstitialAd))
                 .setRemoteConfig(fullscreen_home_l).setLoadingDelayForDialog(2)
                 .setFullScreenLoading(false)
@@ -252,187 +359,18 @@ class MainFragment : Fragment() {
             adCount++
             if ((adCount % 3) == 0) {
                 if (!AdmobifyUtils.isNetworkAvailable(context ?: return)) {
-                    when (selectedTab) {
-                        "home" -> {
-                            polygon1.visibility = View.VISIBLE
-                            iconHome.setImageResource(R.drawable.home_selected_icon)
-                            iconHome.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                            textHome.setTextColor(Color.parseColor("#ffffff"))
-                            viewPagerDashboardLight.setCurrentItem(
-                                0,
-                                true
-                            )
-
-                        }
-
-                        "convert" -> {
-                            polygon2.visibility = View.VISIBLE
-                            iconConverter.setImageResource(R.drawable.download_icon)
-                            iconConverter.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                            textConverter.setTextColor(Color.parseColor("#ffffff"))
-                            viewPagerDashboardLight.setCurrentItem(
-                                1,
-                                true
-                            ) // Navigate to page 0 (Home)
-
-                        }
-
-                        "download" -> {
-                            polygon3.visibility = View.VISIBLE
-                            iconDownload.setImageResource(R.drawable.download_icon)
-                            iconDownload.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                            textDownload.setTextColor(Color.parseColor("#ffffff"))
-                            viewPagerDashboardLight.setCurrentItem(
-                                2,
-                                true
-                            ) // Navigate to page 0 (Home)
-
-                        }
-
-                        "settings" -> {
-                            polygon4.visibility = View.VISIBLE
-                            iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                            iconSettings.imageTintList =
-                                ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                            textSettings.setTextColor(Color.parseColor("#ffffff"))
-                            viewPagerDashboardLight.setCurrentItem(
-                                3,
-                                true
-                            ) // Navigate to page 0 (Home)
-
-                        }
-                    }
+                    checkSelectedTab(selectedTab)
                 } else {
                     InterstitialAdUtils(adOptions).loadAndShowInterAd(object :
                         InterAdLoadCallback() {
                         override fun adAlreadyLoaded() {}
                         override fun adLoaded() {}
                         override fun adFailed(error: LoadAdError?, msg: String?) {
-                            when (selectedTab) {
-                                "home" -> {
-                                    polygon1.visibility = View.VISIBLE
-
-                                    iconHome.setImageResource(R.drawable.home_selected_icon)
-                                    iconHome.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textHome.setTextColor(Color.parseColor("#ffffff"))
-                                    //binding?.viewPagerDashboardLight?.currentItem = 0
-                                    viewPagerDashboardLight?.setCurrentItem(
-                                        0,
-                                        true
-                                    ) // Navigate to page 0 (Home)
-
-
-                                }
-
-                                "convert" -> {
-                                    polygon2.visibility = View.VISIBLE
-
-                                    iconConverter.setImageResource(R.drawable.download_icon)
-                                    iconConverter.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textConverter.setTextColor(Color.parseColor("#ffffff"))
-                                    viewPagerDashboardLight.setCurrentItem(
-                                        1,
-                                        true
-                                    ) // Navigate to page 0 (Home)
-
-                                }
-
-                                "download" -> {
-                                    polygon3.visibility = View.VISIBLE
-
-                                    iconDownload.setImageResource(R.drawable.download_icon)
-                                    iconDownload.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                    viewPagerDashboardLight?.setCurrentItem(
-                                        2,
-                                        true
-                                    ) // Navigate to page 0 (Home)
-
-                                }
-
-                                "settings" -> {
-                                    polygon4.visibility = View.VISIBLE
-
-                                    iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                                    iconSettings.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                    viewPagerDashboardLight.setCurrentItem(
-                                        3,
-                                        true
-                                    )
-
-                                }
-                            }
+                            checkSelectedTab(selectedTab)
                         }
 
                         override fun adValidate() {
-                            when (selectedTab) {
-                                "home" -> {
-                                    polygon1.visibility = View.VISIBLE
-
-                                    iconHome.setImageResource(R.drawable.home_selected_icon)
-                                    iconHome.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textHome.setTextColor(Color.parseColor("#ffffff"))
-                                    //binding?.viewPagerDashboardLight?.currentItem = 0
-                                    viewPagerDashboardLight?.setCurrentItem(
-                                        0,
-                                        true
-                                    ) // Navigate to page 0 (Home)
-
-
-                                }
-
-                                "convert" -> {
-                                    polygon2.visibility = View.VISIBLE
-
-                                    iconConverter.setImageResource(R.drawable.download_icon)
-                                    iconConverter.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textConverter.setTextColor(Color.parseColor("#ffffff"))
-                                    viewPagerDashboardLight.setCurrentItem(
-                                        1,
-                                        true
-                                    ) // Navigate to page 0 (Home)
-
-                                }
-
-                                "download" -> {
-                                    polygon3.visibility = View.VISIBLE
-
-                                    iconDownload.setImageResource(R.drawable.download_icon)
-                                    iconDownload.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                    viewPagerDashboardLight?.setCurrentItem(
-                                        2,
-                                        true
-                                    ) // Navigate to page 0 (Home)
-
-                                }
-
-                                "settings" -> {
-                                    polygon4.visibility = View.VISIBLE
-
-                                    iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                                    iconSettings.imageTintList =
-                                        ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                    textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                    viewPagerDashboardLight.setCurrentItem(
-                                        3,
-                                        true
-                                    )
-
-                                }
-                            }
-
+                            checkSelectedTab(selectedTab)
 
                         }
 
@@ -440,122 +378,14 @@ class MainFragment : Fragment() {
                         object : InterAdShowCallback() {
                             override fun adNotAvailable() {}
                             override fun adShowFullScreen() {
-                                when (selectedTab) {
-                                    "home" -> {
-                                        polygon1.visibility = View.VISIBLE
-                                        iconHome.setImageResource(R.drawable.home_selected_icon)
-                                        iconHome.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textHome.setTextColor(Color.parseColor("#ffffff"))
-                                        //binding?.viewPagerDashboardLight?.currentItem = 0
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            0,
-                                            true
-                                        ) // Navigate to page 0 (Home)
-
-
-                                    }
-
-                                    "convert" -> {
-                                        polygon2.visibility = View.VISIBLE
-                                        iconConverter.setImageResource(R.drawable.download_icon)
-                                        iconConverter.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textConverter.setTextColor(Color.parseColor("#ffffff"))
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            1,
-                                            true
-                                        ) // Navigate to page 0 (Home)
-
-                                    }
-
-                                    "download" -> {
-                                        polygon3.visibility = View.VISIBLE
-                                        iconDownload.setImageResource(R.drawable.download_icon)
-                                        iconDownload.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            2,
-                                            true
-                                        ) // Navigate to page 0 (Home)
-
-                                    }
-
-                                    "settings" -> {
-                                        polygon4.visibility = View.VISIBLE
-                                        iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                                        iconSettings.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            3,
-                                            true
-                                        ) // Navigate to page 0 (Home)
-
-                                    }
-                                }
+                                checkSelectedTab(selectedTab)
                             }
 
                             override fun adDismiss() {
                             }
 
                             override fun adFailedToShow() {
-                                when (selectedTab) {
-                                    "home" -> {
-                                        polygon1.visibility = View.VISIBLE
-                                        iconHome.setImageResource(R.drawable.home_selected_icon)
-                                        iconHome.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textHome.setTextColor(Color.parseColor("#ffffff"))
-                                        //binding?.viewPagerDashboardLight?.currentItem = 0
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            0,
-                                            true
-                                        ) // Navigate to page 0 (Home)
-
-
-                                    }
-
-                                    "convert" -> {
-                                        polygon2.visibility = View.VISIBLE
-                                        iconConverter.setImageResource(R.drawable.download_icon)
-                                        iconConverter.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            1,
-                                            true
-                                        ) // Navigate to page 0 (Home)
-
-                                    }
-
-                                    "download" -> {
-                                        polygon3.visibility = View.VISIBLE
-                                        iconDownload.setImageResource(R.drawable.download_icon)
-                                        iconDownload.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            1,
-                                            true
-                                        ) // Navigate to page 0 (Home)
-
-                                    }
-
-                                    "settings" -> {
-                                        polygon4.visibility = View.VISIBLE
-                                        iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                                        iconSettings.imageTintList =
-                                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                                        textSettings.setTextColor(Color.parseColor("#ffffff"))
-                                        viewPagerDashboardLight.setCurrentItem(
-                                            2,
-                                            true
-                                        )
-
-                                    }
-                                }
+                                checkSelectedTab(selectedTab)
                             }
 
                             override fun adImpression() {}
@@ -564,59 +394,8 @@ class MainFragment : Fragment() {
                         })
                 }
             } else {
-                when (selectedTab) {
-                    "home" -> {
-                        polygon1.visibility = View.VISIBLE
-                        iconHome.setImageResource(R.drawable.home_selected_icon)
-                        iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textHome.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            0,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-
-                    "convert" -> {
-                        polygon2.visibility = View.VISIBLE
-                        iconHome.setImageResource(R.drawable.home_selected_icon)
-                        iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textHome.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            1,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-
-                    "download" -> {
-                        polygon3.visibility = View.VISIBLE
-                        iconDownload.setImageResource(R.drawable.download_icon)
-                        iconDownload.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            2,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-
-                    "settings" -> {
-                        polygon4.visibility = View.VISIBLE
-                        iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                        iconSettings.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textSettings.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            3,
-                            true
-                        ) // Navigate to page 0 (Home)
-
-                    }
-                }
+                checkSelectedTab(selectedTab)
             }
-            //}
 
 
         }
@@ -627,82 +406,27 @@ class MainFragment : Fragment() {
 
             binding?.apply {
                 viewPagerDashboardLight.currentItem = it
-                tabHome.isEnabled = true
-                tabDownload.isEnabled = true
-                tabSettings.isEnabled = true
-                polygon1.visibility = View.INVISIBLE
-                polygon2.visibility = View.INVISIBLE
-                polygon3.visibility = View.INVISIBLE
-                polygon4.visibility = View.INVISIBLE
-
-                iconHome.setImageResource(R.drawable.home_icon)
-                iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
-                textHome.setTextColor(Color.parseColor("#BEB8B8"))
-
-
-                iconConverter.setImageResource(R.drawable.mp3_converter)
-                iconConverter.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
-                textConverter.setTextColor(Color.parseColor("#BEB8B8"))
-
-                iconDownload.setImageResource(R.drawable.downloads_icon)
-                iconDownload.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
-                textDownload.setTextColor(Color.parseColor("#BEB8B8"))
-
-                iconSettings.setImageResource(R.drawable.settings_icon)
-                iconSettings.imageTintList = ColorStateList.valueOf(Color.parseColor("#BEB8B8"))
-                textSettings.setTextColor(Color.parseColor("#BEB8B8"))
-                Log.e("TAG", "attachObserver: $it" )
+                resetAllTab()
+                Log.e("TAG", "attachObserver: $it")
                 when (it) {
                     0 -> {
-                        polygon1.visibility = View.VISIBLE
-                        iconHome.setImageResource(R.drawable.home_selected_icon)
-                        iconHome.imageTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textHome.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            0,
-                            true
-                        ) // Navigate to page 0 (Home)
+                        selectHomeTab()
 
                     }
 
 
                     1 -> {
-                        polygon2.visibility = View.VISIBLE
-                        iconConverter.setImageResource(R.drawable.mp3_converter)
-                        iconConverter.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textConverter.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            1,
-                            true
-                        ) // Navigate to page 0 (Home)
+                        selectConverterTab()
 
                     }
 
                     2 -> {
-                        polygon3.visibility = View.VISIBLE
-                        iconDownload.setImageResource(R.drawable.download_icon)
-                        iconDownload.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textDownload.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            2,
-                            true
-                        ) // Navigate to page 0 (Home)
+                        selectDownloadTab()
 
                     }
 
                     3 -> {
-                        polygon4.visibility = View.VISIBLE
-                        iconSettings.setImageResource(R.drawable.settings_selected_icon)
-                        iconSettings.imageTintList =
-                            ColorStateList.valueOf(Color.parseColor("#ffffff"))
-                        textSettings.setTextColor(Color.parseColor("#ffffff"))
-                        viewPagerDashboardLight.setCurrentItem(
-                            3,
-                            true
-                        )
-
+                        selectSettingTab()
                     }
                 }
             }
