@@ -5,15 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_video_l
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdLoadCallback
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdOptions
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdShowCallback
+import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterstitialAdUtils
 import com.example.a4kvideodownloaderplayer.databinding.HowUseFragmentBinding
 import com.example.a4kvideodownloaderplayer.fragments.howToUse.adapter.HowToUseAdapter
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.showHowToUseImages
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class UseDialogFragment : DialogFragment() {
+
+    companion object {
+        var onDismissAdCapping = 0
+    }
 
     private var binding: HowUseFragmentBinding? = null
 
@@ -45,7 +58,13 @@ class UseDialogFragment : DialogFragment() {
     private fun clickEvent() {
         binding?.apply {
             closeIV.setOnClickListener {
-                dismiss()
+                if (onDismissAdCapping != 0) {
+                    onDismissAdCapping--
+                    dismiss()
+                } else {
+                    onDismissAdCapping = 2
+                    showInterAd()
+                }
             }
         }
     }
@@ -100,7 +119,67 @@ class UseDialogFragment : DialogFragment() {
                     countTv.text = "5"
                 }
 
+                5 -> {
+                    labelTv.text = getString(R.string.select_video_from_gallery)
+                    countTv.text = "6"
+                }
+
+                6 -> {
+                    labelTv.text = getString(R.string.after_conversion)
+                    countTv.text = "7"
+                }
+
             }
         }
+    }
+
+    private fun showInterAd() {
+        val adOptions = InterAdOptions().setAdId(getString(R.string.playerInterstitialAd))
+            .setRemoteConfig(fullscreen_video_l).setLoadingDelayForDialog(2)
+            .setFullScreenLoading(false)
+            .build(activity ?: return)
+        InterstitialAdUtils(adOptions).loadAndShowInterAd(object :
+            InterAdLoadCallback() {
+            override fun adAlreadyLoaded() {}
+            override fun adLoaded() {}
+            override fun adFailed(error: LoadAdError?, msg: String?) {
+                dismiss()
+            }
+
+            override fun adValidate() {
+                dismiss()
+
+            }
+        },
+            object : InterAdShowCallback() {
+                override fun adNotAvailable() {}
+                override fun adShowFullScreen() {
+                    /* if(mAdCount==1){
+                         _binding?.adRemainingTv?.text=context?.getString(R.string.one_ad_left)
+                         return
+                     }*/
+                    if (onDismissAdCapping == 0) {
+                        onDismissAdCapping = 2
+                    }
+                    lifecycleScope.launch {
+                        delay(800)
+                        onDismissAdCapping = 2
+                        dismiss()
+                    }
+
+                }
+
+                override fun adDismiss() {
+
+                }
+
+                override fun adFailedToShow() {
+                    dismiss()
+                }
+
+                override fun adImpression() {}
+
+                override fun adClicked() {}
+            })
     }
 }

@@ -56,9 +56,9 @@
 
     <ImageView
         android:id="@+id/playIcon"
-        android:layout_width="@dimen/_50sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_50sdp"
-        android:padding="@dimen/_6sdp"
+        android:padding="@dimen/_8sdp"
         android:src="@drawable/vector_play_ic"
         app:layout_constraintBottom_toBottomOf="@+id/thumbnailCardView"
         app:layout_constraintEnd_toEndOf="parent"

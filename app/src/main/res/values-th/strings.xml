@@ -110,7 +110,11 @@
     <string name="built_in_player">เครื่องเล่นในตัว</string>
     <string name="convert_videos_to_mp3">แปลงวิดีโอเป็น MP3</string>
     <string name="how_to_use">วิธีการใช้</string>
-
+    <string name="select_video_from_gallery">เลือกวิดีโอจากแกลเลอรี</string>
+    <string name="after_conversion">หลังจากการแปลง</string>
+    <string name="audio_converted_failed">การแปลงเสียงล้มเหลว</string>
+    <string name="audio_above_5_min">ความยาววิดีโอเกิน 5 นาที</string>
+    <string name="audio_not_found">วิดีโอไม่มีเสียง</string>
 
 
 </resources>

@@ -140,6 +140,7 @@ class OnBoardingFragment : Fragment() {
         val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(
                 Manifest.permission.READ_MEDIA_VIDEO, // for Android 13+
+                Manifest.permission.READ_MEDIA_AUDIO, // for Android 13+
                 Manifest.permission.POST_NOTIFICATIONS
             )
         } else {
@@ -166,6 +167,7 @@ class OnBoardingFragment : Fragment() {
         val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(
                 Manifest.permission.READ_MEDIA_VIDEO,
+                Manifest.permission.READ_MEDIA_AUDIO,
                 Manifest.permission.POST_NOTIFICATIONS
             )
         } else {

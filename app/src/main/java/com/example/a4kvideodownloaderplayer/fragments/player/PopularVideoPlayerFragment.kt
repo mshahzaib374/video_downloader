@@ -80,6 +80,16 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
 
 
     private fun initClicksEvents() {
+        binding?.backIcon?.setOnClickListener {
+            context?.logFirebaseEvent("video_player_fragment", "back_button_clicked")
+            videoPlayerViewModel.player?.stop()
+            videoPlayerViewModel.player?.release()
+            videoPlayerViewModel.player = null
+            videoPlayerViewModel.playWhenReady = true
+            videoPlayerViewModel.playbackPosition = 0
+            showAds()
+        }
+
         binding?.playerView?.setOnClickListener {
             toggleControllerVisibility()
         }
@@ -233,7 +243,7 @@ class PopularVideoPlayerFragment : Fragment(), Player.Listener {
     }
 
 
-    private fun initPlayer() {
+     fun initPlayer() {
         videoPlayerViewModel.player = ExoPlayer.Builder(context ?: return).build().also {
             binding!!.playerView.player = it
             binding!!.controls.player = it

@@ -110,5 +110,11 @@
     <string name="built_in_player">内置播放器</string>
     <string name="convert_videos_to_mp3">将视频转换为MP3</string>
     <string name="how_to_use">如何使用</string>
+    <string name="select_video_from_gallery">从相册选择视频</string>
+    <string name="after_conversion">转换后</string>
+    <string name="audio_converted_failed">音频转换失败</string>
+    <string name="audio_above_5_min">视频长度超过5分钟</string>
+    <string name="audio_not_found">视频没有音频</string>
+
 
 </resources>

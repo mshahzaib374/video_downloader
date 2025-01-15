@@ -13,7 +13,7 @@
       "attributes": [],
       "versionCode": 17,
       "versionName": "1.17",
-      "outputFile": "video_downloader_v1.17(17)_2025_01_14_17_31-release.apk"
+      "outputFile": "video_downloader_v1.17(17)_2025_01_15_17_23-release.apk"
     }
   ],
   "elementType": "File",
@@ -22,14 +22,14 @@
       "minApi": 28,
       "maxApi": 30,
       "baselineProfiles": [
-        "baselineProfiles/1/video_downloader_v1.17(17)_2025_01_14_17_31-release.dm"
+        "baselineProfiles/1/video_downloader_v1.17(17)_2025_01_15_17_23-release.dm"
       ]
     },
     {
       "minApi": 31,
       "maxApi": 2147483647,
       "baselineProfiles": [
-        "baselineProfiles/0/video_downloader_v1.17(17)_2025_01_14_17_31-release.dm"
+        "baselineProfiles/0/video_downloader_v1.17(17)_2025_01_15_17_23-release.dm"
       ]
     }
   ],

@@ -110,7 +110,11 @@
     <string name="built_in_player">Встроенный плеер</string>
     <string name="convert_videos_to_mp3">Конвертировать видео в MP3</string>
     <string name="how_to_use">Как использовать</string>
-
+    <string name="select_video_from_gallery">Выбрать видео из галереи</string>
+    <string name="after_conversion">После конвертации</string>
+    <string name="audio_converted_failed">Не удалось конвертировать аудио</string>
+    <string name="audio_above_5_min">Длина видео больше 5 минут</string>
+    <string name="audio_not_found">В видео нет аудио</string>
 
 
 </resources>

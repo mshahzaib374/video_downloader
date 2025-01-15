@@ -21,6 +21,17 @@
         />
 
     <ImageView
+        android:id="@+id/how_use_icon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/group_10000041432"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/downloads_tv"
+        app:layout_constraintEnd_toStartOf="@+id/premium_icon"
+        app:layout_constraintTop_toTopOf="@+id/downloads_tv"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
         android:id="@+id/premium_icon"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"

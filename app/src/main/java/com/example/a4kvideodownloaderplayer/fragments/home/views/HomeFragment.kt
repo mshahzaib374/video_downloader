@@ -33,6 +33,7 @@ import com.example.a4kvideodownloaderplayer.databinding.HomeFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.MediumNativeAdsBinding
 import com.example.a4kvideodownloaderplayer.fragments.home.viewmodel.VideoViewModel
 import com.example.a4kvideodownloaderplayer.fragments.home.views.adapter.PopularVideosAdapter
+import com.example.a4kvideodownloaderplayer.fragments.howToUse.views.UseDialogFragment
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
@@ -61,7 +62,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         context?.logFirebaseEvent("home_fragment", "screen_opened")
         binding?.apply {
+            howUseIcon.setOnClickListener {
+                context?.logFirebaseEvent("setting_fragment", "how_use_button_clicked")
+                UseDialogFragment().show(parentFragmentManager, "HowToUseFragment")
+            }
             premiumIcon.setOnClickListener {
+                context?.logFirebaseEvent("home_fragment", "premium_button_clicked")
                 PremiumFragment().show(parentFragmentManager, "HomeFragment")
             }
 

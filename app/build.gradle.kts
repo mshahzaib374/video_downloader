@@ -138,6 +138,10 @@ dependencies {
     //in app update
     implementation(libs.app.update.ktx)
 
+    //jetpack compose
+    val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
+    implementation(composeBom)
+
 
 
 }

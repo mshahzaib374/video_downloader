@@ -37,7 +37,6 @@ class PremiumFragment : DialogFragment() {
     private var billingUtils: BillingUtils? = null
     private var SKUID = "one_month_package"
     private var subscribedList = emptyList<Purchase>()
-    private var mAdCount=2
     private var exitBinding: RestrictPremiumDialogLayoutBinding? = null
     private var exitDialog: Dialog? = null
 

@@ -110,6 +110,11 @@
     <string name="built_in_player">Trình phát tích hợp</string>
     <string name="convert_videos_to_mp3">Chuyển đổi video sang MP3</string>
     <string name="how_to_use">Cách sử dụng</string>
+    <string name="select_video_from_gallery">Chọn video từ thư viện</string>
+    <string name="after_conversion">Sau khi chuyển đổi</string>
+    <string name="audio_converted_failed">Chuyển đổi âm thanh thất bại</string>
+    <string name="audio_above_5_min">Thời lượng video trên 5 phút</string>
+    <string name="audio_not_found">Video không có âm thanh</string>
 
 
 </resources>

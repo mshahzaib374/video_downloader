@@ -17,7 +17,7 @@
         app:use_controller="false" />
 
 
-    <!--<ImageView
+    <ImageView
         android:id="@+id/backIcon"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
@@ -27,7 +27,7 @@
         android:src="@drawable/player_back_ic"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent" />
 
    <!-- <TextView
         android:id="@+id/titleTv"

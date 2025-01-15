@@ -110,7 +110,11 @@
     <string name="built_in_player">इन-बिल्ट प्लेयर</string>
     <string name="convert_videos_to_mp3">वीडियो को MP3 में कनवर्ट करें</string>
     <string name="how_to_use">कैसे उपयोग करें</string>
-
+    <string name="select_video_from_gallery">गैलरी से वीडियो चुनें</string>
+    <string name="after_conversion">कन्वर्ट करने के बाद</string>
+    <string name="audio_converted_failed">ऑडियो कन्वर्ट असफल रहा</string>
+    <string name="audio_above_5_min">वीडियो की लंबाई 5 मिनट से अधिक है</string>
+    <string name="audio_not_found">वीडियो में ऑडियो नहीं है</string>
 
 
 </resources>

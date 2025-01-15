@@ -110,7 +110,11 @@
     <string name="built_in_player">مشغل مدمج</string>
     <string name="convert_videos_to_mp3">تحويل الفيديوهات إلى MP3</string>
     <string name="how_to_use">كيفية الاستخدام</string>
-
+    <string name="select_video_from_gallery">اختر فيديو من المعرض</string>
+    <string name="after_conversion">بعد التحويل</string>
+    <string name="audio_converted_failed">فشل تحويل الصوت</string>
+    <string name="audio_above_5_min">مدة الفيديو أكثر من 5 دقائق</string>
+    <string name="audio_not_found">الفيديو لا يحتوي على صوت</string>
 
 
 </resources>

@@ -110,7 +110,11 @@
     <string name="built_in_player">내장 플레이어</string>
     <string name="convert_videos_to_mp3">비디오를 MP3로 변환</string>
     <string name="how_to_use">사용 방법</string>
-
+    <string name="select_video_from_gallery">갤러리에서 동영상 선택</string>
+    <string name="after_conversion">변환 후</string>
+    <string name="audio_converted_failed">오디오 변환 실패</string>
+    <string name="audio_above_5_min">영상 길이 5분 초과</string>
+    <string name="audio_not_found">비디오에 오디오가 없습니다</string>
 
 
 </resources>

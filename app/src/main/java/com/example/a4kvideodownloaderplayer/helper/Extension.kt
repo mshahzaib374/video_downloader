@@ -140,5 +140,7 @@ fun showHowToUseImages(): MutableList<ImageSlider> {
         add(ImageSlider(R.drawable.use3))
         add(ImageSlider(R.drawable.use4))
         add(ImageSlider(R.drawable.use5))
+        add(ImageSlider(R.drawable.use6))
+        add(ImageSlider(R.drawable.use7))
     }
 }

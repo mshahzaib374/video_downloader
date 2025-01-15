@@ -111,6 +111,8 @@
         android:id="@+id/PopularVideoPlayerFragment"
         android:name="com.example.a4kvideodownloaderplayer.fragments.player.PopularVideoPlayerFragment"
         android:label="PopularVideoPlayerFragment" />
+
+
     <fragment
         android:id="@+id/premiumFragment2"
         android:name="com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment"

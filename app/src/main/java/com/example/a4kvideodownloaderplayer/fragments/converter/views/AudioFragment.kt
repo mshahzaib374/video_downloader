@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +27,7 @@ import com.example.a4kvideodownloaderplayer.databinding.AudioFragmentBinding
 import com.example.a4kvideodownloaderplayer.dialogs.ConverterDialog
 import com.example.a4kvideodownloaderplayer.fragments.converter.viewmodel.AudioViewModel
 import com.example.a4kvideodownloaderplayer.fragments.converter.views.adapter.AudioAdapter
+import com.example.a4kvideodownloaderplayer.fragments.howToUse.views.UseDialogFragment
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.AudioConverter
@@ -206,9 +206,12 @@ class AudioFragment : Fragment() {
 
     private fun clickEvents() {
         binding?.apply {
+            howUseIcon.setOnClickListener {
+                context?.logFirebaseEvent("audio_fragment", "how_use_button_clicked")
+                UseDialogFragment().show(parentFragmentManager, "HowToUseFragment")
+            }
             premiumIcon.setOnClickListener {
                 PremiumFragment().show(parentFragmentManager, "AudioFragment")
-
             }
             addVideoBtn.setOnClickListener { openFilePicker() }
         }
@@ -259,25 +262,25 @@ class AudioFragment : Fragment() {
                 getRealPathFromURI(videoUri) ?: "",
                 file.path,
                 onSuccess = {
-                    Log.e("Khan", "onSuccess")
                     converterDialog?.dismiss()
-                    Toast.makeText(
-                        context ?: return@extractAudio,
-                        getString(R.string.audio_converted),
-                        Toast.LENGTH_SHORT
-                    ).show()
                     loadAudioFiles()
                 },
                 onFailed = {
-                    Log.e("Khan", "onFailed")
+                    if (file.exists()) {
+                        file.delete()
+                    }
                     converterDialog?.dismiss()
                 },
                 above2Min = {
-                    Log.e("Khan", "above5Min")
+                    if (file.exists()) {
+                        file.delete()
+                    }
                     converterDialog?.dismiss()
                 },
                 noAudioFound = {
-                    Log.e("Khan", "noAudioFound")
+                    if (file.exists()) {
+                        file.delete()
+                    }
                     converterDialog?.dismiss()
                 }
             )

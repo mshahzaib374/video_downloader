@@ -16,9 +16,20 @@
         android:text="@string/converter"
         android:textColor="#ffffff"
         android:textSize="@dimen/_13ssp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/how_use_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/how_use_icon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/group_10000041432"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/converter_tv"
+        app:layout_constraintEnd_toStartOf="@+id/premium_icon"
+        app:layout_constraintTop_toTopOf="@+id/converter_tv"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/premium_icon"
@@ -26,6 +37,7 @@
         android:layout_height="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:src="@drawable/premium_icon_night"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="@+id/converter_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/converter_tv" />
@@ -85,8 +97,8 @@
         android:id="@+id/rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingVertical="@dimen/_16sdp"
-        android:visibility="visible"
+        android:paddingBottom="@dimen/_16sdp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

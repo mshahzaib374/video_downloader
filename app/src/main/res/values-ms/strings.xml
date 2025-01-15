@@ -110,7 +110,11 @@
     <string name="built_in_player">Pemain terbina dalam</string>
     <string name="convert_videos_to_mp3">Tukar video ke MP3</string>
     <string name="how_to_use">Cara guna</string>
-
+    <string name="select_video_from_gallery">Pilih video dari galeri</string>
+    <string name="after_conversion">Selepas penukaran</string>
+    <string name="audio_converted_failed">Penukaran audio gagal</string>
+    <string name="audio_above_5_min">Panjang video melebihi 5 minit</string>
+    <string name="audio_not_found">Video tidak mempunyai audio</string>
 
 
 </resources>

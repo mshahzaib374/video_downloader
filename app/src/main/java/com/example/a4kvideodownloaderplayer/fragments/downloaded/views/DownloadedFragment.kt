@@ -34,8 +34,10 @@ import com.example.a4kvideodownloaderplayer.dialogs.ConverterDialog
 import com.example.a4kvideodownloaderplayer.fragments.converter.viewmodel.AudioViewModel
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.views.adapter.VideoAdapter
+import com.example.a4kvideodownloaderplayer.fragments.howToUse.views.UseDialogFragment
 import com.example.a4kvideodownloaderplayer.fragments.main.viewmodel.HomeViewModel
 import com.example.a4kvideodownloaderplayer.fragments.premium.PremiumFragment
+import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.a4kvideodownloaderplayer.helper.AudioConverter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -93,6 +95,11 @@ class DownloadedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             rv.layoutManager = GridLayoutManager(context, 2)
+
+            howUseIcon.setOnClickListener {
+                context?.logFirebaseEvent("downloads_fragment", "how_use_button_clicked")
+                UseDialogFragment().show(parentFragmentManager, "HowToUseFragment")
+            }
 
             premiumIcon.setOnClickListener {
                 PremiumFragment().show(parentFragmentManager, "DownloadedFragment")
@@ -327,22 +334,27 @@ class DownloadedFragment : Fragment() {
                 getRealPathFromURI(videoUri) ?: "",
                 file.path,
                 onSuccess = {
-                    Log.e("Khan", "onSuccess")
                     converterDialog?.dismiss()
                     audioViewModel.loadAudioFiles(context?:return@extractAudio)
                     homeViewModel.updatePageSelector(1)
 
                 },
                 onFailed = {
-                    Log.e("Khan", "onFailed")
+                    if (file.exists()) {
+                        file.delete()
+                    }
                     converterDialog?.dismiss()
                 },
                 above2Min = {
-                    Log.e("Khan", "above5Min")
+                    if (file.exists()) {
+                        file.delete()
+                    }
                     converterDialog?.dismiss()
                 },
                 noAudioFound = {
-                    Log.e("Khan", "noAudioFound")
+                    if (file.exists()) {
+                        file.delete()
+                    }
                     converterDialog?.dismiss()
                 }
             )

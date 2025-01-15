@@ -110,6 +110,11 @@
     <string name="built_in_player">Reproductor integrado</string>
     <string name="convert_videos_to_mp3">Convertir videos a MP3</string>
     <string name="how_to_use">Cómo usar</string>
+    <string name="select_video_from_gallery">Sélectionner une vidéo depuis la galerie</string>
+    <string name="after_conversion">Après la conversion</string>
+    <string name="audio_converted_failed">La conversión de audio falló</string>
+    <string name="audio_above_5_min">La duración del video supera los 5 minutos</string>
+    <string name="audio_not_found">El video no tiene audio</string>
 
 
 </resources>
