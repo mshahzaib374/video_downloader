@@ -1,4 +1,4 @@
-package com.example.a4kvideodownloaderplayer.viewPager
+package com.example.a4kvideodownloaderplayer.fragments.main.views
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

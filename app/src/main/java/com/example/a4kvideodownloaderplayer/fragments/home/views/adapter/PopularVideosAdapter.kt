@@ -16,10 +16,6 @@ class PopularVideosAdapter (
     private val navigate: (PopularVideo) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
-
-
-    // Video ViewHolder
     inner class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val thumbnailImageView: ImageView = itemView.findViewById(R.id.thumbnailImageView)
         private val playIcon: ImageView = itemView.findViewById(R.id.playIcon)

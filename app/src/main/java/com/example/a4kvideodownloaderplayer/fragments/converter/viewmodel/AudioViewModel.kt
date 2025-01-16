@@ -49,7 +49,8 @@ class AudioViewModel : ViewModel() {
                         MediaStore.Audio.Media.DURATION
                     )
                     val selection = "${MediaStore.Audio.Media.RELATIVE_PATH} LIKE ?"
-                    val selectionArgs = arrayOf("%$folderName%")
+                    val selectionArgs = arrayOf("%Download/4kVideoDownloader/%")
+
 
                     context.contentResolver?.query(
                         MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
@@ -65,15 +66,16 @@ class AudioViewModel : ViewModel() {
                             cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.RELATIVE_PATH)
                         val dateColumn =
                             cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATE_ADDED)
-                       // val durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+                        val durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
 
-
+                        Log.d("TAG", "duration : ${cursor.count}")
                         while (cursor.moveToNext()) {
                             val id = cursor.getLong(idColumn)
                             val fileName = cursor.getString(nameColumn)
                             val filePath =
                                 "$downloadsPath/${cursor.getString(pathColumn)}/$fileName"
-                           // val durationInMillis = cursor.getLong(durationColumn)
+                            val durationInMillis = cursor.getLong(durationColumn)
+
 
 
                             val contentUri = ContentUris.withAppendedId(
@@ -89,7 +91,7 @@ class AudioViewModel : ViewModel() {
                                     fileName,
                                     filePath,
                                     cursor.getLong(dateColumn),
-                                    ""
+                                    formatDuration(durationInMillis)
                                 )
                             )
                         }
@@ -105,7 +107,7 @@ class AudioViewModel : ViewModel() {
                                     file.name,
                                     file.absolutePath,
                                     file.lastModified(),
-                                    ""
+                                    formatDuration(getAudioDuration(file.absolutePath))
                                 )
                             )
                         }

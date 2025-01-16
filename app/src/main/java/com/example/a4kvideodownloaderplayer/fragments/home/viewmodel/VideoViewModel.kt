@@ -21,6 +21,8 @@ import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.fragments.home.model.ApiResponse
 import com.example.a4kvideodownloaderplayer.fragments.home.retrofit.RetrofitInstance
 import com.example.a4kvideodownloaderplayer.fragments.home.retrofit.VideoApiService
+import com.example.a4kvideodownloaderplayer.helper.downloadDirectory
+import com.example.a4kvideodownloaderplayer.helper.scanFiles
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -119,33 +121,20 @@ class VideoViewModel : ViewModel() {
 
     private fun newSaveFileFromResponse(body: ResponseBody, context: Context) {
         try {
-            // Get the Downloads directory
-            val downloadsFolder =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            // Create a subfolder named "4kVideoDownloader"
-            val subFolder = File(downloadsFolder, "4kVideoDownloader")
-            if (!subFolder.exists()) {
-                subFolder.mkdirs()
+            val folder = downloadDirectory()
+            if (!folder.exists()) {
+                folder.mkdirs()
             }
             val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-            val fileName = "video_$timestamp.mp4" // Replace with `uniqueName.mp4` for UUID option
-            // Create the file in the subfolder
-            val file =
-                File(subFolder, fileName) // You can modify the filename dynamically if needed
+            val fileName = "video_$timestamp.mp4"
+            val file = File(folder, fileName) // You can modify the filename dynamically if needed
 
             body.byteStream().use { inputStream ->
                 FileOutputStream(file).use { outputStream ->
                     inputStream.copyTo(outputStream)
                 }
             }
-            // Notify the media scanner about the new file
-            /*MediaScannerConnection.scanFile(
-                context,
-                arrayOf(file.absolutePath),
-                null
-            ) { path, uri ->
-                Log.d("FileSave", "File scanned into gallery: $path")
-            }*/
+            context.scanFiles(file)
             _downloadStatus.value = "SUCCESS"
         } catch (e: Exception) {
             // Handle exception during file saving

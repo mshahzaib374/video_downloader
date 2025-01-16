@@ -212,7 +212,6 @@ class OnBoardingFragment : Fragment() {
             .onSameThread().check()
     }
 
-
     private fun handleDeniedPermissions(multiplePermissionsReport: MultiplePermissionsReport) {
         var anyPermanentlyDenied = false
         var anyDenied = false

@@ -38,12 +38,12 @@ class AudioAdapter(
         fun bind(audioFile: AudioFile) {
             binding.apply {
                 fileNameTextView.text = audioFile.fileName
-                durationTV.text = audioFile.duration
+                //durationTV.text = audioFile.duration
                 itemView.setOnClickListener {
                     navigate.invoke(audioFile)
                 }
                 menuIv.setOnClickListener {
-                    val popupMenu: PopupMenu = PopupMenu(context, menuIv)
+                    val popupMenu = PopupMenu(context, menuIv)
                     popupMenu.inflate(R.menu.item_menu)
                     popupMenu.setOnMenuItemClickListener { item ->
                         when (item.itemId) {

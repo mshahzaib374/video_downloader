@@ -3,11 +3,15 @@ package com.example.a4kvideodownloaderplayer.helper
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.media.MediaScannerConnection
 import android.net.Uri
+import android.os.Environment
+import android.util.Log
 import android.view.View
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.fragments.home.model.PopularVideo
 import com.example.a4kvideodownloaderplayer.fragments.howToUse.model.ImageSlider
+import java.io.File
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -142,5 +146,22 @@ fun showHowToUseImages(): MutableList<ImageSlider> {
         add(ImageSlider(R.drawable.use5))
         add(ImageSlider(R.drawable.use6))
         add(ImageSlider(R.drawable.use7))
+    }
+}
+
+fun downloadDirectory(): File {
+    return File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "4kVideoDownloader")
+}
+
+
+ fun Context.scanFiles(file : File) {
+    if (file.exists()) {
+        MediaScannerConnection.scanFile(
+            this,
+            arrayOf(file.absolutePath),
+            null
+        ) { path, uri ->
+            Log.d("MediaScan", "Scanned $path -> URI = $uri")
+        }
     }
 }

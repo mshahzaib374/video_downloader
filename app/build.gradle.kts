@@ -16,8 +16,8 @@ android {
         applicationId = "vid.hd.videodownloader.videoplayer.download.all.videosapp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 17
-        versionName = "1.17"
+        versionCode = 18
+        versionName = "1.18"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         val formattedDate = SimpleDateFormat("yyyy_MM_dd_HH_mm")

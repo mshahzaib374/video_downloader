@@ -89,7 +89,6 @@ class AudioConverter(private val context: Context) {
 
                 // Validate the conversion
                 if (!isFileConverted(outputFilePath)) {
-                    Log.e("Khan", "extractAudio: file not converted")
                     withContext(Dispatchers.Main) {
                         onFailed.invoke()
                         Toast.makeText(
@@ -101,6 +100,7 @@ class AudioConverter(private val context: Context) {
 
                     return@launch
                 } else {
+                    context.scanFiles(File(outputFilePath))
                     withContext(Dispatchers.Main) {
                         onSuccess.invoke()
                         Toast.makeText(
@@ -112,7 +112,6 @@ class AudioConverter(private val context: Context) {
                     return@launch
                 }
             } catch (e: Exception) {
-                Log.e("Khan", "onFailed: $e", )
                 withContext(Dispatchers.Main) {
                     onFailed.invoke()
                     Toast.makeText(

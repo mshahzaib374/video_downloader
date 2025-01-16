@@ -47,7 +47,6 @@ import com.example.a4kvideodownloaderplayer.helper.enable
 import com.example.a4kvideodownloaderplayer.helper.invisible
 import com.example.a4kvideodownloaderplayer.helper.showExitVideos
 import com.example.a4kvideodownloaderplayer.helper.visible
-import com.example.a4kvideodownloaderplayer.viewPager.ViewPagerAdapterDashboard
 import com.example.aiartgenerator.utils.AppPrefs
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.material.tabs.TabLayoutMediator
@@ -94,6 +93,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         attachObserver()
         registerViewPager()
+
         context?.checkForInAppUpdate(activity ?: return)
         activity?.onBackPressedDispatcher?.addCallback(
             viewLifecycleOwner,
