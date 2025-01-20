@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">Penukaran audio gagal</string>
     <string name="audio_above_5_min">Panjang video melebihi 5 minit</string>
     <string name="audio_not_found">Video tidak mempunyai audio</string>
+    <string name="unlimited_mp3_audio_conversions">Penukaran audio MP3 tanpa had</string>
 
 
 </resources>

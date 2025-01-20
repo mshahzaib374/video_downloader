@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">فشل تحويل الصوت</string>
     <string name="audio_above_5_min">مدة الفيديو أكثر من 5 دقائق</string>
     <string name="audio_not_found">الفيديو لا يحتوي على صوت</string>
+    <string name="unlimited_mp3_audio_conversions">تحويلات صوت MP3 غير محدودة</string>
 
 
 </resources>

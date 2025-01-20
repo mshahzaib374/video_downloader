@@ -121,5 +121,6 @@
     <string name="how_to_use">How to use</string>
     <string name="select_video_from_gallery">Select video From gallery</string>
     <string name="after_conversion">After Conversion</string>
+    <string name="unlimited_mp3_audio_conversions">Unlimited mp3 audio conversions</string>
 
 </resources>

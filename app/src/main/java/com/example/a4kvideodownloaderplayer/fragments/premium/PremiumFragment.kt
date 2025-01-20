@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.ProductDetails
@@ -22,6 +23,7 @@ import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdOptions
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdShowCallback
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterstitialAdUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.Admobify
+import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.databinding.PremiumFragmentBinding
 import com.example.a4kvideodownloaderplayer.databinding.RestrictPremiumDialogLayoutBinding
 import com.example.a4kvideodownloaderplayer.fragments.main.views.MainFragment.Companion.dialogEventListener
@@ -40,8 +42,8 @@ class PremiumFragment : DialogFragment() {
     private var exitBinding: RestrictPremiumDialogLayoutBinding? = null
     private var exitDialog: Dialog? = null
 
-    companion object{
-        var onDismissAdCapping=2
+    companion object {
+        var onDismissAdCapping = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,16 +129,16 @@ class PremiumFragment : DialogFragment() {
             }
 
             premiumCloseIV.setOnClickListener {
-                if (onDismissAdCapping!=0){
+                if (onDismissAdCapping != 0) {
                     onDismissAdCapping--
                     dismiss()
-                }else {
+                } else {
                     showInterAd()
                 }
             }
 
             premiumContinue.setOnClickListener {
-                    showInterAd()
+                showInterAd()
 
             }
 
@@ -148,17 +150,25 @@ class PremiumFragment : DialogFragment() {
                         return@setOnClickListener
                     }
                 }*/
-             /*   if (Admobify.isPremiumUser()) {
-                    restrictDialog()
-                    return@setOnClickListener
-                }*/
-                billingUtils?.subscribe(SKUID)
+                /*   if (Admobify.isPremiumUser()) {
+                       restrictDialog()
+                       return@setOnClickListener
+                   }*/
+                if (AdmobifyUtils.isNetworkAvailable(context ?: return@setOnClickListener)) {
+                    billingUtils?.subscribe(SKUID)
+                } else {
+                    Toast.makeText(
+                        context ?: return@setOnClickListener,
+                        getString(R.string.no_internet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
             monthlyView.setOnClickListener {
                 monthlyView.setBackgroundResource(R.drawable.premium_package_selector_bg)
                 sixMonthlyView.setBackgroundResource(R.drawable.premium_package_un_selector_bg)
-                thirtyPercentTv.visibility = View.GONE
+                //thirtyPercentTv.visibility = View.GONE
 
                 monthlySelectorIV.setBackgroundResource(R.drawable.premiun_selector_radio)
                 sixMonthlySelectorIV.setBackgroundResource(R.drawable.premium_un_selector_radio)
@@ -169,7 +179,7 @@ class PremiumFragment : DialogFragment() {
             sixMonthlyView.setOnClickListener {
                 monthlyView.setBackgroundResource(R.drawable.premium_package_un_selector_bg)
                 sixMonthlyView.setBackgroundResource(R.drawable.premium_package_selector_bg)
-                thirtyPercentTv.visibility = View.VISIBLE
+                // thirtyPercentTv.visibility = View.VISIBLE
 
                 monthlySelectorIV.setBackgroundResource(R.drawable.premium_un_selector_radio)
                 sixMonthlySelectorIV.setBackgroundResource(R.drawable.premiun_selector_radio)
@@ -255,16 +265,16 @@ class PremiumFragment : DialogFragment() {
             object : InterAdShowCallback() {
                 override fun adNotAvailable() {}
                 override fun adShowFullScreen() {
-                   /* if(mAdCount==1){
-                        _binding?.adRemainingTv?.text=context?.getString(R.string.one_ad_left)
-                        return
-                    }*/
-                    if (onDismissAdCapping==0){
-                        onDismissAdCapping=2
+                    /* if(mAdCount==1){
+                         _binding?.adRemainingTv?.text=context?.getString(R.string.one_ad_left)
+                         return
+                     }*/
+                    if (onDismissAdCapping == 0) {
+                        onDismissAdCapping = 2
                     }
                     lifecycleScope.launch {
                         delay(800)
-                        onDismissAdCapping=2
+                        onDismissAdCapping = 2
                         dismiss()
                     }
 

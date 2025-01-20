@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">오디오 변환 실패</string>
     <string name="audio_above_5_min">영상 길이 5분 초과</string>
     <string name="audio_not_found">비디오에 오디오가 없습니다</string>
+    <string name="unlimited_mp3_audio_conversions">무제한 MP3 오디오 변환</string>
 
 
 </resources>

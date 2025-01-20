@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">Chuyển đổi âm thanh thất bại</string>
     <string name="audio_above_5_min">Thời lượng video trên 5 phút</string>
     <string name="audio_not_found">Video không có âm thanh</string>
+    <string name="unlimited_mp3_audio_conversions">Chuyển đổi âm thanh MP3 không giới hạn</string>
 
 
 </resources>

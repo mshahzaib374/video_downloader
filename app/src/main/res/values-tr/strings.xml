@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">Ses dönüştürme başarısız</string>
     <string name="audio_above_5_min">Video süresi 5 dakikadan fazla</string>
     <string name="audio_not_found">Videoda ses yok</string>
+    <string name="unlimited_mp3_audio_conversions">Sınırsız MP3 ses dönüştürme</string>
 
 
 </resources>

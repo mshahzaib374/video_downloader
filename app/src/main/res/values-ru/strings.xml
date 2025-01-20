@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">Не удалось конвертировать аудио</string>
     <string name="audio_above_5_min">Длина видео больше 5 минут</string>
     <string name="audio_not_found">В видео нет аудио</string>
+    <string name="unlimited_mp3_audio_conversions">Неограниченные преобразования MP3-аудио</string>
 
 
 </resources>

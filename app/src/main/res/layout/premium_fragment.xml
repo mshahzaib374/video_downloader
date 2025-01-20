@@ -71,7 +71,7 @@
             android:layout_height="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_32sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:src="@drawable/premium_dot"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dot2" />
@@ -117,6 +117,7 @@
             app:layout_constraintStart_toEndOf="@+id/dot2"
             app:layout_constraintTop_toTopOf="@+id/dot2" />
 
+
         <TextView
             android:id="@+id/premiumPoint3Tv"
             android:layout_width="0dp"
@@ -124,8 +125,8 @@
             android:layout_marginStart="@dimen/_16sdp"
             android:fontFamily="@font/poppinsregular"
             android:gravity="start"
-            android:visibility="gone"
-            android:text="@string/unlimited_downloads"
+            android:visibility="visible"
+            android:text="@string/unlimited_mp3_audio_conversions"
             android:textColor="@color/splash_screen_title_color"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="@+id/dot3"
@@ -213,7 +214,7 @@
             android:gravity="center_horizontal"
             android:textColor="#535358"
             android:textSize="@dimen/_9ssp"
-            tools:text="15000"
+            android:text="$ 1.97"
             android:layout_marginEnd="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="@+id/monthlyView"
             app:layout_constraintEnd_toStartOf="@+id/monthlySelectorIV"
@@ -253,7 +254,7 @@
             android:textSize="@dimen/_10ssp"
             android:textColor="#ffffff"
             android:visibility="gone"
-            android:paddingHorizontal="@dimen/_4sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_2sdp"
             app:layout_constraintStart_toStartOf="@+id/sixMonthlyView"
             app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"/>
@@ -278,6 +279,7 @@
             android:gravity="center_horizontal"
             android:textColor="#535358"
             android:textSize="@dimen/_9ssp"
+            tools:text="$ 10.39"
             android:layout_marginEnd="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="@+id/sixMonthlyView"
             app:layout_constraintEnd_toStartOf="@+id/sixMonthlySelectorIV"

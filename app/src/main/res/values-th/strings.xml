@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">การแปลงเสียงล้มเหลว</string>
     <string name="audio_above_5_min">ความยาววิดีโอเกิน 5 นาที</string>
     <string name="audio_not_found">วิดีโอไม่มีเสียง</string>
+    <string name="unlimited_mp3_audio_conversions">การแปลงเสียง MP3 ได้ไม่จำกัด</string>
 
 
 </resources>

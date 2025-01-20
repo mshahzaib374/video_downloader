@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">音频转换失败</string>
     <string name="audio_above_5_min">视频长度超过5分钟</string>
     <string name="audio_not_found">视频没有音频</string>
+    <string name="unlimited_mp3_audio_conversions">无限制的MP3音频转换</string>
 
 
 </resources>

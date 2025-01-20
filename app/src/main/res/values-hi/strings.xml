@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">ऑडियो कन्वर्ट असफल रहा</string>
     <string name="audio_above_5_min">वीडियो की लंबाई 5 मिनट से अधिक है</string>
     <string name="audio_not_found">वीडियो में ऑडियो नहीं है</string>
+    <string name="unlimited_mp3_audio_conversions">असीमित MP3 ऑडियो कन्वर्ज़न</string>
 
 
 </resources>

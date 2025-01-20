@@ -115,6 +115,7 @@
     <string name="audio_converted_failed">Audio-Konvertierung fehlgeschlagen</string>
     <string name="audio_above_5_min">Videolänge über 5 Minuten</string>
     <string name="audio_not_found">Video hat keinen Ton</string>
+    <string name="unlimited_mp3_audio_conversions">Unbegrenzte MP3-Audiokonvertierungen</string>
 
 
 </resources>
