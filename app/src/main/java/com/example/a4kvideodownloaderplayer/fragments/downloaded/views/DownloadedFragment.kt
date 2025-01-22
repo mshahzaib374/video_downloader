@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,8 @@ import com.example.a4kvideodownloaderplayer.helper.AudioConverter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -331,7 +334,7 @@ class DownloadedFragment : Fragment() {
 
         AudioConverter(context?:return)
             .extractAudio(
-                getRealPathFromURI(videoUri) ?: "",
+                getRealPathFromURI(videoUri, context?:return) ?: "",
                 file.path,
                 onSuccess = {
                     converterDialog?.dismiss()
@@ -361,18 +364,34 @@ class DownloadedFragment : Fragment() {
 
     }
 
-    private fun getRealPathFromURI(contentURI: Uri): String? {
-        val result: String?
-        val cursor: Cursor? = context?.contentResolver?.query(contentURI, null, null, null, null)
-        if (cursor == null) {
-            result = contentURI.path
-        } else {
-            cursor.moveToFirst()
-            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            result = cursor.getString(idx)
-            cursor.close()
+    fun getRealPathFromURI(uri: Uri, context: Context): String? {
+        val returnCursor = context.contentResolver.query(uri, null, null, null, null)
+        val nameIndex =  returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        returnCursor.moveToFirst()
+        val name = returnCursor.getString(nameIndex)
+        val file = File(context.cacheDir, name)
+        try {
+            val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+            val outputStream = FileOutputStream(file)
+            var read = 0
+            val maxBufferSize = 1 * 1024 * 1024
+            val bytesAvailable: Int = inputStream?.available() ?: 0
+            val bufferSize = Math.min(bytesAvailable, maxBufferSize)
+            val buffers = ByteArray(bufferSize)
+            while (inputStream?.read(buffers).also {
+                    if (it != null) {
+                        read = it
+                    }
+                } != -1) {
+                outputStream.write(buffers, 0, read)
+            }
+            inputStream?.close()
+            outputStream.close()
+
+        } catch (e: java.lang.Exception) {
+            Log.e("Exception", e.message!!)
         }
-        return result
+        return file.path
     }
 }
 
