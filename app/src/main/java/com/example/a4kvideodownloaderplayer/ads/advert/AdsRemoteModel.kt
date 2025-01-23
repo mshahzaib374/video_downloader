@@ -13,6 +13,7 @@ data class AdsRemoteModel(
     var banner_onboarding_bottom : Boolean? = true,
     var native_home_l : Boolean? = true,
     var fullscreen_home_l : Boolean? = true,
+    var fullscreen_home_navigation_l : Boolean? = false,
     var fullscreen_disclaimer_l : Boolean? = true,
     var native_exit_l : Boolean? = true,
     var app_open_l : Boolean? = true,

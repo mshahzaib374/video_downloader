@@ -20,7 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.a4kvideodownloaderplayer.R
 import com.example.a4kvideodownloaderplayer.ads.advert.fullScreenCappingL
-import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_l
+import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_navigation_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_home_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAdState
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdLoadCallback
@@ -352,10 +352,11 @@ class MainFragment : Fragment() {
                 return
             }
             val adOptions = InterAdOptions().setAdId(getString(R.string.homeInterstitialAd))
-                .setRemoteConfig(fullscreen_home_l).setLoadingDelayForDialog(2)
+                .setRemoteConfig(fullscreen_home_navigation_l).setLoadingDelayForDialog(2)
                 .setFullScreenLoading(false)
                 .build(activity ?: return)
             lastButtonClickID = buttonID
+            Log.e("TAG", "updateTabSelection: $adCount", )
             adCount++
             if ((adCount % 3) == 0) {
                 if (!AdmobifyUtils.isNetworkAvailable(context ?: return)) {
@@ -394,6 +395,7 @@ class MainFragment : Fragment() {
                         })
                 }
             } else {
+                adCount = 0
                 checkSelectedTab(selectedTab)
             }
 

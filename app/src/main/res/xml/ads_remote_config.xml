@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
     <entry>
-        <key>ads_json_06</key>
+        <key>ads_json_07</key>
         <value>
             {
             "native_language_l": true,
@@ -12,7 +12,8 @@
             "banner_onboarding_med": true,
             "banner_onboarding_bottom": false,
             "native_home_l": true,
-            "fullscreen_home_l": true,
+            "fullscreen_home_l": false,
+            "fullscreen_home_navigation_l": false,
             "fullscreen_disclaimer_l": true,
             "native_exit_l": true,
             "app_open_l": true,

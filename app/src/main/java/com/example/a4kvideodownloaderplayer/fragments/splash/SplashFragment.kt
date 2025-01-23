@@ -27,6 +27,7 @@ import com.example.a4kvideodownloaderplayer.ads.advert.banner_splash_top
 import com.example.a4kvideodownloaderplayer.ads.advert.fullScreenCappingL
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_disclaimer_l
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_l
+import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_navigation_l
 import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_video_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_downloaded_video_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_exit_l
@@ -46,7 +47,6 @@ import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.hide
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.invisible
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.show
-import com.example.a4kvideodownloaderplayer.ads.utils.logger.Logger
 import com.example.a4kvideodownloaderplayer.databinding.FragmentSplashBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
 import com.example.aiartgenerator.utils.AppPrefs
@@ -161,7 +161,7 @@ class SplashFragment : Fragment() {
             ),
             premiumUser = Admobify.isPremiumUser()
         )
-        Logger.enableLogging()
+       // Logger.enableLogging()
         loadSplashAppOpen()
 
     }
@@ -169,7 +169,7 @@ class SplashFragment : Fragment() {
     private fun adsRemoteConfig() {
         RemoteConfigurations.fetchRemotes(
             activity ?: return,
-            jsonKey = "ads_json_06",
+            jsonKey = "ads_json_07",
             defaultXml = R.xml.ads_remote_config,
             onSuccess = {
                 try {
@@ -184,6 +184,7 @@ class SplashFragment : Fragment() {
                     banner_onboarding_bottom = adsRemoteModel?.banner_onboarding_bottom == true
                     native_home_l = adsRemoteModel?.native_home_l == true
                     fullscreen_home_l = adsRemoteModel?.fullscreen_home_l == true
+                    fullscreen_home_navigation_l = adsRemoteModel?.fullscreen_home_navigation_l ?: false
                     fullscreen_disclaimer_l = adsRemoteModel?.fullscreen_disclaimer_l == true
                     native_exit_l = adsRemoteModel?.native_exit_l == true
                     app_open_l = adsRemoteModel?.app_open_l == true
@@ -200,6 +201,8 @@ class SplashFragment : Fragment() {
                     Log.d("REMOTE_CONFIG", "splash_banner_med: $banner_splash_med")
                     Log.d("REMOTE_CONFIG", "splash_banner_bottom: $banner_splash_bottom")
                     Log.d("REMOTE_CONFIG", "native_home_l: $native_home_l")
+                    Log.d("REMOTE_CONFIG", "fullscreen_home_l: $fullscreen_home_l")
+                    Log.d("REMOTE_CONFIG", "fullscreen_home_navigation_l: $fullscreen_home_navigation_l")
                     Log.d("REMOTE_CONFIG", "native_exit_l: $native_exit_l")
                     Log.d("REMOTE_CONFIG", "app_open_l: $app_open_l")
                     Log.d("REMOTE_CONFIG", "fullScreenCapping: $fullScreenCappingL")
