@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">ความยาววิดีโอเกิน 5 นาที</string>
     <string name="audio_not_found">วิดีโอไม่มีเสียง</string>
     <string name="unlimited_mp3_audio_conversions">การแปลงเสียง MP3 ได้ไม่จำกัด</string>
+    <string name="month">เดือน</string>
+    <string name="six_month">หกเดือน</string>
+    <string name="prem_desc">ไม่มีการทดลองใช้ฟรี การสมัครสมาชิกของคุณจะต่ออายุอัตโนมัติตามแผนที่คุณเลือก คุณสามารถยกเลิกได้ทุกเมื่อจาก Google Play Store</string>
 
 
 </resources>

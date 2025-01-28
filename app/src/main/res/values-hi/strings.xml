@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">वीडियो की लंबाई 5 मिनट से अधिक है</string>
     <string name="audio_not_found">वीडियो में ऑडियो नहीं है</string>
     <string name="unlimited_mp3_audio_conversions">असीमित MP3 ऑडियो कन्वर्ज़न</string>
+    <string name="month">महीना</string>
+    <string name="six_month">छह महीने</string>
+    <string name="prem_desc">कोई नि:शुल्क परीक्षण नहीं। आपकी सदस्यता आपके चुने गए प्लान के आधार पर स्वतः नवीनीकृत हो जाएगी। आप इसे कभी भी Google Play Store से रद्द कर सकते हैं।</string>
 
 
 </resources>

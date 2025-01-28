@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">Panjang video melebihi 5 minit</string>
     <string name="audio_not_found">Video tidak mempunyai audio</string>
     <string name="unlimited_mp3_audio_conversions">Penukaran audio MP3 tanpa had</string>
+    <string name="month">Bulan</string>
+    <string name="six_month">Enam bulan</string>
+    <string name="prem_desc">Tiada Percubaan Percuma. Langganan anda akan diperbaharui secara automatik berdasarkan pelan yang dipilih. Anda boleh membatalkannya pada bila-bila masa dari Google Play Store.</string>
 
 
 </resources>

@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">영상 길이 5분 초과</string>
     <string name="audio_not_found">비디오에 오디오가 없습니다</string>
     <string name="unlimited_mp3_audio_conversions">무제한 MP3 오디오 변환</string>
+    <string name="month">월</string>
+    <string name="six_month">6개월</string>
+    <string name="prem_desc">무료 체험 없음. 선택한 요금제에 따라 구독이 자동 갱신됩니다. Google Play 스토어에서 언제든지 취소할 수 있습니다.</string>
 
 
 </resources>

@@ -137,6 +137,7 @@ class VideoAdapter(
                 binding.root,
                 nativeAdModel,
                 object : NativeAdCallback() {
+
                     override fun adFailed(error: LoadAdError?) {
                         binding.root.visibility = View.GONE
                     }

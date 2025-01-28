@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">视频长度超过5分钟</string>
     <string name="audio_not_found">视频没有音频</string>
     <string name="unlimited_mp3_audio_conversions">无限制的MP3音频转换</string>
+    <string name="month">月</string>
+    <string name="six_month">六个月</string>
+    <string name="prem_desc">没有免费试用。您的订阅将根据您选择的计划自动续订。您可以随时从 Google Play 商店取消。</string>
 
 
 </resources>

@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">مدة الفيديو أكثر من 5 دقائق</string>
     <string name="audio_not_found">الفيديو لا يحتوي على صوت</string>
     <string name="unlimited_mp3_audio_conversions">تحويلات صوت MP3 غير محدودة</string>
+    <string name="month">شهر</string>
+    <string name="six_month">ستة أشهر</string>
+    <string name="prem_desc">لا توجد فترة تجريبية مجانية. سيتم تجديد اشتراكك تلقائيًا بناءً على الخطة التي اخترتها. يمكنك إلغاؤه في أي وقت من متجر Google Play.</string>
 
 
 </resources>

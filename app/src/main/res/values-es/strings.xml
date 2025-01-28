@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">La duración del video supera los 5 minutos</string>
     <string name="audio_not_found">El video no tiene audio</string>
     <string name="unlimited_mp3_audio_conversions">Conversiones de audio MP3 ilimitadas</string>
+    <string name="month">Mes</string>
+    <string name="six_month">Seis meses</string>
+    <string name="prem_desc">Sin prueba gratuita. Tu suscripción se renovará automáticamente según el plan seleccionado. Puedes cancelarla en cualquier momento desde Google Play Store.</string>
 
 
 </resources>

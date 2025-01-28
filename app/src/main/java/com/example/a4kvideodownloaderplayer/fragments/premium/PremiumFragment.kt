@@ -1,5 +1,6 @@
 package com.example.a4kvideodownloaderplayer.fragments.premium
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -72,6 +73,7 @@ class PremiumFragment : DialogFragment() {
         billingUtils = BillingUtils.getInstance()
             .setBillingListener(object : BillingListener() {
 
+                @SuppressLint("SetTextI18n")
                 override fun productAndSubMetaData(
                     products: List<ProductDetails>,
                     subscriptions: List<ProductDetails>
@@ -81,12 +83,13 @@ class PremiumFragment : DialogFragment() {
                         when (productId) {
                             "one_month_package" -> {
                                 _binding?.monthlyPriceTv?.text =
-                                    it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                                    "${it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice}/${context?.getString(R.string.month)}"
+
                             }
 
                             "six_month_package" -> {
                                 _binding?.sixMonthlyPriceTv?.text =
-                                    it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice
+                                    "${it.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.firstOrNull()?.formattedPrice}/${context?.getString(R.string.six_month)}"
                             }
                         }
                     }

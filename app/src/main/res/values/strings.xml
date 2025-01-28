@@ -121,6 +121,9 @@
     <string name="how_to_use">How to use</string>
     <string name="select_video_from_gallery">Select video From gallery</string>
     <string name="after_conversion">After Conversion</string>
+    <string name="month">Month</string>
+    <string name="six_month">Six Month</string>
+    <string name="prem_desc">No Free Trial. Your subscription will automatically renewed based on your selected plan. You can cancel it anytime from google play store.</string>
     <string name="unlimited_mp3_audio_conversions">Unlimited mp3 audio conversions</string>
 
 </resources>

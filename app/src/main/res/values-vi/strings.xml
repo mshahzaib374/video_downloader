@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">Thời lượng video trên 5 phút</string>
     <string name="audio_not_found">Video không có âm thanh</string>
     <string name="unlimited_mp3_audio_conversions">Chuyển đổi âm thanh MP3 không giới hạn</string>
+    <string name="month">Tháng</string>
+    <string name="six_month">Sáu tháng</string>
+    <string name="prem_desc">Không có bản dùng thử miễn phí. Đăng ký của bạn sẽ tự động gia hạn dựa trên gói bạn đã chọn. Bạn có thể hủy bất kỳ lúc nào từ Google Play Store.</string>
 
 
 </resources>

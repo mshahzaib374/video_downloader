@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">Длина видео больше 5 минут</string>
     <string name="audio_not_found">В видео нет аудио</string>
     <string name="unlimited_mp3_audio_conversions">Неограниченные преобразования MP3-аудио</string>
+    <string name="month">Месяц</string>
+    <string name="six_month">Шесть месяцев</string>
+    <string name="prem_desc">Нет бесплатного пробного периода. Ваша подписка будет автоматически продлеваться в соответствии с выбранным вами планом. Вы можете отменить ее в любое время в Google Play Store.</string>
 
 
 </resources>

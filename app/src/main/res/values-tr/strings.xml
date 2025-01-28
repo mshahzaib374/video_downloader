@@ -116,6 +116,9 @@
     <string name="audio_above_5_min">Video süresi 5 dakikadan fazla</string>
     <string name="audio_not_found">Videoda ses yok</string>
     <string name="unlimited_mp3_audio_conversions">Sınırsız MP3 ses dönüştürme</string>
+    <string name="month">Ay</string>
+    <string name="six_month">Altı ay</string>
+    <string name="prem_desc">Ücretsiz deneme yok. Aboneliğiniz seçtiğiniz plana göre otomatik olarak yenilenir. Bunu Google Play Store dan istediğiniz zaman iptal edebilirsiniz.</string>
 
 
 </resources>
