@@ -95,6 +95,13 @@
         <action
             android:id="@+id/action_mainFragment_to_premiumFragment"
             app:destination="@id/premiumFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_downloadedFragment"
+            app:destination="@id/downloadedFragment"/>
+
+
+
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -125,5 +132,15 @@
         android:id="@+id/audioPlayerFragment"
         android:name="com.example.a4kvideodownloaderplayer.fragments.player.AudioPlayerFragment"
         android:label="AudioPlayerFragment" />
+    <fragment
+        android:id="@+id/downloadedFragment"
+        android:name="com.example.a4kvideodownloaderplayer.fragments.downloaded.views.DownloadedFragment"
+        android:label="DownloadedFragment" >
+
+        <action
+            android:id="@+id/action_downloadedFragment_to_VideoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
+
+    </fragment>
 
 </navigation>

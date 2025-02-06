@@ -7,6 +7,37 @@
     android:background="@drawable/light_splash__1_"
     tools:context=".fragments.splash.SplashFragment">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-15dp"
+        app:layout_constraintHeight_percent="0.50"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:rotation="-5"
+        android:scaleType="fitXY"/>
+
+    <View
+        android:id="@+id/viewF"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#50000000"
+        android:rotation="-5"
+        android:visibility="gone"
+        android:layout_marginTop="-15dp"
+        app:layout_constraintHeight_percent="0.50"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:rotation="-5"
+        android:layout_marginBottom="-4dp"
+        android:background="@drawable/blur_drawable"
+        app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationView2"/>
+
     <FrameLayout
         android:id="@+id/ads_banner_place_holder_top"
         android:layout_width="match_parent"
@@ -34,16 +65,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/_120sdp"
         app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView2">
 
         <ImageView
             android:id="@+id/splashIconIv"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
             android:layout_gravity="center"
             android:src="@drawable/splash_ic2"
             app:layout_constraintBottom_toTopOf="@id/splashDescription"
@@ -58,12 +88,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/manropeextrabold"
             android:gravity="center"
             android:text="@string/_4k_video_downloader_player"
             android:textColor="#ffffff"
             android:textSize="@dimen/_15ssp"
-            android:layout_marginTop="@dimen/_30sdp"
             app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,21 +109,22 @@
             app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/splashDescription" >
+            app:layout_constraintTop_toBottomOf="@+id/splashDescription">
+
             <include
                 android:id="@+id/shimmerLayout_med"
                 layout="@layout/shimmer_small_native_design"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:visibility="visible"
-                app:layout_constraintTop_toTopOf="@+id/ads_banner_place_holder_med"
-                app:layout_constraintStart_toStartOf="@+id/ads_banner_place_holder_med"
+                app:layout_constraintBottom_toBottomOf="@+id/ads_banner_place_holder_med"
                 app:layout_constraintEnd_toEndOf="@+id/ads_banner_place_holder_med"
-                app:layout_constraintBottom_toBottomOf="@+id/ads_banner_place_holder_med"/>
-            
+                app:layout_constraintStart_toStartOf="@+id/ads_banner_place_holder_med"
+                app:layout_constraintTop_toTopOf="@+id/ads_banner_place_holder_med" />
+
         </FrameLayout>
 
-        
+
     </LinearLayout>
 
 

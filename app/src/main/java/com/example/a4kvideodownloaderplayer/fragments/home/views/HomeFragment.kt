@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_home_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_home_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdLoadCallback
@@ -419,7 +418,7 @@ class HomeFragment : Fragment() {
 
     private fun showInterAd() {
         val adOptions = InterAdOptions().setAdId(getString(R.string.homeInterstitialAd))
-            .setRemoteConfig(fullscreen_home_l).setLoadingDelayForDialog(2)
+            .setRemoteConfig(true).setLoadingDelayForDialog(2)
             .setFullScreenLoading(false)
             .build(activity ?: return)
         InterstitialAdUtils(adOptions).loadAndShowInterAd(object :
@@ -427,13 +426,17 @@ class HomeFragment : Fragment() {
             override fun adAlreadyLoaded() {}
             override fun adLoaded() {}
             override fun adFailed(error: LoadAdError?, msg: String?) {
-                homeViewModel.updatePageSelector(2)
+               // homeViewModel.updatePageSelector(2)
+                if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                    findNavController().navigate(R.id.action_mainFragment_to_downloadedFragment)
+                }
+
                 Toast.makeText(
                     context ?: return,
                     getString(R.string.video_downloaded_successfully),
                     Toast.LENGTH_SHORT
                 ).show()
-                videoViewModel.resetDownloadStatus()
+                //videoViewModel.resetDownloadStatus()
 
             }
 
@@ -444,7 +447,11 @@ class HomeFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 videoViewModel.resetDownloadStatus()
-                homeViewModel.updatePageSelector(2)
+                if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                    findNavController().navigate(R.id.action_mainFragment_to_downloadedFragment)
+                }
+
+             //   homeViewModel.updatePageSelector(2)
 
             }
         },
@@ -452,7 +459,11 @@ class HomeFragment : Fragment() {
                 override fun adNotAvailable() {}
                 override fun adShowFullScreen() {
                     videoViewModel.resetDownloadStatus()
-                    homeViewModel.updatePageSelector(2)
+                    if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                        findNavController().navigate(R.id.action_mainFragment_to_downloadedFragment)
+                    }
+
+                 //   homeViewModel.updatePageSelector(2)
 
                 }
 
@@ -465,7 +476,11 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun adFailedToShow() {
-                    homeViewModel.updatePageSelector(2)
+                    if (findNavController().currentDestination?.id == R.id.mainFragment) {
+                        findNavController().navigate(R.id.action_mainFragment_to_downloadedFragment)
+                    }
+
+                 //   homeViewModel.updatePageSelector(2)
                 }
 
                 override fun adImpression() {}

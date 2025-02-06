@@ -47,11 +47,14 @@ import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.hide
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.invisible
 import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils.show
+import com.example.a4kvideodownloaderplayer.ads.utils.logger.Logger
 import com.example.a4kvideodownloaderplayer.databinding.FragmentSplashBinding
 import com.example.a4kvideodownloaderplayer.helper.AppUtils.logFirebaseEvent
+import com.example.a4kvideodownloaderplayer.helper.visible
 import com.example.aiartgenerator.utils.AppPrefs
 import com.google.android.gms.ads.AdView
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -119,7 +122,15 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        startSplashAnimations()
+        //startSplashAnimations()
+        binding?.apply {
+            lifecycleScope.launch(Dispatchers.Main) {
+                lottieAnimationView2.setAnimation(R.raw.slider)
+                lottieAnimationView2.playAnimation()
+                viewF.visible()
+            }
+
+        }
         context?.logFirebaseEvent("splash_fragment", "screen_opened")
         if (AdmobifyUtils.isNetworkAvailable(context ?: return) && !Admobify.isPremiumUser()) {
             AdmobConsentForm
@@ -154,14 +165,14 @@ class SplashFragment : Fragment() {
         Admobify.initialize(
             context = context ?: return,
             testDevicesList = arrayListOf(
-                "40FCFB5F8EE015FEC661521E08D51DB6",
-                "9BBA43A5DE227FB7AD3E9A1D6CDE3B9B",
-                "7C12541A1F5DAD8864C7DDBC33D2E96B",
-                "608D73A6D4228BA4F1C4638DC40AE6F1"
+                /* "40FCFB5F8EE015FEC661521E08D51DB6",
+                 "9BBA43A5DE227FB7AD3E9A1D6CDE3B9B",
+                 "7C12541A1F5DAD8864C7DDBC33D2E96B",
+                 "608D73A6D4228BA4F1C4638DC40AE6F1"*/
             ),
             premiumUser = Admobify.isPremiumUser()
         )
-       // Logger.enableLogging()
+        Logger.enableLogging()
         loadSplashAppOpen()
 
     }
@@ -184,7 +195,8 @@ class SplashFragment : Fragment() {
                     banner_onboarding_bottom = adsRemoteModel?.banner_onboarding_bottom == true
                     native_home_l = adsRemoteModel?.native_home_l == true
                     fullscreen_home_l = adsRemoteModel?.fullscreen_home_l == true
-                    fullscreen_home_navigation_l = adsRemoteModel?.fullscreen_home_navigation_l ?: false
+                    fullscreen_home_navigation_l =
+                        adsRemoteModel?.fullscreen_home_navigation_l ?: false
                     fullscreen_disclaimer_l = adsRemoteModel?.fullscreen_disclaimer_l == true
                     native_exit_l = adsRemoteModel?.native_exit_l == true
                     app_open_l = adsRemoteModel?.app_open_l == true
@@ -202,7 +214,10 @@ class SplashFragment : Fragment() {
                     Log.d("REMOTE_CONFIG", "splash_banner_bottom: $banner_splash_bottom")
                     Log.d("REMOTE_CONFIG", "native_home_l: $native_home_l")
                     Log.d("REMOTE_CONFIG", "fullscreen_home_l: $fullscreen_home_l")
-                    Log.d("REMOTE_CONFIG", "fullscreen_home_navigation_l: $fullscreen_home_navigation_l")
+                    Log.d(
+                        "REMOTE_CONFIG",
+                        "fullscreen_home_navigation_l: $fullscreen_home_navigation_l"
+                    )
                     Log.d("REMOTE_CONFIG", "native_exit_l: $native_exit_l")
                     Log.d("REMOTE_CONFIG", "app_open_l: $app_open_l")
                     Log.d("REMOTE_CONFIG", "fullScreenCapping: $fullScreenCappingL")
@@ -211,10 +226,10 @@ class SplashFragment : Fragment() {
 
 
                     //if (AppPrefs(context ?: return@fetchRemotes).getBoolean("isFirstTime")) {
-                        loadBannerAdTop()
-                        loadBannerAdMed()
-                        loadBannerAdBottom()
-                   // }
+                    loadBannerAdTop()
+                    loadBannerAdMed()
+                    loadBannerAdBottom()
+                    // }
 
                     OpenAppAd().init(
                         application = activity?.application ?: return@fetchRemotes,
@@ -250,7 +265,7 @@ class SplashFragment : Fragment() {
                 navigateOrNot = true
                 if (!isPause) {
                     //  navigateScreen()
-                    binding?.lottieAnimationView?.invisible()
+                    //binding?.lottieAnimationView?.invisible()
                     binding?.letsStartTv?.show()
                 }
             }

@@ -63,7 +63,7 @@ class VideoAdapter(
         combinedList.clear()
         for ((index, video) in videoList.withIndex()) {
             combinedList.add(video)
-            if (showAds && (index + 1) % 4 == 0 && !Admobify.isPremiumUser() && AdmobifyUtils.isNetworkAvailable(context)) {
+            if (showAds && index == 3 && !Admobify.isPremiumUser() && AdmobifyUtils.isNetworkAvailable(context)) {
                 combinedList.add("AD_PLACEHOLDER")
             }
         }
@@ -129,7 +129,7 @@ class VideoAdapter(
                 mediaView = nativeBind.mediaView,
                 adCTA = nativeBind.adCTA
             )
-
+            Log.d("TAG", "bind: Load Native Ad")
             NativeAdUtils().loadNativeAd(
                 application,
                 context.getString(R.string.languageNativeAd),
@@ -165,6 +165,7 @@ class VideoAdapter(
                 .inflate(R.layout.item_video, parent, false)
             VideoViewHolder(view)
         } else {
+            Log.d("TAG", "onCreateViewHolder: AD VIEW")
             val binding = RecyclerviewNativeAdBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

@@ -61,6 +61,7 @@ class DownloadedFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         converterDialog = ConverterDialog(activity ?: return)
 
         recoverableIntentLauncher =
@@ -96,6 +97,7 @@ class DownloadedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding?.apply {
             rv.layoutManager = GridLayoutManager(context, 2)
 
@@ -107,6 +109,10 @@ class DownloadedFragment : Fragment() {
             premiumIcon.setOnClickListener {
                 PremiumFragment().show(parentFragmentManager, "DownloadedFragment")
 
+            }
+
+            backIconDownloadedScreen.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
 
@@ -135,130 +141,137 @@ class DownloadedFragment : Fragment() {
     }
 
     private fun getVideoFiles() {
-        binding?.progressBar?.visibility = View.VISIBLE
-        val videosList = mutableListOf<VideoFile>()
-        val folderName = "4kVideoDownloader"
-        val downloadsPath =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
-        val targetFolderPath = "$downloadsPath/$folderName"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Android Q and above
-            val projection = arrayOf(
-                MediaStore.Video.Media._ID,
-                MediaStore.Video.Media.DISPLAY_NAME,
-                MediaStore.Video.Media.RELATIVE_PATH,
-                MediaStore.Video.Media.DATE_ADDED
-            )
-            val selection = "${MediaStore.Video.Media.RELATIVE_PATH} LIKE ?"
-            val selectionArgs = arrayOf("%$folderName%")
+        lifecycleScope.launch {
+            binding?.progressBar?.visibility = View.VISIBLE
+            val videosList = mutableListOf<VideoFile>()
+            val folderName = "4kVideoDownloader"
+            val downloadsPath =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+            val targetFolderPath = "$downloadsPath/$folderName"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Android Q and above
+                val projection = arrayOf(
+                    MediaStore.Video.Media._ID,
+                    MediaStore.Video.Media.DISPLAY_NAME,
+                    MediaStore.Video.Media.RELATIVE_PATH,
+                    MediaStore.Video.Media.DATE_ADDED
+                )
+                val selection = "${MediaStore.Video.Media.RELATIVE_PATH} LIKE ?"
+                val selectionArgs = arrayOf("%$folderName%")
 
-            val queryUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-            context?.contentResolver?.query(
-                queryUri, projection, selection, selectionArgs, null
-            )?.use { cursor ->
-                val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
-                val nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
-                val pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.RELATIVE_PATH)
-                val dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED)
+                val queryUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                context?.contentResolver?.query(
+                    queryUri, projection, selection, selectionArgs, null
+                )?.use { cursor ->
+                    val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
+                    val nameColumn =
+                        cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
+                    val pathColumn =
+                        cursor.getColumnIndexOrThrow(MediaStore.Video.Media.RELATIVE_PATH)
+                    val dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED)
 
 
-                while (cursor.moveToNext()) {
-                    val id = cursor.getLong(idColumn)
-                    val fileName = cursor.getString(nameColumn)
-                    val relativePath = cursor.getString(pathColumn)
-                    val filePath = "$downloadsPath/$relativePath/$fileName"
-                    val contentUri = ContentUris.withAppendedId(queryUri, id) // Add to video list
-                    videosList.add(
-                        VideoFile(
-                            id,
-                            contentUri,
-                            fileName,
-                            filePath,
-                            generateVideoThumbnail(context ?: return, contentUri),
-                            cursor.getLong(dateColumn)
-                        )
-                    )
-                }
-
-            }
-        } else {
-            // Below Android Q
-            val folder = File(targetFolderPath)
-            if (folder.exists() && folder.isDirectory) {
-                folder.listFiles { file ->
-                    file.isFile && file.extension == "mp4" // Filter only video files
-                }?.forEach { file ->
-                    val fileName = file.name
-                    val filePath = file.absolutePath
-
-                    val thumbnail = try {
-                        // Attempt to manually generate a thumbnail using ThumbnailUtils
-                        ThumbnailUtils.createVideoThumbnail(
-                            file.absolutePath,
-                            MediaStore.Video.Thumbnails.MINI_KIND // Specify thumbnail kind
-                        )
-                    } catch (e: Exception) {
-                        Log.e(
-                            "ThumbnailError",
-                            "Failed to generate thumbnail for ${file.absolutePath}",
-                            e
-                        )
-                        null
-                    }
-                    // Add to video list
-
-                    videosList.add(
-                        VideoFile(
-                            0L,
-                            Uri.fromFile(file),
-                            fileName,
-                            filePath,
-                            thumbnail,
-                            file.lastModified()
-                        )
-                    )
-                }
-            }
-        }
-        videosList.sortByDescending { it.dateModified }
-
-        // Update the UI with the video list
-        if (videosList.isNotEmpty()) {
-            videoAdapter = VideoAdapter(
-                activity?.application ?: return,
-                context ?: return,
-                videosList,
-                videoDeleted = {
-                    getVideoFiles()
-                },
-                navigate = {
-                    if (findNavController().currentDestination?.id == R.id.mainFragment) {
-                        Bundle().apply {
-                            putString("videoUri", it.contentUri.toString())
-                            putString("videoName", it.fileName)
-                            putString("videoPath", it.filePath)
-                            findNavController().navigate(
-                                R.id.action_mainFragment_to_VideoPlayerFragment,
-                                this
+                    while (cursor.moveToNext()) {
+                        val id = cursor.getLong(idColumn)
+                        val fileName = cursor.getString(nameColumn)
+                        val relativePath = cursor.getString(pathColumn)
+                        val filePath = "$downloadsPath/$relativePath/$fileName"
+                        val contentUri =
+                            ContentUris.withAppendedId(queryUri, id) // Add to video list
+                        videosList.add(
+                            VideoFile(
+                                id,
+                                contentUri,
+                                fileName,
+                                filePath,
+                                generateVideoThumbnail(context ?: return@launch, contentUri),
+                                cursor.getLong(dateColumn)
                             )
+                        )
+                    }
+
+                }
+            } else {
+                // Below Android Q
+                val folder = File(targetFolderPath)
+                if (folder.exists() && folder.isDirectory) {
+                    folder.listFiles { file ->
+                        file.isFile && file.extension == "mp4" // Filter only video files
+                    }?.forEach { file ->
+                        val fileName = file.name
+                        val filePath = file.absolutePath
+
+                        val thumbnail = try {
+                            // Attempt to manually generate a thumbnail using ThumbnailUtils
+                            ThumbnailUtils.createVideoThumbnail(
+                                file.absolutePath,
+                                MediaStore.Video.Thumbnails.MINI_KIND // Specify thumbnail kind
+                            )
+                        } catch (e: Exception) {
+                            Log.e(
+                                "ThumbnailError",
+                                "Failed to generate thumbnail for ${file.absolutePath}",
+                                e
+                            )
+                            null
+                        }
+                        // Add to video list
+
+                        videosList.add(
+                            VideoFile(
+                                0L,
+                                Uri.fromFile(file),
+                                fileName,
+                                filePath,
+                                thumbnail,
+                                file.lastModified()
+                            )
+                        )
+                    }
+                }
+            }
+            videosList.sortByDescending { it.dateModified }
+
+            // Update the UI with the video list
+            if (videosList.isNotEmpty()) {
+                videoAdapter = VideoAdapter(
+                    activity?.application ?: return@launch,
+                    context ?: return@launch,
+                    videosList,
+                    videoDeleted = {
+                        getVideoFiles()
+                    },
+                    navigate = {
+                        Log.d("TAG", "getVideoFiles: ${findNavController().currentDestination}")
+                        if (findNavController().currentDestination?.id == R.id.downloadedFragment) {
+                            Bundle().apply {
+                                putString("videoUri", it.contentUri.toString())
+                                putString("videoName", it.fileName)
+                                putString("videoPath", it.filePath)
+                                findNavController().navigate(
+                                    R.id.action_downloadedFragment_to_VideoPlayerFragment,
+                                    this
+                                )
+                            }
+                        }
+                    },
+                    videoDeletedRecovery = { e, i, u -> handleRecoverableException(e, i, u) },
+                    mp3Converter = {
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            converterDialog?.show()
+                            delay(2000)
+                            convertToAudio(it.contentUri)
                         }
                     }
-                },
-                videoDeletedRecovery = { e, i, u -> handleRecoverableException(e, i, u) },
-                mp3Converter = {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        converterDialog?.show()
-                        delay(2000)
-                        convertToAudio(it.contentUri)
-                    }
-                }
-            )
-            binding?.rv?.adapter = videoAdapter
-            binding?.progressBar?.visibility = View.GONE
-            binding?.noVideoTv?.visibility = View.GONE
-        } else {
-            binding?.progressBar?.visibility = View.GONE
-            binding?.noVideoTv?.visibility = View.VISIBLE
+                )
+                binding?.rv?.adapter = videoAdapter
+                binding?.progressBar?.visibility = View.GONE
+                binding?.noVideoTv?.visibility = View.GONE
+            } else {
+                binding?.progressBar?.visibility = View.GONE
+                binding?.noVideoTv?.visibility = View.VISIBLE
+            }
+
         }
     }
 
@@ -332,13 +345,13 @@ class DownloadedFragment : Fragment() {
             fileName
         )
 
-        AudioConverter(context?:return)
+        AudioConverter(context ?: return)
             .extractAudio(
-                getRealPathFromURI(videoUri, context?:return) ?: "",
+                getRealPathFromURI(videoUri, context ?: return) ?: "",
                 file.path,
                 onSuccess = {
                     converterDialog?.dismiss()
-                    audioViewModel.loadAudioFiles(context?:return@extractAudio)
+                    audioViewModel.loadAudioFiles(context ?: return@extractAudio)
                     homeViewModel.updatePageSelector(1)
 
                 },
@@ -366,7 +379,7 @@ class DownloadedFragment : Fragment() {
 
     fun getRealPathFromURI(uri: Uri, context: Context): String? {
         val returnCursor = context.contentResolver.query(uri, null, null, null, null)
-        val nameIndex =  returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        val nameIndex = returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
         returnCursor.moveToFirst()
         val name = returnCursor.getString(nameIndex)
         val file = File(context.cacheDir, name)

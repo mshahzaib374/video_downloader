@@ -17,7 +17,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 24
-        versionName = "1.24"
+        versionName = "TEST_1.24"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         val formattedDate = SimpleDateFormat("yyyy_MM_dd_HH_mm")
