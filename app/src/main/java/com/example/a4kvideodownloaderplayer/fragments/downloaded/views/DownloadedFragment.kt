@@ -67,7 +67,6 @@ class DownloadedFragment : Fragment() {
         recoverableIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    // Refresh the adapter after permission is granted
                     urii?.let {
                         val rowsDeleted = context?.contentResolver?.delete(it, null, null) ?: 0
                         if (rowsDeleted > 0) {

@@ -16,7 +16,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a4kvideodownloaderplayer.R
-import com.example.a4kvideodownloaderplayer.ads.advert.native_downloaded_video_l
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdCallback
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdItemsModel
 import com.example.a4kvideodownloaderplayer.ads.native_ads.NativeAdUtils
@@ -26,6 +25,7 @@ import com.example.a4kvideodownloaderplayer.ads.utils.AdmobifyUtils
 import com.example.a4kvideodownloaderplayer.databinding.NativeAdLayoutBinding
 import com.example.a4kvideodownloaderplayer.databinding.RecyclerviewNativeAdBinding
 import com.example.a4kvideodownloaderplayer.fragments.downloaded.model.VideoFile
+import com.example.a4kvideodownloaderplayer.helper.gone
 import com.example.a4kvideodownloaderplayer.helper.shareFile
 import com.google.android.gms.ads.LoadAdError
 import java.io.File
@@ -129,26 +129,28 @@ class VideoAdapter(
                 mediaView = nativeBind.mediaView,
                 adCTA = nativeBind.adCTA
             )
-            Log.d("TAG", "bind: Load Native Ad")
             NativeAdUtils().loadNativeAd(
                 application,
                 context.getString(R.string.languageNativeAd),
-                adRemote = native_downloaded_video_l,
+                adRemote = true,
                 binding.root,
                 nativeAdModel,
                 object : NativeAdCallback() {
-
                     override fun adFailed(error: LoadAdError?) {
-                        binding.root.visibility = View.GONE
+                        binding.root.gone()
+                        binding.nativeContainer.gone()
+                        binding.shimmerHomeLayout.root.gone()
                     }
 
                     override fun adLoaded() {
-                        binding.root.visibility = View.VISIBLE
+                        binding.root.visibility
                     }
 
                     override fun adValidate() {
                         Log.e("TAG", "adValidate" )
-                        binding.root.visibility = View.GONE
+                        binding.root.gone()
+                        binding.nativeContainer.gone()
+                        binding.shimmerHomeLayout.root.gone()
                     }
                 },
                 NativeAdType.DEFAULT_AD

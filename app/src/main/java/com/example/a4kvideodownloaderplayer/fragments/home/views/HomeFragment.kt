@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.a4kvideodownloaderplayer.R
+import com.example.a4kvideodownloaderplayer.ads.advert.fullscreen_download_l
 import com.example.a4kvideodownloaderplayer.ads.advert.native_home_l
 import com.example.a4kvideodownloaderplayer.ads.app_open_ad.OpenAppAd
 import com.example.a4kvideodownloaderplayer.ads.interstitial_ads.InterAdLoadCallback
@@ -138,18 +139,7 @@ class HomeFragment : Fragment() {
         loadPopularVideos()
 
         videoViewModel.downloadStatus.observe(viewLifecycleOwner) { status ->
-            /*var isLangSelected = false
-            homeViewModel.isLanguageSelected.observe(viewLifecycleOwner) { isLanguageSelected ->
-                isLangSelected = isLanguageSelected
-            }
-
-            if (isLangSelected) {
-                homeViewModel.isLanguageSelected(false)
-                return@observe
-            }*/
-            //if (videoViewModel.isDownloadHandled) return@observe
             binding?.input?.text?.clear()
-            Log.e("SHAH", "onResponse: $status")
             when (status) {
                 "SUCCESS" -> {
                     videoViewModel.isDownloadHandled = true
@@ -388,9 +378,7 @@ class HomeFragment : Fragment() {
                     }
 
                     override fun adValidate() {
-                        Log.e("SHAH", "adValidate")
-
-                        binding?.nativeContainer?.visibility = View.GONE
+ binding?.nativeContainer?.visibility = View.GONE
                         binding?.shimmerHomeLayout?.root?.visibility = View.GONE
                     }
 
@@ -418,7 +406,8 @@ class HomeFragment : Fragment() {
 
     private fun showInterAd() {
         val adOptions = InterAdOptions().setAdId(getString(R.string.homeInterstitialAd))
-            .setRemoteConfig(true).setLoadingDelayForDialog(2)
+            .setRemoteConfig(fullscreen_download_l)
+            .setLoadingDelayForDialog(2)
             .setFullScreenLoading(false)
             .build(activity ?: return)
         InterstitialAdUtils(adOptions).loadAndShowInterAd(object :
@@ -426,7 +415,6 @@ class HomeFragment : Fragment() {
             override fun adAlreadyLoaded() {}
             override fun adLoaded() {}
             override fun adFailed(error: LoadAdError?, msg: String?) {
-               // homeViewModel.updatePageSelector(2)
                 if (findNavController().currentDestination?.id == R.id.mainFragment) {
                     findNavController().navigate(R.id.action_mainFragment_to_downloadedFragment)
                 }

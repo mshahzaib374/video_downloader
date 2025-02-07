@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="-15dp"
-        app:layout_constraintHeight_percent="0.50"
+        app:layout_constraintHeight_percent="0.45"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:rotation="-5"
+        android:rotation="-8"
         android:scaleType="fitXY"/>
 
     <View
@@ -24,16 +24,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#50000000"
-        android:rotation="-5"
+        android:rotation="-8"
         android:visibility="gone"
         android:layout_marginTop="-15dp"
-        app:layout_constraintHeight_percent="0.50"
+        app:layout_constraintHeight_percent="0.45"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
-        android:rotation="-5"
+        android:rotation="-8"
         android:layout_marginBottom="-4dp"
         android:background="@drawable/blur_drawable"
         app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationView2"/>
@@ -62,6 +62,7 @@
 
 
     <LinearLayout
+        android:id="@+id/lin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -72,8 +73,8 @@
 
         <ImageView
             android:id="@+id/splashIconIv"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
             android:layout_gravity="center"
             android:src="@drawable/splash_ic2"
             app:layout_constraintBottom_toTopOf="@id/splashDescription"
@@ -88,7 +89,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/manropeextrabold"
             android:gravity="center"
             android:text="@string/_4k_video_downloader_player"
@@ -130,48 +130,48 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
         android:layout_gravity="center"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/containAdsTv"
+        app:layout_constraintBottom_toTopOf="@+id/lets_start_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lin"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:layout_marginBottom="@dimen/_20sdp"
-        app:lottie_rawRes="@raw/splash_screen_loader" />
+        app:lottie_rawRes="@raw/splash_loading" />
 
     <TextView
         android:id="@+id/lets_start_tv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:layout_marginVertical="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_32sdp"
+        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView"
         android:background="@drawable/exit_btn_bg_drawable"
         android:fontFamily="@font/manropeextrabold"
         android:gravity="center"
         android:paddingHorizontal="@dimen/_4sdp"
         android:paddingVertical="@dimen/_2sdp"
         android:text="@string/let_s_start"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:layout_marginHorizontal="@dimen/_32sdp"
         android:textColor="#D61414"
         android:textSize="@dimen/_14ssp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/containAdsTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/containAdsTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:fontFamily="@font/manropeextrabold"
+        app:layout_constraintTop_toBottomOf="@+id/lets_start_tv"
         android:text="@string/this_action_might_contain_ads"
         android:textColor="#ffffff"
         android:textSize="@dimen/_12ssp"
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ads_banner_place_holder_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -181,7 +181,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#F1F0FF"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -192,7 +192,7 @@
         layout="@layout/shimmer_small_native_design"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintTop_toTopOf="@+id/ads_banner_place_holder_bottom"
         app:layout_constraintStart_toStartOf="@+id/ads_banner_place_holder_bottom"
         app:layout_constraintEnd_toEndOf="@+id/ads_banner_place_holder_bottom"

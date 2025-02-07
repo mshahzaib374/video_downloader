@@ -114,7 +114,7 @@ class VideoPlayerFragment : Fragment(), Player.Listener {
                  videoPlayerViewModel.player!!.pause()
                 binding!!.playOrPause.setImageResource(R.drawable.play_ic)
             }
-            context?.shareFile(Uri.parse(videoUri))
+            context?.shareFile(Uri.parse(videoUri?:return@setOnClickListener))
         }
 
 
