@@ -172,31 +172,40 @@
         android:textColor="#ffffff"
         android:textSize="@dimen/_12ssp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/ads_banner_place_holder_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/bannerPlaceHolder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/ads_banner_place_holder_bottom"
+    <View
+        android:id="@+id/bannerPlaceHolder"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#F1F0FF"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        />
+
+    <FrameLayout
+        android:id="@+id/ads_banner_place_holder_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#F1F0FF"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/bannerPlaceHolder"
+        app:layout_constraintEnd_toEndOf="@+id/bannerPlaceHolder"
+        app:layout_constraintTop_toTopOf="@+id/bannerPlaceHolder"
+        app:layout_constraintBottom_toBottomOf="@+id/bannerPlaceHolder"/>
 
 
     <include
         android:id="@+id/shimmerLayout_bottom"
         layout="@layout/shimmer_small_native_design"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@+id/ads_banner_place_holder_bottom"
-        app:layout_constraintStart_toStartOf="@+id/ads_banner_place_holder_bottom"
-        app:layout_constraintEnd_toEndOf="@+id/ads_banner_place_holder_bottom"
-        app:layout_constraintBottom_toBottomOf="@+id/ads_banner_place_holder_bottom"/>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/bannerPlaceHolder"
+        app:layout_constraintEnd_toEndOf="@+id/bannerPlaceHolder"
+        app:layout_constraintTop_toTopOf="@+id/bannerPlaceHolder"
+        app:layout_constraintBottom_toBottomOf="@+id/bannerPlaceHolder"/>
+
 
 
 
